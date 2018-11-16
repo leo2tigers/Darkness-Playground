@@ -5,6 +5,7 @@ abstract class Creature {
     final String name;
     protected int health, maxHealth;
     double positionX, positionY;
+    URect movementBox;
     protected GameMap map;
 
     public Creature(String name, int maxHealth, int positionX, int positionY) {

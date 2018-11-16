@@ -13,12 +13,14 @@ public class SpawnPoint {
     }
 
     public Monster spawn() {
-        return new Monster(
+        Monster monster = new Monster(
                 monsterType.TypeName + "-" + spawnCount++,
                 monsterType.maxHealth,
                 positionX,
                 positionY
         );
+        monster.movementBox.translate(positionX, positionY);
+        return monster;
     }
 
 }

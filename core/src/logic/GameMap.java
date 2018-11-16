@@ -26,6 +26,8 @@ public class GameMap {
     }
 
     public void spawnFromSpawnPoint(int spawnPointNumber) {
-        monsters.add(spawnPoints.get(spawnPointNumber).spawn());
+        SpawnPoint spawnPoint = spawnPoints.get(spawnPointNumber);
+        Monster monster = spawnPoint.spawn();
+        monsters.add(monster);
     }
 }
