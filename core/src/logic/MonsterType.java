@@ -3,11 +3,11 @@ package logic;
 public enum MonsterType {
     OwO ("OwO", 1);
 
-    final String name;
+    final String TypeName;
     final int maxHealth;
 
-    MonsterType(String name, int maxHealth) {
-        this.name = name;
+    MonsterType(String typeName, int maxHealth) {
+        this.TypeName = typeName;
         this.maxHealth = maxHealth;
     }
 }
