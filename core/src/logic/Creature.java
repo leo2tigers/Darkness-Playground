@@ -1,8 +1,10 @@
 package logic;
 
 public class Creature {
+
     protected int health, maxHealth;
     double positionX, positionY;
+    protected GameMap map;
 
     public int getHealth() {
         return health;
