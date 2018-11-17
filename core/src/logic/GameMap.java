@@ -9,15 +9,19 @@ public class GameMap {
     final ArrayList<Tile> tiles = new ArrayList<>();
 
     public void setPlayer(Player player) {
+        //TODO setPlayer()
         this.player = player;
         player.map = this;
     }
 
     public void addMonster(Monster monster) {
+        //TODO addMonster()
         monsters.add(monster);
+        monster.map = this;
     }
 
     public void addTile(Tile tile) {
+        //TODO addTile()
         tiles.add(tile);
     }
 
@@ -28,6 +32,6 @@ public class GameMap {
     public void spawnFromSpawnPoint(int spawnPointNumber) {
         SpawnPoint spawnPoint = spawnPoints.get(spawnPointNumber);
         Monster monster = spawnPoint.spawn();
-        monsters.add(monster);
+        addMonster(monster);
     }
 }

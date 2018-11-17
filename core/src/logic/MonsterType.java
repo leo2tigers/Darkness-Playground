@@ -1,6 +1,7 @@
 package logic;
 
 public enum MonsterType {
+    //TODO MonsterType(?)
     OwO ("OwO", 1);
 
     final String TypeName;

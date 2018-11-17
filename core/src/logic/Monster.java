@@ -8,7 +8,7 @@ public class Monster extends Creature {
 
     @Override
     public void attack() {
-        //TODO Monster's attack() method
+        //TODO attack()
     }
 
 }

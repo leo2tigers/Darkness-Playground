@@ -33,15 +33,18 @@ abstract class Creature {
     }
 
     public double[] translate(int x, int y) {
-        //TODO Creature's translate() method
+        //TODO translate()
         return new double[] {positionX, positionY};
     }
 
     public boolean isAlive() {return health > 0;}
 
-    public void moveLeft() {}
-    public void moveRight() {}
-    public void jump() {}
+    public void move(){
+        //TODO move()
+    }
+    public void jump() {
+        //TODO jump()
+    }
 
     public abstract void attack();
 

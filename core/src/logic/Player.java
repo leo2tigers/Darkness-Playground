@@ -8,7 +8,7 @@ public class Player extends Creature {
 
     @Override
     public void attack() {
-        //TODO Player's attack() method
+        //TODO attack()
     }
 
 }
