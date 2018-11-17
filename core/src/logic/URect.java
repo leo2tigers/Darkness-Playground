@@ -18,7 +18,8 @@ public class URect {
     }
 
     public boolean overlap(URect other) {
-        //TODO URect's overlap() method
-        return false;
+        double dx = Math.abs(positionX - other.positionX);
+        double dy = Math.abs(positionY - other.positionY);
+        return (dx < width/2 + other.width/2) && (dy < height/2 + other.height/2);
     }
 }
