@@ -1,11 +1,11 @@
-package logic;
+package logic.creature;
 
 public enum MonsterType {
     //TODO MonsterType(?)
     OwO ("OwO", 1);
 
-    final String TypeName;
-    final int maxHealth;
+    public final String TypeName;
+    public final int maxHealth;
 
     MonsterType(String typeName, int maxHealth) {
         this.TypeName = typeName;

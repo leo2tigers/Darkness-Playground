@@ -1,15 +1,19 @@
-package logic;
+package logic.creature;
 
-abstract class Creature {
+import logic.GameMap;
+import logic.URect;
+
+public abstract class Creature {
 
     protected int health, maxHealth, armour = 0;
     protected int attackPower;
     protected int orientation = 1;
-    protected URect hitBox, movementBox;
-    protected GameMap map;
+    protected URect hitBox;
 
     public final String name;
     public double positionX, positionY;
+    public URect movementBox;
+    public GameMap map;
 
     public Creature(String name, int maxHealth, int positionX, int positionY) {
         this.name = name;

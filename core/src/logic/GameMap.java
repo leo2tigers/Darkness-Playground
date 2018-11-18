@@ -1,12 +1,17 @@
 package logic;
 
+import logic.creature.Monster;
+import logic.creature.Player;
+
 import java.util.*;
 
 public class GameMap {
-    Player player;
-    final ArrayList<Monster> monsters = new ArrayList<>();
-    final ArrayList<SpawnPoint> spawnPoints = new ArrayList<>();
-    final ArrayList<Tile> tiles = new ArrayList<>();
+
+    protected Player player;
+    protected ArrayList<SpawnPoint> spawnPoints = new ArrayList<>();
+    protected final ArrayList<Tile> tiles = new ArrayList<>();
+
+    public final ArrayList<Monster> monsters = new ArrayList<>();
 
     public void setPlayer(Player player) {
         //TODO setPlayer()

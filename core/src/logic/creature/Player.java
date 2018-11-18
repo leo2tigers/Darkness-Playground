@@ -1,4 +1,6 @@
-package logic;
+package logic.creature;
+
+import logic.URect;
 
 public class Player extends Creature {
 

@@ -1,4 +1,4 @@
-package logic;
+package logic.creature;
 
 public class Monster extends Creature {
 

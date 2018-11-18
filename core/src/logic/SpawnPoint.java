@@ -1,5 +1,8 @@
 package logic;
 
+import logic.creature.Monster;
+import logic.creature.MonsterType;
+
 public class SpawnPoint {
 
     int positionX, positionY;
