@@ -15,7 +15,7 @@ public abstract class Creature {
     public URect movementBox;
     public GameMap map;
 
-    public Creature(String name, int maxHealth, int positionX, int positionY) {
+    public Creature(String name, int maxHealth, double positionX, double positionY) {
         this.name = name;
         this.maxHealth = maxHealth;
         this.health = maxHealth;
@@ -63,6 +63,6 @@ public abstract class Creature {
 
     @Override
     public String toString() {
-        return name + " ( " + (isAlive() ? "ALIVE" : "DEAD") +  ") , health = " + health + "/" + maxHealth;
+        return name + " ( " + (isAlive() ? "ALIVE" : "DEAD") +  " ) , health = " + health + "/" + maxHealth;
     }
 }

@@ -2,7 +2,7 @@ package logic.creature;
 
 public class Monster extends Creature {
 
-    public Monster(String name, int maxHealth, int positionX, int positionY) {
+    public Monster(String name, int maxHealth, double positionX, double positionY) {
         super(name, maxHealth, positionX, positionY);
     }
 
