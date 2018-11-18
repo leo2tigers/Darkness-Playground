@@ -2,11 +2,14 @@ package logic;
 
 abstract class Creature {
 
-    final String name;
-    protected int health, maxHealth;
-    double positionX, positionY;
-    URect movementBox;
+    protected int health, maxHealth, armour = 0;
+    protected int attackPower;
+    protected int orientation = 1;
+    protected URect hitBox, movementBox;
     protected GameMap map;
+
+    public final String name;
+    public double positionX, positionY;
 
     public Creature(String name, int maxHealth, int positionX, int positionY) {
         this.name = name;
@@ -14,6 +17,12 @@ abstract class Creature {
         this.health = maxHealth;
         this.positionX = positionX;
         this.positionY = positionY;
+    }
+
+    protected int getHit(int damage) {
+        int prevHealth = getHealth();
+        setHealth(getHealth() - (damage - armour > 0 ? damage - armour : 0));
+        return prevHealth - getHealth();
     }
 
     public int getHealth() {
