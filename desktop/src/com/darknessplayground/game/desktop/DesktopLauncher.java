@@ -7,6 +7,9 @@ import com.darknessplayground.game.DarknessPlayground;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		new LwjglApplication(new DarknessPlayground(), config);
+		config.width = 400;
+		config.height = 400;
+		config.resizable = false;
+		new LwjglApplication(new HelloWorld(), config);
 	}
 }

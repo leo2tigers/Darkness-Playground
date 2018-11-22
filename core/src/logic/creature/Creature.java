@@ -1,14 +1,17 @@
 package logic.creature;
 
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import logic.GameMap;
 import logic.URect;
 
-public abstract class Creature {
+public abstract class Creature extends Actor {
 
     protected int health, maxHealth, armour = 0;
     protected int attackPower;
     protected int orientation = 1;
     protected URect hitBox;
+    protected Texture texture;
 
     public final String name;
     public double positionX, positionY;

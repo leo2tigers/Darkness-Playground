@@ -1,8 +1,8 @@
 package logic.creature;
 
-import logic.URect;
+import logic.*;
 
-public class Player extends Creature {
+public class Player extends Creature implements Controller {
 
     private double attackBoxWidth, attackBoxHeight;
     private double attackOffSetX, attackOffSetY;
