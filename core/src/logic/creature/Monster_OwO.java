@@ -14,6 +14,11 @@ public class Monster_OwO extends Monster {
         id = idcount;
     }
 
+    public Monster_OwO(String name, double positionX, double positionY) {
+        super(name, 1, positionX, positionY);
+        id = ++idcount;
+    }
+
     public static void main(String args[]) {
         ArrayList<Monster_OwO> monsters = new ArrayList<>();
 
