@@ -25,13 +25,13 @@ public class MainMenu implements Screen {
 		// TODO Auto-generated method stub
 		this.img = new Texture("badlogic.jpg");
 		this.font = new BitmapFont();
-		this.font.setColor(Color.BLUE);
+		this.font.setColor(Color.GOLD);
 	}
 
 	@Override
 	public void render(float delta) {
 		// TODO Auto-generated method stub
-		Gdx.gl.glClearColor(1, 0, 0, 1);
+		Gdx.gl.glClearColor(0.1f, 0.1f, 0.22f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		this.game.batch.begin();

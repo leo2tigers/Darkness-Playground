@@ -22,7 +22,7 @@ public class MainGame implements Screen {
 
 	@Override
 	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
+		// Game Window is not resizable, so left this blank.
 
 	}
 
