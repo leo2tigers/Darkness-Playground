@@ -3,11 +3,11 @@ package logic;
 import logic.creature.Monster;
 import logic.creature.MonsterType;
 
-public class SpawnPoint {
+public class SpawnPoint extends GameObject {
 
-    int positionX, positionY;
-    int spawnCount = 0;
-    MonsterType monsterType;
+    private int positionX, positionY;
+    private int spawnCount = 0;
+    private MonsterType monsterType;
 
     public SpawnPoint(MonsterType monsterType, int positionX, int positionY) {
         this.positionX = positionX;

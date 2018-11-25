@@ -1,6 +1,6 @@
 package logic;
 
-public class URect {
+public class URect extends GameObject {
 
     public double positionX, positionY;
     public double width, height;
@@ -18,13 +18,16 @@ public class URect {
     }
 
     public boolean overlap(URect other) {
+        if (other == null) {
+            return false;
+        }
         double dx = Math.abs(positionX - other.positionX);
         double dy = Math.abs(positionY - other.positionY);
-        return (dx < width/2 + other.width/2) && (dy < height/2 + other.height/2);
+        return (dx <= width/2 + other.width/2) && (dy <= height/2 + other.height/2);
     }
 
     @Override
     public String toString() {
-        return super.toString();
+        return "URect";
     }
 }

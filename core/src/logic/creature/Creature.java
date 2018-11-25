@@ -2,12 +2,13 @@ package logic.creature;
 
 import log.Log;
 import logic.GameMap;
+import logic.GameObject;
 import logic.Tile;
 import logic.URect;
 
 import java.util.Date;
 
-public abstract class Creature {
+public abstract class Creature extends GameObject {
 
     private int health, maxHealth, armour = 0;
     protected int attackPower;
@@ -15,11 +16,12 @@ public abstract class Creature {
 
     public final String name ;
     protected double positionX, positionY;
-    protected double speedX, speedY = 0;
+    public double speedX;
+    protected double speedY = 0;
     private double jumping_speed = 50;
     public URect hitBox, movementBox;
     public GameMap map;
-    private Tile current_tile;
+    public Tile current_tile;
     protected boolean jumping = false, movable = true;
     private boolean attackable = true;
     private int preDelay = 100;
@@ -58,7 +60,7 @@ public abstract class Creature {
         setHealth(getHealth() - (damage - armour > 0 ? damage - armour : 0));
     }
 
-    public int getHealth() {
+    private int getHealth() {
         return health;
     }
 
@@ -167,4 +169,7 @@ public abstract class Creature {
 
     protected abstract void attackMethod();
 
+    public String getPosition() {
+        return "( " + positionX + " , " + positionY + " )";
+    }
 }

@@ -41,4 +41,16 @@ public class GameMap {
         Monster monster = spawnPoint.spawn();
         addMonster(monster);
     }
+
+    public void addAll(GameObject...args) {
+        for (GameObject gameObject : args) {
+            if (gameObject instanceof Monster) {
+                addMonster((Monster) gameObject);
+            }else if (gameObject instanceof SpawnPoint) {
+                addSpawnPoint((SpawnPoint) gameObject);
+            }else if (gameObject instanceof Tile) {
+                addTile((Tile) gameObject);
+            }
+        }
+    }
 }

@@ -15,7 +15,7 @@ public class Player extends Creature {
         super(name, maxHealth, positionX, positionY);
     }
 
-    public void KeyPressed(String key) {
+    public void keyPressed(String key) {
         if (key.equals("LEFT")) {
             orientation = -1;
             left_KeyPressed = true;
@@ -30,6 +30,7 @@ public class Player extends Creature {
         if (key.equals("DOWN")) {
             down_KeyPressed = true;
         }
+        move();
     }
 
     @Override
