@@ -43,19 +43,19 @@ public class MainMenu implements Screen {
 
 	@Override
 	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
+		// Game Window is not resizable, so left this blank.
 
 	}
 
 	@Override
 	public void pause() {
-		// TODO Auto-generated method stub
+		// Not used on Main Menu
 
 	}
 
 	@Override
 	public void resume() {
-		// TODO Auto-generated method stub
+		// Not used on Main Menu
 
 	}
 
