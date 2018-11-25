@@ -13,6 +13,8 @@ public class GameMap {
     public final ArrayList<Tile> tiles = new ArrayList<>();
     public final ArrayList<Monster> monsters = new ArrayList<>();
 
+    public GameMap() {}
+
     public void setPlayer(Player player) {
         //TODO setPlayer()
         this.player = player;
