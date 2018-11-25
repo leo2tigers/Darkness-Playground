@@ -1,16 +1,16 @@
 package logic;
 
 import logic.creature.Monster;
-import logic.creature.Player;
+import logic.player.Player;
 
 import java.util.*;
 
 public class GameMap {
 
-    protected Player player;
-    protected ArrayList<SpawnPoint> spawnPoints = new ArrayList<>();
-    protected final ArrayList<Tile> tiles = new ArrayList<>();
+    private ArrayList<SpawnPoint> spawnPoints = new ArrayList<>();
 
+    private Player player;
+    public final ArrayList<Tile> tiles = new ArrayList<>();
     public final ArrayList<Monster> monsters = new ArrayList<>();
 
     public void setPlayer(Player player) {
@@ -19,7 +19,7 @@ public class GameMap {
         player.map = this;
     }
 
-    public void addMonster(Monster monster) {
+    private void addMonster(Monster monster) {
         //TODO addMonster()
         monsters.add(monster);
         monster.map = this;
