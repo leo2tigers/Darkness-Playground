@@ -35,6 +35,10 @@ public abstract class Creature {
         this.positionY = positionY;
     }
 
+    public void setHitBox(URect hitBox) {
+        this.hitBox = hitBox;
+    }
+
     public void setMovementBox(URect movementBox) {
         this.movementBox = movementBox;
         setCurrent_tile();
@@ -70,7 +74,7 @@ public abstract class Creature {
         this.maxHealth = maxHealth > 1 ? maxHealth : 1;
     }
 
-    public boolean isAlive() {return health > 0;}
+    protected boolean isAlive() {return health > 0;}
 
     protected double[] translate(double x, double y) {
         double new_positionX = positionX + x;
