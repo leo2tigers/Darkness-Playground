@@ -1,5 +1,7 @@
 package logic.creature;
 
+import log.Log;
+
 public class Monster extends Creature {
 
     public Monster(String name, int maxHealth, double positionX, double positionY) {
@@ -7,8 +9,12 @@ public class Monster extends Creature {
     }
 
     @Override
-    public void attack() {
-        //TODO attack()
+    protected Object attack_prepare() {
+        return null;
     }
 
+    @Override
+    protected void attackMethod() {
+
+    }
 }
