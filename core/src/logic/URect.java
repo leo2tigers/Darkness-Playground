@@ -28,6 +28,7 @@ public class URect extends GameObject {
 
     @Override
     public String toString() {
-        return "URect";
+        return "URect " +
+                " ( " + positionX + " , " + positionY + " ) : width = " + width + ", height = " + height;
     }
 }

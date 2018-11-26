@@ -22,7 +22,8 @@ public abstract class Creature extends GameObject {
     public URect hitBox, movementBox;
     public GameMap map;
     public Tile current_tile;
-    protected boolean jumping = false, movable = true;
+    public boolean jumping = false;
+    protected boolean movable = true;
     private boolean attackable = true;
     private int preDelay = 100;
     private int animationTime = 200;
@@ -37,22 +38,22 @@ public abstract class Creature extends GameObject {
         this.positionY = positionY;
     }
 
-    public void setHitBox(URect hitBox) {
-        this.hitBox = hitBox;
+    public void setHitBox(double relativeX, double relativeY, double width, double height) {
+        this.hitBox = new URect(positionX + relativeX, positionY + relativeY, width, height);
     }
 
-    public void setMovementBox(URect movementBox) {
-        this.movementBox = movementBox;
-        setCurrent_tile();
+    public void setMovementBox(double relativeX, double relativeY, double width, double height) {
+        this.movementBox = new URect(positionX + relativeX, positionY + relativeY, width, height);
+        this.current_tile = overlapTile(movementBox);
     }
 
-    private void setCurrent_tile() {
+    private Tile overlapTile(URect movementBox) {
         for (Tile tile : map.tiles) {
             if (movementBox.overlap(tile)) {
-                this.current_tile = tile;
-                break;
+                return tile;
             }
         }
+        return null;
     }
 
     public void getHit(int damage) {
@@ -82,12 +83,16 @@ public abstract class Creature extends GameObject {
         double new_positionX = positionX + x;
         double new_positionY = positionY + y;
 
-        URect check_movementBox = new URect(new_positionX, new_positionY, movementBox.width, movementBox.height);
+        URect check_movementBox = new URect(movementBox.positionX + x, movementBox.positionY + y, movementBox.width, movementBox.height);
 
-        setCurrent_tile();
-        if (check_movementBox.overlap(current_tile)) {
-            new_positionY = current_tile.positionY + current_tile.height/2;
+        Tile check_tile = overlapTile(check_movementBox);
+        System.out.println("\toverlap " + check_movementBox + "\n\t check ---> " + check_tile + "\n\t overlap ? " + check_movementBox.overlap(check_tile));
+        if (check_movementBox.overlap(check_tile)) {
+            new_positionY = check_tile.positionY + check_tile.height/2;
             jumping = false;
+            speedY = 0;
+        }else {
+            jumping = true;
         }
 
         movementBox.translate(new_positionX - positionX, new_positionY - positionY);
