@@ -16,9 +16,11 @@ public class MainMenu implements Screen {
 	private static final int EXIT_BUTTON_POSITION_Y = 530;
 	private static final float PLAY_BUTTON_SCALE = (7/32);
 	private static final float EXIT_BUTTON_SCALE = (6/22);
+	private static final float GAME_TITLE_SCALE = (33/90);
 	
 	private DarknessPlayground game;
 	
+	private Texture img;
 	private Texture bg;
 	private Texture gameTitle;
 	private Texture playButtonActive;
@@ -34,13 +36,14 @@ public class MainMenu implements Screen {
 	@Override
 	public void show() {
 		// TODO Auto-generated method stub
-		String bgPath = ClassLoader.getSystemResource("MainMenuBG.png").getPath();
-		this.bg = new Texture(bgPath.substring(bgPath.lastIndexOf("/")+1));
+		/*String bgPath = ClassLoader.getSystemResource("MainMenuBG.png").getPath();
+		this.bg = new Texture(bgPath.substring(bgPath.lastIndexOf("/")+1));*/
+		this.bg = new Texture("MainMenuBG.png");
 		this.gameTitle = new Texture("Menu/GameTitle.png");
-		this.playButtonActive = new Texture("Menu/PlayButtonActive.png");
-		this.playButtonInActive = new Texture("Menu/PlayButtonInactive.png");
-		this.exitButtonActive = new Texture("Menu/ExitButtonActive.png");
-		this.exitButtonInActive = new Texture("Menu/ExitButtonInactive.png");
+		this.playButtonActive = new Texture("Menu/PlayBtnActive.png");
+		this.playButtonInActive = new Texture("Menu/PlayBtnInactive.png");
+		this.exitButtonActive = new Texture("Menu/ExitBtnActive.png");
+		this.exitButtonInActive = new Texture("Menu/ExitBtnInactive.png");
 	}
 
 	@Override
@@ -52,6 +55,8 @@ public class MainMenu implements Screen {
 		this.buttonInputHandler();
 		
 		this.game.batch.begin();
+		this.game.batch.draw(bg, 0, 0, 1280, 720);
+		this.game.batch.draw(this.gameTitle, 800, 520, this.gameTitle.getWidth()*GAME_TITLE_SCALE, this.gameTitle.getHeight()*GAME_TITLE_SCALE);
 		if(this.isOnPlayBtn())
 		{
 			this.game.batch.draw(playButtonActive, BUTTON_POSITION_X, PLAY_BUTTON_POSITION_Y, this.playButtonActive.getWidth()*PLAY_BUTTON_SCALE, this.playButtonActive.getHeight()*PLAY_BUTTON_SCALE);
