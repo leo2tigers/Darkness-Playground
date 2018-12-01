@@ -14,7 +14,7 @@ public class DarknessPlayground extends Game {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		this.setScreen(new MainMenu(this));
+		toMainMenu();
 	}
 
 	@Override
