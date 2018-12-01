@@ -36,9 +36,8 @@ public class MainMenu implements Screen {
 	@Override
 	public void show() {
 		// TODO Auto-generated method stub
-		/*String bgPath = ClassLoader.getSystemResource("MainMenuBG.png").getPath();
-		this.bg = new Texture(bgPath.substring(bgPath.lastIndexOf("/")+1));*/
-		this.bg = new Texture("MainMenuBG.png");
+		String bgPath = ClassLoader.getSystemResource("MainMenuBG.png").getPath();
+		this.bg = new Texture(bgPath.substring(bgPath.lastIndexOf("/")+1));
 		this.gameTitle = new Texture("Menu/GameTitle.png");
 		this.playButtonActive = new Texture("Menu/PlayBtnActive.png");
 		this.playButtonInActive = new Texture("Menu/PlayBtnInactive.png");
