@@ -7,11 +7,11 @@ import java.util.*;
 
 public class GameMap {
 
-    private ArrayList<SpawnPoint> spawnPoints = new ArrayList<>();
+    private ArrayList<SpawnPoint> spawnPoints = new ArrayList<SpawnPoint>();
 
     private Player player;
-    public final ArrayList<Tile> tiles = new ArrayList<>();
-    public final ArrayList<Monster> monsters = new ArrayList<>();
+    public final ArrayList<Tile> tiles = new ArrayList<Tile>();
+    public final ArrayList<Monster> monsters = new ArrayList<Monster>();
 
     public GameMap() {}
 
