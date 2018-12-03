@@ -53,7 +53,7 @@ public class MainMenu implements Screen {
 		
 		this.game.batch.begin();
 		this.game.batch.draw(bg, 0, 0, DarknessPlayground.WIDTH, DarknessPlayground.HEIGHT);
-		this.game.batch.draw(this.gameTitle, 845, 490, GAME_TITLE_DISPLAY_WIDTH, GAME_TITLE_DISPLAY_HEIGHT);
+		this.game.batch.draw(this.gameTitle, 190, 450, GAME_TITLE_DISPLAY_WIDTH, GAME_TITLE_DISPLAY_HEIGHT); // change from x845 = x190
 		if(this.isOnPlayBtn())
 		{
 			this.game.batch.draw(playButtonActive, BUTTON_POSITION_X, PLAY_BUTTON_POSITION_Y, PLAY_BUTTON_DISPLAY_WIDTH, PLAY_BUTTON_DISPLAY_HEIGHT);
