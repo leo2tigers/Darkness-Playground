@@ -1,8 +1,9 @@
 package com.darknessplayground.game;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.darknessplayground.game.screen.MainMenu;
+import com.darknessplayground.game.screen.*;
 
 public class DarknessPlayground extends Game {
 	public static final int WIDTH = 1280;
@@ -13,7 +14,7 @@ public class DarknessPlayground extends Game {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		this.setScreen(new MainMenu(this));
+		toMainMenu();
 	}
 
 	@Override
@@ -24,5 +25,15 @@ public class DarknessPlayground extends Game {
 	@Override
 	public void dispose () {
 		batch.dispose();
+	}
+	
+	public void toMainMenu()
+	{
+		this.setScreen(new MainMenu(this));
+	}
+	
+	public void toGame()
+	{
+		this.setScreen(new MainGame(this));
 	}
 }

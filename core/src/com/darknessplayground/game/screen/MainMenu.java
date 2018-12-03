@@ -1,19 +1,32 @@
 package com.darknessplayground.game.screen;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.darknessplayground.game.DarknessPlayground;
 
 public class MainMenu implements Screen {
 	
+	private static final int BUTTON_POSITION_X = 190;
+	private static final int PLAY_BUTTON_POSITION_Y = 290;
+	private static final int EXIT_BUTTON_POSITION_Y = 190;
+	private static final float PLAY_BUTTON_DISPLAY_WIDTH = 87;
+	private static final float PLAY_BUTTON_DISPLAY_HEIGHT = 68;
+	private static final float EXIT_BUTTON_DISPLAY_WIDTH = 75;
+	private static final float EXIT_BUTTON_DISPLAY_HEIGHT = 60;
+	private static final float GAME_TITLE_DISPLAY_WIDTH = 330;
+	private static final float GAME_TITLE_DISPLAY_HEIGHT = 205.333f;
+	
 	private DarknessPlayground game;
-
-	private Texture img;
-	private BitmapFont font;
+	
+	private Texture bg;
+	private Texture gameTitle;
+	private Texture playButtonActive;
+	private Texture playButtonInActive;
+	private Texture exitButtonActive;
+	private Texture exitButtonInActive;
 
 	public MainMenu(DarknessPlayground game) {
 		// TODO Auto-generated constructor stub
@@ -23,9 +36,13 @@ public class MainMenu implements Screen {
 	@Override
 	public void show() {
 		// TODO Auto-generated method stub
-		this.img = new Texture("badlogic.jpg");
-		this.font = new BitmapFont();
-		this.font.setColor(Color.GOLD);
+		String bgPath = ClassLoader.getSystemResource("MainMenuBG.png").getPath();
+		this.bg = new Texture(bgPath.substring(bgPath.lastIndexOf("/")+1));
+		this.gameTitle = new Texture("Menu/GameTitle.png");
+		this.playButtonActive = new Texture("Menu/PlayBtnActive.png");
+		this.playButtonInActive = new Texture("Menu/PlayBtnInactive.png");
+		this.exitButtonActive = new Texture("Menu/ExitBtnActive.png");
+		this.exitButtonInActive = new Texture("Menu/ExitBtnInactive.png");
 	}
 
 	@Override
@@ -35,9 +52,28 @@ public class MainMenu implements Screen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		this.game.batch.begin();
-		this.game.batch.draw(img, 0, 0);
-		this.font.draw(this.game.batch, "Hello World!", 500, 600);
+		this.game.batch.draw(bg, 0, 0, DarknessPlayground.WIDTH, DarknessPlayground.HEIGHT);
+		this.game.batch.draw(this.gameTitle, 845, 490, GAME_TITLE_DISPLAY_WIDTH, GAME_TITLE_DISPLAY_HEIGHT);
+		if(this.isOnPlayBtn())
+		{
+			this.game.batch.draw(playButtonActive, BUTTON_POSITION_X, PLAY_BUTTON_POSITION_Y, PLAY_BUTTON_DISPLAY_WIDTH, PLAY_BUTTON_DISPLAY_HEIGHT);
+		}
+		else
+		{
+			this.game.batch.draw(playButtonInActive, BUTTON_POSITION_X, PLAY_BUTTON_POSITION_Y, PLAY_BUTTON_DISPLAY_WIDTH, PLAY_BUTTON_DISPLAY_HEIGHT);
+		}
+		
+		if(this.isOnExitBtn())
+		{
+			this.game.batch.draw(exitButtonActive, BUTTON_POSITION_X, EXIT_BUTTON_POSITION_Y, EXIT_BUTTON_DISPLAY_WIDTH, EXIT_BUTTON_DISPLAY_HEIGHT);
+		}
+		else
+		{
+			this.game.batch.draw(exitButtonInActive, BUTTON_POSITION_X, EXIT_BUTTON_POSITION_Y, EXIT_BUTTON_DISPLAY_WIDTH, EXIT_BUTTON_DISPLAY_HEIGHT);
+		}
 		this.game.batch.end();
+		
+		this.buttonInputHandler();
 
 	}
 
@@ -68,8 +104,55 @@ public class MainMenu implements Screen {
 	@Override
 	public void dispose() {
 		// TODO Auto-generated method stub
-		img.dispose();
-		font.dispose();
+		this.bg.dispose();
+		this.gameTitle.dispose();
+		this.playButtonActive.dispose();
+		this.playButtonInActive.dispose();
+		this.exitButtonActive.dispose();
+		this.exitButtonInActive.dispose();
+	}
+	
+	private void buttonInputHandler()
+	{
+		if(Gdx.input.isButtonPressed(Input.Buttons.LEFT))
+		{
+			if(this.isOnPlayBtn())
+			{
+				this.dispose();
+				this.game.toGame();
+			}
+			if(this.isOnExitBtn())
+			{
+				this.dispose();
+				Gdx.app.exit();
+			}
+		}
+	}
+	
+	private boolean isOnPlayBtn()
+	{
+		if(Gdx.input.getX() >= BUTTON_POSITION_X && 
+			Gdx.input.getX() <= BUTTON_POSITION_X + PLAY_BUTTON_DISPLAY_WIDTH &&
+			Gdx.input.getY() >= DarknessPlayground.HEIGHT - PLAY_BUTTON_POSITION_Y - PLAY_BUTTON_DISPLAY_HEIGHT &&
+			Gdx.input.getY() <= DarknessPlayground.HEIGHT - PLAY_BUTTON_POSITION_Y)
+		{
+			return true;
+		}
+		
+		return false;
+	}
+	
+	private boolean isOnExitBtn()
+	{
+		if(Gdx.input.getX() >= BUTTON_POSITION_X && 
+				Gdx.input.getX() <= BUTTON_POSITION_X + PLAY_BUTTON_DISPLAY_WIDTH &&
+				Gdx.input.getY() >= DarknessPlayground.HEIGHT - EXIT_BUTTON_POSITION_Y - PLAY_BUTTON_DISPLAY_HEIGHT &&
+				Gdx.input.getY() <= DarknessPlayground.HEIGHT - EXIT_BUTTON_POSITION_Y)
+		{
+			return true;
+		}
+			
+		return false;
 	}
 
 }
