@@ -11,7 +11,6 @@ package logic.player;
 import logic.Creature;
 
 public class Player extends Creature implements Controllable {
-    private boolean left_KeyPressed, right_KeyPressed, up_KeyPressed, down_KeyPressed;
     public Gun gun;
 
 
@@ -24,17 +23,17 @@ public class Player extends Creature implements Controllable {
     public void keyPressed(String key) {
         if (key.equals("LEFT")) {
             orientation = -1;
-            left_KeyPressed = true;
+            keyClass.left_KeyPressed = true;
         }
         if (key.equals("RIGHT")) {
             orientation = 1;
-            right_KeyPressed = true;
+            keyClass.right_KeyPressed = true;
         }
         if (key.equals("UP")) {
-            up_KeyPressed = true;
+        	keyClass.up_KeyPressed = true;
         }
         if (key.equals("DOWN")) {
-            down_KeyPressed = true;
+        	keyClass.down_KeyPressed = true;
         }
         move();
     }
@@ -42,26 +41,26 @@ public class Player extends Creature implements Controllable {
     @Override
     public void move() {
         if (
-                (left_KeyPressed && right_KeyPressed)
-                || (!left_KeyPressed && !right_KeyPressed)
+                (keyClass.left_KeyPressed && keyClass.right_KeyPressed)
+                || (!keyClass.left_KeyPressed && !keyClass.right_KeyPressed)
                 || !movable
                 || !isAlive()
         ) {
             if (speedY != 0) translate(0, speedY);
         }else {
             translate(speedX * orientation, speedY);
-            if (up_KeyPressed && !jumping) {
+            if (keyClass.up_KeyPressed && !jumping) {
                 jump();
-            }else if (down_KeyPressed && !jumping) {
+            }else if (keyClass.down_KeyPressed && !jumping) {
                 jump_down();
             }
         }
         
         // reset all KeyPressed(s)
-        left_KeyPressed = false;
-        right_KeyPressed = false;
-        up_KeyPressed = false;
-        down_KeyPressed = false;
+        keyClass.left_KeyPressed = false;
+        keyClass.right_KeyPressed = false;
+        keyClass.up_KeyPressed = false;
+        keyClass.down_KeyPressed = false;
     }
 
     @Override
