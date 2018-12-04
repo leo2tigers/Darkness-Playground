@@ -1,9 +1,16 @@
+/**
+ * The Player class represents a player character controlled by a player.
+ * 
+ * @author 13thFloorGuy
+ * @version 0.0
+ * @since 12/04/2018
+ */
+
 package logic.player;
 
-import logic.creature.Creature;
+import logic.Creature;
 
-public class Player extends Creature {
-
+public class Player extends Creature implements Controllable {
     private boolean left_KeyPressed, right_KeyPressed, up_KeyPressed, down_KeyPressed;
     public Gun gun;
 
@@ -13,6 +20,7 @@ public class Player extends Creature {
         this.setGun(gun);
     }
 
+    @Override
     public void keyPressed(String key) {
         if (key.equals("LEFT")) {
             orientation = -1;
@@ -35,9 +43,9 @@ public class Player extends Creature {
     public void move() {
         if (
                 (left_KeyPressed && right_KeyPressed)
-                        || (!left_KeyPressed && !right_KeyPressed)
-                        || !movable
-                        || !isAlive()
+                || (!left_KeyPressed && !right_KeyPressed)
+                || !movable
+                || !isAlive()
         ) {
             if (speedY != 0) translate(0, speedY);
         }else {
@@ -48,6 +56,8 @@ public class Player extends Creature {
                 jump_down();
             }
         }
+        
+        // reset all KeyPressed(s)
         left_KeyPressed = false;
         right_KeyPressed = false;
         up_KeyPressed = false;

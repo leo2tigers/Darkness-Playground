@@ -1,3 +1,6 @@
+/**
+ * This Gun class represents Player's Gun Weapon.
+ */
 package logic.player;
 
 abstract public class Gun {

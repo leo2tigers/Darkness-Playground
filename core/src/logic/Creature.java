@@ -1,4 +1,4 @@
-package logic.creature;
+package logic;
 
 import logic.GameMap;
 import logic.GameObject;
@@ -45,6 +45,11 @@ public abstract class Creature extends GameObject {
         this.current_tile = overlapTile(movementBox);
     }
 
+    /**
+     * This method is used to find the overlapped tile.
+     * @param movementBox
+     * @return Tile
+     */
     private Tile overlapTile(URect movementBox) {
         for (GameObject tile : map.gameObjects) {
             if (tile instanceof Tile && movementBox.overlap((URect) tile)) {
@@ -76,6 +81,14 @@ public abstract class Creature extends GameObject {
 
     public boolean isAlive() {return health > 0;}
 
+    /**
+     * This method is used to translate the creature and its components
+     * by create new movementBox and check whether it overlap any tile.
+     * If there is any overlapped tile, the new position will be on that tile.
+     * @param x
+     * @param y
+     * @return
+     */
     protected double[] translate(double x, double y) {
         double new_positionX = positionX + x;
         double new_positionY = positionY + y;
@@ -105,6 +118,7 @@ public abstract class Creature extends GameObject {
     public void move(){
         //TODO move()
     }
+    
     protected void jump() {
         jumping = true;
         speedY = jumping_speed;
@@ -128,8 +142,13 @@ public abstract class Creature extends GameObject {
         move();
     }
 
+    /**
+     * This method is used to begin an Attack Event if the creature is  alive and attackable.
+     */
     public void attack() {
         if (attackable && isAlive()) {
+        	
+        	attack_prepare();
 
             if (attackable) {
                 attackDate = new Date();
@@ -162,7 +181,6 @@ public abstract class Creature extends GameObject {
     }
 
     protected abstract String attack_prepare();
-
     protected abstract void attackMethod();
 
     public String getPosition() {

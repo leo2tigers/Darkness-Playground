@@ -1,7 +1,7 @@
 package logic;
 
-import logic.creature.Monster;
-import logic.creature.MonsterType;
+import logic.monster.Monster;
+import logic.monster.MonsterType;
 
 public class SpawnPoint extends GameObject {
     private int spawnCount = 0;

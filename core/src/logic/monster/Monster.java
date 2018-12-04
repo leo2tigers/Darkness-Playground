@@ -1,5 +1,6 @@
-package logic.creature;
+package logic.monster;
 
+import logic.Creature;
 
 public class Monster extends Creature {
 
@@ -15,5 +16,10 @@ public class Monster extends Creature {
     @Override
     protected void attackMethod() {
 
+    }
+    
+    @Override
+    public String toString() {
+    	return super.toString();
     }
 }

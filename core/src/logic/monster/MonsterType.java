@@ -1,4 +1,4 @@
-package logic.creature;
+package logic.monster;
 
 public enum MonsterType {
     //TODO MonsterType(?)

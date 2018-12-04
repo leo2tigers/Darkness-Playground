@@ -9,11 +9,17 @@ public class Pistol extends Gun {
         ammo = max_ammo;
     }
 
+    /**
+     * This method is used to reload pistol's ammo one by one.
+     * When reloading the pistol, the owner can't attack.
+     * @return nothing
+     */
     @Override
     public void reload() {
         final int reload_time_per_ammo = reload_time/ammo;
         (new Thread(() -> {
             enable = false;
+            owner.attackable = false;
             for (int i = 0; i < max_ammo - ammo; ++i) {
                 try {
                     Thread.sleep(reload_time_per_ammo);
@@ -27,6 +33,11 @@ public class Pistol extends Gun {
         })).start();
     }
 
+    /** 
+     * This method is used to create an object represents pistol's bullet 
+     * with 10 pixel width, 10 pixel height and speed of 25 pixel per frame.
+     * @return nothing
+     */
     @Override
     public void fire() {
         int damage = 1;
