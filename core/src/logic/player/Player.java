@@ -9,10 +9,12 @@ public class Player extends Creature {
 
     private boolean left_KeyPressed, right_KeyPressed, up_KeyPressed, down_KeyPressed;
     private URect damageBox;
+    private Gun gun;
 
 
-    public Player(String name, int maxHealth, int positionX, int positionY) {
+    public Player(String name, int maxHealth, int positionX, int positionY, Gun gun) {
         super(name, maxHealth, positionX, positionY);
+        this.gun = gun;
     }
 
     public void keyPressed(String key) {
@@ -60,28 +62,11 @@ public class Player extends Creature {
 
     @Override
     protected Object attack_prepare() {
-        double orientation_coefficient = 100;
-        double attackOffSetX = 0;
-        double attackBoxWidth = 100;
-        double attackOffSetY = 0;
-        double attackBoxHeight = 100;
-
-        damageBox = new URect(
-                positionX + attackOffSetX + orientation_coefficient * orientation,
-                positionY + attackOffSetY,
-                attackBoxWidth,
-                attackBoxHeight
-        );
-        return damageBox;
+        return null;
     }
 
     @Override
     protected void attackMethod() {
-        for (Monster monster : map.monsters) {
-            if (damageBox.overlap(monster.hitBox)) {
-                Log.writeLog(monster.name + " is hit by " + damageBox);
-                monster.getHit(attackPower);
-            }
-        }
+        gun.fire();
     }
 }
