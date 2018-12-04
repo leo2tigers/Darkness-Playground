@@ -1,20 +1,16 @@
 package logic.player;
 
-import log.Log;
-import logic.URect;
 import logic.creature.Creature;
-import logic.creature.Monster;
 
 public class Player extends Creature {
 
     private boolean left_KeyPressed, right_KeyPressed, up_KeyPressed, down_KeyPressed;
-    private URect damageBox;
     public Gun gun;
 
 
     public Player(String name, int maxHealth, double positionX, double positionY, Gun gun) {
         super(name, maxHealth, positionX, positionY);
-        this.gun = gun;
+        this.setGun(gun);
     }
 
     public void keyPressed(String key) {
@@ -43,10 +39,8 @@ public class Player extends Creature {
                         || !movable
                         || !isAlive()
         ) {
-            if (speedY != 0) Log.writeLog(name + " move 0 , " + speedY);
-            translate(0, speedY);
+            if (speedY != 0) translate(0, speedY);
         }else {
-            Log.writeLog(name + " move " + speedX*orientation + " , " + speedY);
             translate(speedX * orientation, speedY);
             if (up_KeyPressed && !jumping) {
                 jump();
@@ -75,4 +69,9 @@ public class Player extends Creature {
     protected void attackMethod() {
         gun.fire();
     }
+
+	public void setGun(Gun gun) {
+		this.gun = gun;
+		this.gun.owner = this;
+	}
 }

@@ -39,9 +39,9 @@ public class PlayerMonitor implements ApplicationListener {
         batch.begin();
         owner_status.draw(batch,
                 "Player = " + owner.name +
-                    "\n Health = " + owner.health + " / " + owner.getMaxHealth() +
-                    "\n Alive = " + owner.isAlive() +
-                    "\n Gun = " + owner.gun,
+                    "\nHealth = " + owner.health + " / " + owner.getMaxHealth() +
+                    "\nAlive = " + owner.isAlive() +
+                    "\nGun = " + owner.gun,
                 200, 200);
         batch.end();
     }

@@ -1,6 +1,5 @@
 package logic.creature;
 
-import log.Log;
 
 public class Monster extends Creature {
 
@@ -9,8 +8,8 @@ public class Monster extends Creature {
     }
 
     @Override
-    protected Object attack_prepare() {
-        return null;
+    protected String attack_prepare() {
+        return "";
     }
 
     @Override

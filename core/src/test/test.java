@@ -2,7 +2,7 @@ package test;
 
 import logic.GameMap;
 import logic.Tile;
-import logic.URect;
+import logic.player.Pistol;
 import logic.player.Player;
 
 public class test {
@@ -15,7 +15,7 @@ public class test {
         System.out.println(tile2);
         map.addAll(tile1, tile2);
 
-        Player player = new Player("player1", 1, 0, 50);
+        Player player = new Player("player1", 1, 0, 50, new Pistol());
         map.setPlayer(player);
         player.setMovementBox(0, -40, 40, 20);
         player.setHitBox(0, 0, 50, 100);

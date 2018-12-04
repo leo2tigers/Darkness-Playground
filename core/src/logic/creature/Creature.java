@@ -1,6 +1,5 @@
 package logic.creature;
 
-import log.Log;
 import logic.GameMap;
 import logic.GameObject;
 import logic.Tile;
@@ -26,9 +25,7 @@ public abstract class Creature extends GameObject {
     public boolean jumping = false;
     protected boolean movable = true;
     public boolean attackable = true;
-    private int preDelay = 100;
-    private int animationTime = 200;
-    private int postDelay = 100;
+    private int preDelay = 100, postDelay = 100;
     private Date attackDate;
 
     public Creature(String name, int maxHealth, double positionX, double positionY) {
@@ -58,7 +55,6 @@ public abstract class Creature extends GameObject {
     }
 
     public void getHit(int damage) {
-        int prevHealth = getHealth();
         setHealth(getHealth() - (damage - armour > 0 ? damage - armour : 0));
     }
 
@@ -134,8 +130,6 @@ public abstract class Creature extends GameObject {
 
     public void attack() {
         if (attackable && isAlive()) {
-
-            Log.writeLog(name + " attack with " + attack_prepare());
 
             if (attackable) {
                 attackDate = new Date();
