@@ -3,11 +3,9 @@ package logic.player;
 import logic.Projectile;
 
 public class Pistol extends Gun {
-    int damage;
-    final int max_ammo = 7;
-
-    Pistol() {
+    public Pistol() {
         type = "Pistol";
+        max_ammo = 7;
         ammo = max_ammo;
     }
 
@@ -25,11 +23,13 @@ public class Pistol extends Gun {
                 }
             }
             enable = true;
+            owner.attackable = true;
         })).start();
     }
 
     @Override
     public void fire() {
+        int damage = 1;
         owner.map.add(
                 new Projectile(owner.positionX, owner.positionY, 10, 10, owner.orientation, 25, damage)
         );

@@ -10,7 +10,9 @@ import java.util.Date;
 
 public abstract class Creature extends GameObject {
 
-    private int health, maxHealth, armour = 0;
+    public int health;
+    private int maxHealth;
+    private int armour = 0;
     protected int attackPower;
     public int orientation = 1;
 
@@ -23,7 +25,7 @@ public abstract class Creature extends GameObject {
     public Tile current_tile;
     public boolean jumping = false;
     protected boolean movable = true;
-    private boolean attackable = true;
+    public boolean attackable = true;
     private int preDelay = 100;
     private int animationTime = 200;
     private int postDelay = 100;
@@ -76,7 +78,7 @@ public abstract class Creature extends GameObject {
         this.maxHealth = maxHealth > 1 ? maxHealth : 1;
     }
 
-    protected boolean isAlive() {return health > 0;}
+    public boolean isAlive() {return health > 0;}
 
     protected double[] translate(double x, double y) {
         double new_positionX = positionX + x;
@@ -135,35 +137,37 @@ public abstract class Creature extends GameObject {
 
             Log.writeLog(name + " attack with " + attack_prepare());
 
-            attackDate = new Date();
-            Thread attackThread = new Thread(() -> {
-
-                // preAnimation delay
-                attackable = false;
-                Date newDate = new Date();
-
-                while (newDate.getTime() - attackDate.getTime() <= preDelay) {
-                    newDate = new Date();
-                }
-
-                // attack!
-                attackMethod();
-
-                // postAnimation delay
+            if (attackable) {
                 attackDate = new Date();
-                newDate = new Date();
+                Thread attackThread = new Thread(() -> {
 
-                while (newDate.getTime() - attackDate.getTime() <= postDelay) {
+                    // preAnimation delay
+                    attackable = false;
+                    Date newDate = new Date();
+
+                    while (newDate.getTime() - attackDate.getTime() <= preDelay) {
+                        newDate = new Date();
+                    }
+
+                    // attack!
+                    attackMethod();
+
+                    // postAnimation delay
+                    attackDate = new Date();
                     newDate = new Date();
-                }
-                attackable = true;
 
-            });
-            attackThread.start();
+                    while (newDate.getTime() - attackDate.getTime() <= postDelay) {
+                        newDate = new Date();
+                    }
+                    attackable = true;
+
+                });
+                attackThread.start();
+            }
         }
     }
 
-    protected abstract Object attack_prepare();
+    protected abstract String attack_prepare();
 
     protected abstract void attackMethod();
 

@@ -6,7 +6,7 @@ public class Projectile extends GameObject {
     private double orientation;
     private double speed;
     private int damage;
-    URect damageBox;
+    private URect damageBox;
 
     public Projectile(double positionX, double positionY, double width, double height, double orientation, double speed, int damage) {
         this.positionX = positionX;

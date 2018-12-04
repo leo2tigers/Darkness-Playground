@@ -9,10 +9,10 @@ public class Player extends Creature {
 
     private boolean left_KeyPressed, right_KeyPressed, up_KeyPressed, down_KeyPressed;
     private URect damageBox;
-    private Gun gun;
+    public Gun gun;
 
 
-    public Player(String name, int maxHealth, int positionX, int positionY, Gun gun) {
+    public Player(String name, int maxHealth, double positionX, double positionY, Gun gun) {
         super(name, maxHealth, positionX, positionY);
         this.gun = gun;
     }
@@ -61,8 +61,14 @@ public class Player extends Creature {
     }
 
     @Override
-    protected Object attack_prepare() {
-        return null;
+    protected String attack_prepare() {
+        if (gun.ammo != 0) {
+            return gun.type;
+        } else {
+            attackable = false;
+            gun.reload();
+            return gun.type + " reload";
+        }
     }
 
     @Override
