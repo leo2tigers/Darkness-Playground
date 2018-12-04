@@ -1,4 +1,4 @@
-package logic.creature;
+package logic.monster;
 
 import logic.Meth;
 
@@ -7,7 +7,11 @@ import java.util.ArrayList;
 public class Monster_OwO extends Monster {
 
     private static int idcount = 0;
-    private final int id;
+    private int id;
+    
+    public Monster_OwO(String name, int maxHealth, double positionX, double positionY) {
+        super(name, maxHealth, positionX, positionY);
+    }
 
     public Monster_OwO(double positionX, double positionY) {
         super("OwO-"+ Meth.zero_string(++idcount), 1, positionX, positionY);
@@ -21,5 +25,10 @@ public class Monster_OwO extends Monster {
             monsters.add(new Monster_OwO(0, 0));
             System.out.println(monsters.get(i));
         }
+    }
+    
+    @Override
+    public String toString() {
+    	return "#" + id + " " + super.toString();
     }
 }
