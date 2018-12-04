@@ -4,8 +4,6 @@ import logic.creature.Monster;
 import logic.creature.MonsterType;
 
 public class SpawnPoint extends GameObject {
-
-    private int positionX, positionY;
     private int spawnCount = 0;
     private MonsterType monsterType;
 
@@ -26,4 +24,8 @@ public class SpawnPoint extends GameObject {
         return monster;
     }
 
+    @Override
+    public void update() {
+        return;
+    }
 }

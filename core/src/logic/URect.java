@@ -1,8 +1,6 @@
 package logic;
 
 public class URect extends GameObject {
-
-    public double positionX, positionY;
     public double width, height;
 
     public URect(double positionX, double positionY, double width, double height) {
@@ -30,5 +28,10 @@ public class URect extends GameObject {
     public String toString() {
         return "URect " +
                 " ( " + positionX + " , " + positionY + " ) : width = " + width + ", height = " + height;
+    }
+
+    @Override
+    public void update() {
+        return;
     }
 }

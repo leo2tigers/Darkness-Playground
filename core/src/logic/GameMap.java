@@ -4,14 +4,14 @@ import logic.creature.Monster;
 import logic.player.Player;
 
 import java.util.*;
+import java.util.function.Function;
 
 public class GameMap {
 
     private ArrayList<SpawnPoint> spawnPoints = new ArrayList<SpawnPoint>();
 
     private Player player;
-    public final ArrayList<Tile> tiles = new ArrayList<Tile>();
-    public final ArrayList<Monster> monsters = new ArrayList<Monster>();
+    public final ArrayList<GameObject> gameObjects = new ArrayList<>();
 
     public GameMap() {}
 
@@ -21,15 +21,9 @@ public class GameMap {
         player.map = this;
     }
 
-    private void addMonster(Monster monster) {
-        //TODO addMonster()
-        monsters.add(monster);
-        monster.map = this;
-    }
-
-    public void addTile(Tile tile) {
-        //TODO addTile()
-        tiles.add(tile);
+    public void add(GameObject gameObject) {
+        gameObjects.add(gameObject);
+        gameObject.map = this;
     }
 
     public void addSpawnPoint(SpawnPoint spawnPoint) {
@@ -39,18 +33,27 @@ public class GameMap {
     public void spawnFromSpawnPoint(int spawnPointNumber) {
         SpawnPoint spawnPoint = spawnPoints.get(spawnPointNumber);
         Monster monster = spawnPoint.spawn();
-        addMonster(monster);
+        add(monster);
     }
 
     public void addAll(GameObject...args) {
         for (GameObject gameObject : args) {
-            if (gameObject instanceof Monster) {
-                addMonster((Monster) gameObject);
-            }else if (gameObject instanceof SpawnPoint) {
-                addSpawnPoint((SpawnPoint) gameObject);
-            }else if (gameObject instanceof Tile) {
-                addTile((Tile) gameObject);
+            gameObjects.add(gameObject);
+            gameObject.map = this;
+        }
+    }
+
+    public interface game_function<Type extends GameObject, Return> {
+        Return apply(Type gameObject);
+    }
+
+    public <Type extends  GameObject,Return> Return for_all(game_function<Type,Return> function) {
+        Return r = null;
+        for (GameObject gameObject : gameObjects) {
+            if (gameObject != null) {
+                r = function.apply((Type) gameObject);
             }
         }
+        return r;
     }
 }

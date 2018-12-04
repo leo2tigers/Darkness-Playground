@@ -10,7 +10,7 @@ public class Monster_OwO extends Monster {
     private final int id;
 
     public Monster_OwO(double positionX, double positionY) {
-        super("OwO-"+ Meth.zerostring(++idcount), 1, positionX, positionY);
+        super("OwO-"+ Meth.zero_string(++idcount), 1, positionX, positionY);
         id = idcount;
     }
 
