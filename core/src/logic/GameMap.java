@@ -9,12 +9,14 @@ public class GameMap {
 
     private ArrayList<SpawnPoint> spawnPoints = new ArrayList<SpawnPoint>();
     private ArrayList<Tile> tiles;
+    private ArrayList<Projectile> projectiles;
 
     public Player player;
     public final ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
 
     public GameMap() {
     	this.tiles = new ArrayList<Tile>();
+    	this.projectiles = new ArrayList<Projectile>();
     }
 
     public void setPlayer(Player player) {
