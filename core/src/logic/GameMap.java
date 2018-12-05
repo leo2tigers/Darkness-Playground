@@ -9,7 +9,7 @@ public class GameMap {
 
     private ArrayList<SpawnPoint> spawnPoints = new ArrayList<SpawnPoint>();
 
-    private Player player;
+    public Player player;
     public final ArrayList<GameObject> gameObjects = new ArrayList<>();
 
     public GameMap() {}
