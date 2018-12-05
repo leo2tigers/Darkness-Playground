@@ -18,7 +18,8 @@ public class SpawnPoint extends GameObject {
                 monsterType.TypeName + "-" + spawnCount++,
                 monsterType.maxHealth,
                 positionX,
-                positionY
+                positionY,
+                monsterType.img
         );
         monster.movementBox.translate(positionX, positionY);
         return monster;

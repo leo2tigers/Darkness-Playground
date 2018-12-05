@@ -7,6 +7,8 @@ import logic.URect;
 
 import java.util.Date;
 
+import com.badlogic.gdx.graphics.Texture;
+
 public abstract class Creature extends GameObject {
 
     public int health;
@@ -27,13 +29,16 @@ public abstract class Creature extends GameObject {
     public boolean attackable = true;
     private int preDelay = 100, postDelay = 100;
     private Date attackDate;
+    
+    protected Texture img;
 
-    public Creature(String name, int maxHealth, double positionX, double positionY) {
+    public Creature(String name, int maxHealth, double positionX, double positionY, Texture img) {
         this.name = name;
         this.maxHealth = maxHealth;
         this.health = maxHealth;
         this.positionX = positionX;
         this.positionY = positionY;
+        this.img = img;
     }
 
     public void setHitBox(double relativeX, double relativeY, double width, double height) {

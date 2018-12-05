@@ -1,5 +1,7 @@
 package logic.creature.player;
 
+import com.badlogic.gdx.graphics.Texture;
+
 import logic.creature.Creature;
 
 public class Player extends Creature {
@@ -8,8 +10,8 @@ public class Player extends Creature {
     public Gun gun;
 
 
-    public Player(String name, int maxHealth, double positionX, double positionY, Gun gun) {
-        super(name, maxHealth, positionX, positionY);
+    public Player(String name, int maxHealth, double positionX, double positionY, Gun gun, Texture img) {
+        super(name, maxHealth, positionX, positionY, img);
         this.setGun(gun);
     }
 

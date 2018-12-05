@@ -1,15 +1,22 @@
 package logic.creature.monster;
 
+import com.badlogic.gdx.graphics.Texture;
+
 import logic.*;
 
 public class OwO extends Monster {
 	
-    public OwO(String name, double positionX, double positionY) {
-        super("OwO-" + name, 1, positionX, positionY);
+	protected Texture atkImg;
+	protected Texture jumpImg;
+	
+    public OwO(String name, int maxHealth, double positionX, double positionY, Texture img) {
+        super("OwO-" + name, 1, positionX, positionY, img);
     }
     
-    public OwO(String name,int health, double positionX, double positionY) {
-        super("OwO-" + name, health, positionX, positionY);
+    public OwO(String name,int maxHealth, double positionX, double positionY, Texture img, Texture atkImg, Texture jumpImg) {
+        super("OwO-" + name, maxHealth, positionX, positionY, img);
+        this.atkImg = atkImg;
+        this.jumpImg = jumpImg;
     }
     
     @Override
