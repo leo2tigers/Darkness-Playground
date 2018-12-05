@@ -50,4 +50,12 @@ public class GameMap {
 	public void remove(GameObject gameObject) {
 		gameObjects.remove(gameObject);
 	}
+
+	public ArrayList<Tile> getTiles() {
+		return tiles;
+	}
+
+	public ArrayList<Projectile> getProjectiles() {
+		return projectiles;
+	}
 }
