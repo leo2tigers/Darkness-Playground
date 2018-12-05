@@ -9,8 +9,7 @@ public class OwO_Ranger extends OwO {
 	}
 
 	@Override
-	protected String attack_prepare() {
-		return super.attack_prepare();
+	protected void attack_prepare() {
 	}
 	
 	@Override

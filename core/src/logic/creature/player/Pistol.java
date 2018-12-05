@@ -4,8 +4,8 @@ import logic.Projectile;
 
 public class Pistol extends Gun {
 
-	public Pistol(Player owner) {
-        super(owner, "Pistol", 7, 1500, false);
+	public Pistol() {
+        super("Pistol", 7, 1500, false);
         reloadThread = new Thread(() -> {
             reloading = true;
             owner.attackable = false;

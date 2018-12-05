@@ -72,5 +72,6 @@ public class Player extends Creature {
 
 	public void setGun(Gun gun) {
 		this.gun = gun;
+		gun.owner = this;
 	}
 }

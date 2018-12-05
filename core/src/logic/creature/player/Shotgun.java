@@ -6,8 +6,8 @@ import logic.*;
 import logic.creature.monster.Monster;
 
 public class Shotgun extends Gun {
-    public Shotgun(Player owner) {
-    	super(owner, "Shotgun", 5, 2000, true);
+    public Shotgun() {
+    	super("Shotgun", 5, 2000, true);
     	reloadThread = new Thread(() -> {
     		int reload_time_per_ammo = reload_time/ammo;
             reloading = true;

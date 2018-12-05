@@ -13,8 +13,7 @@ public class OwO extends Monster {
     }
     
     @Override
-    protected String attack_prepare() {
-    	return super.attack_prepare();
+    protected void attack_prepare() {
     }
     
     @Override

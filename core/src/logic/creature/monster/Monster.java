@@ -9,8 +9,7 @@ public class Monster extends Creature {
     }
 
     @Override
-    protected String attack_prepare() {
-        return "";
+    protected void attack_prepare() {
     }
 
     @Override
