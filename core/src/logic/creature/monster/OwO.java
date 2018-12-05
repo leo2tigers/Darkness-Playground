@@ -8,6 +8,10 @@ public class OwO extends Monster {
         super("OwO-" + name, 1, positionX, positionY);
     }
     
+    public OwO(String name,int health, double positionX, double positionY) {
+        super("OwO-" + name, health, positionX, positionY);
+    }
+    
     @Override
     protected String attack_prepare() {
     	return super.attack_prepare();

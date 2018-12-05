@@ -30,8 +30,9 @@ public class Pistol extends Gun {
     @Override
     public void fire() {
         int damage = 1;
-        owner.map.add(
-                new Projectile(owner.positionX, owner.positionY, 10, 10, owner.orientation, 25, damage)
-        );
+        owner.map.add(new Projectile(owner.positionX, owner.positionY, 
+        		                     /*width*/10, /*height*/10, 
+        		                     owner.orientation, /*speed*/25, 
+        		                     /*lifetime*/50, damage, Projectile.TO_MONSTER));
     }
 }

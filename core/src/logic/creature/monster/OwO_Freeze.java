@@ -5,7 +5,7 @@ import logic.URect;
 public class OwO_Freeze extends OwO {
 
 	public OwO_Freeze(String name, double positionX, double positionY) {
-		super("Freeze" + name, positionX, positionY);
+		super("Freeze-" + name, 2, positionX, positionY);
 	}
 	
 	@Override

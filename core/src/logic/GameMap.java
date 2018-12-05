@@ -40,4 +40,8 @@ public class GameMap {
         Monster monster = spawnPoint.spawn();
         add(monster);
     }
+
+	public void remove(GameObject gameObject) {
+		gameObjects.remove(gameObject);
+	}
 }
