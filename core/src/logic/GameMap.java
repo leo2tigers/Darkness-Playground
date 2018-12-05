@@ -13,11 +13,12 @@ public class GameMap {
     public Player player;
     public final ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
 
-    public GameMap() {}
+    public GameMap() {
+    	this.tiles = new ArrayList<Tile>();
+    }
 
     public void setPlayer(Player player) {
         this.player = player;
-        this.tiles = new ArrayList<Tile>();
         player.map = this;
         
     }
