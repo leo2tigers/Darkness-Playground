@@ -8,6 +8,7 @@ import java.util.*;
 public class GameMap {
 
     private ArrayList<SpawnPoint> spawnPoints = new ArrayList<SpawnPoint>();
+    private ArrayList<Tile> tiles;
 
     public Player player;
     public final ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
@@ -16,7 +17,9 @@ public class GameMap {
 
     public void setPlayer(Player player) {
         this.player = player;
+        this.tiles = new ArrayList<Tile>();
         player.map = this;
+        
     }
 
     public void add(GameObject gameObject) {
