@@ -10,7 +10,7 @@ public class GameMap {
     private ArrayList<SpawnPoint> spawnPoints = new ArrayList<SpawnPoint>();
 
     public Player player;
-    public final ArrayList<GameObject> gameObjects = new ArrayList<>();
+    public final ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
 
     public GameMap() {}
 
