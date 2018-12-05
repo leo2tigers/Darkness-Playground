@@ -7,7 +7,8 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import logic.player.Player;
+
+import logic.creature.player.Player;
 
 public class PlayerMonitor implements ApplicationListener {
     private SpriteBatch batch;

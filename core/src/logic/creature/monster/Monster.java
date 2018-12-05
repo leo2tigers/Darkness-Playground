@@ -1,5 +1,6 @@
-package logic.creature;
+package logic.creature.monster;
 
+import logic.creature.Creature;
 
 public class Monster extends Creature {
 

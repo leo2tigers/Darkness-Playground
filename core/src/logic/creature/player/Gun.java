@@ -1,4 +1,4 @@
-package logic.player;
+package logic.creature.player;
 
 abstract public class Gun {
     Player owner;

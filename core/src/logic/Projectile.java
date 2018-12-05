@@ -1,6 +1,6 @@
 package logic;
 
-import logic.creature.Monster;
+import logic.creature.monster.Monster;
 
 public class Projectile extends GameObject {
     private double orientation;

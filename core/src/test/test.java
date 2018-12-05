@@ -2,8 +2,8 @@ package test;
 
 import logic.GameMap;
 import logic.Tile;
-import logic.player.Pistol;
-import logic.player.Player;
+import logic.creature.player.Pistol;
+import logic.creature.player.Player;
 
 public class test {
     public static void main(String[] args) {

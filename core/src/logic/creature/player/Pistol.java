@@ -1,4 +1,4 @@
-package logic.player;
+package logic.creature.player;
 
 import logic.Projectile;
 

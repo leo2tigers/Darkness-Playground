@@ -1,7 +1,7 @@
 package logic;
 
-import logic.creature.Monster;
-import logic.player.Player;
+import logic.creature.monster.Monster;
+import logic.creature.player.Player;
 
 import java.util.*;
 
