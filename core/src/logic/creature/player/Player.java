@@ -55,13 +55,13 @@ public class Player extends Creature {
     }
 
     @Override
-    protected String attack_prepare() {
-        if (gun.ammo != 0) {
-            return gun.type;
-        } else {
+    protected void attack_prepare() {
+        if (attackable && gun.ammo != 0) {
+        } else if (!gun.reloading) {
             attackable = false;
             gun.reload();
-            return gun.type + " reload";
+        } else {
+        	gun.reload_interrupt();
         }
     }
 
@@ -72,6 +72,5 @@ public class Player extends Creature {
 
 	public void setGun(Gun gun) {
 		this.gun = gun;
-		this.gun.owner = this;
 	}
 }

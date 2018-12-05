@@ -3,28 +3,21 @@ package logic.creature.player;
 import logic.Projectile;
 
 public class Pistol extends Gun {
-    public Pistol() {
-        type = "Pistol";
-        max_ammo = 7;
-        ammo = max_ammo;
-    }
 
-    @Override
-    public void reload() {
-        final int reload_time_per_ammo = reload_time/ammo;
-        (new Thread(() -> {
-            enable = false;
-            for (int i = 0; i < max_ammo - ammo; ++i) {
-                try {
-                    Thread.sleep(reload_time_per_ammo);
-                    ++ammo;
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-            enable = true;
+	public Pistol(Player owner) {
+        super(owner, "Pistol", 7, 1500, false);
+        reloadThread = new Thread(() -> {
+            reloading = true;
+            owner.attackable = false;
+            try {
+				Thread.sleep(reload_time);
+				ammo = max_ammo;
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+            reloading = false;
             owner.attackable = true;
-        })).start();
+        });
     }
 
     @Override

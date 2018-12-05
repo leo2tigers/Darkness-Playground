@@ -129,8 +129,8 @@ public abstract class Creature extends GameObject {
     }
 
     public void attack() {
-        if (attackable && isAlive()) {
-
+        if (isAlive()) {
+        	attack_prepare();
             if (attackable) {
                 attackDate = new Date();
                 Thread attackThread = new Thread(() -> {
@@ -138,7 +138,6 @@ public abstract class Creature extends GameObject {
                     // preAnimation delay
                     attackable = false;
                     Date newDate = new Date();
-
                     while (newDate.getTime() - attackDate.getTime() <= preDelay) {
                         newDate = new Date();
                     }
@@ -149,19 +148,17 @@ public abstract class Creature extends GameObject {
                     // postAnimation delay
                     attackDate = new Date();
                     newDate = new Date();
-
                     while (newDate.getTime() - attackDate.getTime() <= postDelay) {
                         newDate = new Date();
                     }
                     attackable = true;
-
                 });
                 attackThread.start();
             }
         }
     }
 
-    protected abstract String attack_prepare();
+    protected abstract void attack_prepare();
 
     protected abstract void attackMethod();
 
