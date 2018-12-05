@@ -20,6 +20,7 @@ public class OwO_Ranger extends OwO {
 		map.add(new Projectile(positionX, positionY, 
 				               /*width*/10, /*height*/10, 
 				               orientation, /*speed*/25, 
-				               /*lifetime*/50, damage, Projectile.TO_PLAYER));
+				               /*lifetime*/50, damage, Projectile.TO_PLAYER, 
+				               new Texture("Monsters/Ranged OwO/normal_projectile.png")));
 	}
 }

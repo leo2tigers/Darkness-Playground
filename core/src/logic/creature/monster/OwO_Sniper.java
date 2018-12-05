@@ -20,6 +20,7 @@ public class OwO_Sniper extends OwO {
 		map.add(new Projectile(positionX, positionY, 
 				               /*width*/20, /*height*/10, 
 				               orientation, /*speed*/50, 
-				               /*lifetime*/50, damage, Projectile.TO_PLAYER));
+				               /*lifetime*/50, damage, Projectile.TO_PLAYER, 
+				               new Texture("Monsters/Sniper OwO/sniper_projectile.png")));
 	}
 }
