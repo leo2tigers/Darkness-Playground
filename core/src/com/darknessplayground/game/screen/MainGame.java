@@ -19,7 +19,7 @@ public class MainGame implements Screen {
 		// TODO Auto-generated constructor stub
 		this.game = game;
 		this.map = new GameMap();
-		this.player = new Player("player one", 1, 0, 0, new Pistol()); //To be implemented
+		this.player = new Player("player one", 0, 0, new Pistol()); //To be implemented
 		
 	}
 

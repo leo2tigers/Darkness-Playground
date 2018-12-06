@@ -18,6 +18,8 @@ public class Pistol extends Gun {
             reloading = false;
             owner.attackable = true;
         });
+        this.preDelay = 500;
+        this.postDelay = 500;
     }
 
     @Override

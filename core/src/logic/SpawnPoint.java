@@ -14,14 +14,8 @@ public class SpawnPoint extends GameObject {
     }
 
     public Monster spawn() {
-        Monster monster = new Monster(
-                monsterType.TypeName + "-" + spawnCount++,
-                monsterType.maxHealth,
-                positionX,
-                positionY
-        );
-        monster.movementBox.translate(positionX, positionY);
-        return monster;
+    	// TODO spawn
+		return null;
     }
 
     @Override

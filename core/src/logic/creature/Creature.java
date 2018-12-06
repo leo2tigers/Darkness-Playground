@@ -13,20 +13,19 @@ public abstract class Creature extends GameObject {
     
     public int health;
     public int orientation = 1;
-    private int maxHealth;
-    protected int armour = 0;
-    protected int attackPower;
-
+    public int maxHealth;
+    public int armour = 0;
+    public int attackPower;
     public double speedX;
     public double speedY = 0;
     public double jumping_speed = 50;
-    public URect hitBox, movementBox;
-    public GameMap map;
-    public Tile current_tile;
     public boolean jumping = false;
     public boolean movable = true;
     public boolean attackable = true;
     public int preDelay = 100, postDelay = 100;
+    public URect hitBox, movementBox;
+    public GameMap map;
+    public Tile current_tile;
     private Date attackDate;
 
     public Creature(String name, int maxHealth, double positionX, double positionY) {
