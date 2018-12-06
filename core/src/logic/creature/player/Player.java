@@ -56,11 +56,7 @@ public class Player extends Creature implements Controllable {
             }
         }
         
-        // reset all KeyPressed(s)
-        keyClass.left_KeyPressed = false;
-        keyClass.right_KeyPressed = false;
-        keyClass.up_KeyPressed = false;
-        keyClass.down_KeyPressed = false;
+        resetKey();
     }
 
     @Override

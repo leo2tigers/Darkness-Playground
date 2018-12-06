@@ -1,6 +1,8 @@
 package logic;
 
-public abstract class GameObject {
+import com.badlogic.gdx.scenes.scene2d.Actor;
+
+public abstract class GameObject extends Actor {
     public double positionX;
     public double positionY;
 

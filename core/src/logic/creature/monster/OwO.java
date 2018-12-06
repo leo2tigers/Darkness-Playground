@@ -4,6 +4,9 @@ import logic.*;
 
 public class OwO extends Monster {
 	
+	static String img_path_stand = ClassLoader.getSystemResource("Monsters/Normal OwO/new_owo.png").getPath();
+	static String img_path_jump = ClassLoader.getSystemResource("Monsters/Normal OwO/new_owo_jump.png").getPath();
+	
     public OwO(String name, double positionX, double positionY) {
         super("OwO-" + name, 1, positionX, positionY);
     }

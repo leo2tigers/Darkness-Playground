@@ -10,6 +10,12 @@ public interface Controllable {
 				up_KeyPressed = false, 
 				down_KeyPressed = false;
 	}
-	Key keyClass = new Key();
+	final Key keyClass = new Key();
+	default public void resetKey() {
+		keyClass.left_KeyPressed = false;
+		keyClass.right_KeyPressed = false; 
+		keyClass.up_KeyPressed = false; 
+		keyClass.down_KeyPressed = false;
+	}
 	abstract public void keyPressed(String key);
 }
