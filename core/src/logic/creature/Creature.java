@@ -1,4 +1,4 @@
-package logic;
+package logic.creature;
 
 import logic.GameMap;
 import logic.GameObject;
@@ -146,15 +146,8 @@ public abstract class Creature extends GameObject {
      * This method is used to begin an Attack Event if the creature is  alive and attackable.
      */
     public void attack() {
-<<<<<<< HEAD:core/src/logic/Creature.java
-        if (attackable && isAlive()) {
-        	
-        	attack_prepare();
-
-=======
         if (isAlive()) {
         	attack_prepare();
->>>>>>> master:core/src/logic/creature/Creature.java
             if (attackable) {
                 attackDate = new Date();
                 Thread attackThread = new Thread(() -> {
@@ -182,12 +175,8 @@ public abstract class Creature extends GameObject {
         }
     }
 
-<<<<<<< HEAD:core/src/logic/Creature.java
-    protected abstract String attack_prepare();
-=======
     protected abstract void attack_prepare();
 
->>>>>>> master:core/src/logic/creature/Creature.java
     protected abstract void attackMethod();
 
     public String getPosition() {

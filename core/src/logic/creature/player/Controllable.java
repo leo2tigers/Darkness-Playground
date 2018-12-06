@@ -1,7 +1,7 @@
 /**
  * This Controllable interface represents GameObject's controllable properties.
  */
-package logic.player;
+package logic.creature.player;
 
 public interface Controllable {
 	class Key{

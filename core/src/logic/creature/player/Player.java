@@ -1,4 +1,3 @@
-<<<<<<< HEAD:core/src/logic/player/Player.java
 /**
  * The Player class represents a player character controlled by a player.
  * 
@@ -6,13 +5,10 @@
  * @version 0.0
  * @since 12/04/2018
  */
-=======
 package logic.creature.player;
->>>>>>> master:core/src/logic/creature/player/Player.java
 
-package logic.player;
 
-import logic.Creature;
+import logic.creature.Creature;
 
 public class Player extends Creature implements Controllable {
     public Gun gun;

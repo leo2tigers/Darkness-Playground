@@ -1,12 +1,7 @@
 package logic;
 
-<<<<<<< HEAD
-import logic.monster.Monster;
-import logic.player.Player;
-=======
 import logic.creature.monster.Monster;
 import logic.creature.player.Player;
->>>>>>> master
 
 import java.util.*;
 

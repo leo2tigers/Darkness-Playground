@@ -1,12 +1,7 @@
 package logic;
 
-<<<<<<< HEAD
-import logic.monster.Monster;
-=======
-import java.util.Date;
-
+import java.util.*;
 import logic.creature.monster.Monster;
->>>>>>> master
 
 public class Projectile extends GameObject {
 	private double orientation;
