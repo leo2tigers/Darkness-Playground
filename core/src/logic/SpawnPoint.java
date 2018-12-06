@@ -1,7 +1,12 @@
 package logic;
 
+<<<<<<< HEAD
 import logic.monster.Monster;
 import logic.monster.MonsterType;
+=======
+import logic.creature.monster.Monster;
+import logic.creature.monster.MonsterType;
+>>>>>>> master
 
 public class SpawnPoint extends GameObject {
     private int spawnCount = 0;

@@ -5,13 +5,21 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.darknessplayground.game.DarknessPlayground;
 
+import logic.GameMap;
+import logic.creature.player.Player;
+
 public class MainGame implements Screen {
 	
 	private DarknessPlayground game;
+	
+	private GameMap map;
+	private Player player;
 
 	public MainGame(DarknessPlayground game) {
 		// TODO Auto-generated constructor stub
 		this.game = game;
+		this.map = new GameMap();
+		this.player = new Player(); //To be implemented
 		
 	}
 

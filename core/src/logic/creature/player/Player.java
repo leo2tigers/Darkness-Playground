@@ -1,3 +1,4 @@
+<<<<<<< HEAD:core/src/logic/player/Player.java
 /**
  * The Player class represents a player character controlled by a player.
  * 
@@ -5,6 +6,9 @@
  * @version 0.0
  * @since 12/04/2018
  */
+=======
+package logic.creature.player;
+>>>>>>> master:core/src/logic/creature/player/Player.java
 
 package logic.player;
 
@@ -64,13 +68,13 @@ public class Player extends Creature implements Controllable {
     }
 
     @Override
-    protected String attack_prepare() {
-        if (gun.ammo != 0) {
-            return gun.type;
-        } else {
+    protected void attack_prepare() {
+        if (attackable && gun.ammo != 0) {
+        } else if (!gun.reloading) {
             attackable = false;
             gun.reload();
-            return gun.type + " reload";
+        } else {
+        	gun.reload_interrupt();
         }
     }
 
@@ -81,6 +85,6 @@ public class Player extends Creature implements Controllable {
 
 	public void setGun(Gun gun) {
 		this.gun = gun;
-		this.gun.owner = this;
+		gun.owner = this;
 	}
 }

@@ -1,7 +1,12 @@
 package logic;
 
+<<<<<<< HEAD
 import logic.monster.Monster;
 import logic.player.Player;
+=======
+import logic.creature.monster.Monster;
+import logic.creature.player.Player;
+>>>>>>> master
 
 import java.util.*;
 
@@ -9,8 +14,8 @@ public class GameMap {
 
     private ArrayList<SpawnPoint> spawnPoints = new ArrayList<SpawnPoint>();
 
-    private Player player;
-    public final ArrayList<GameObject> gameObjects = new ArrayList<>();
+    public Player player;
+    public final ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
 
     public GameMap() {}
 
@@ -40,4 +45,8 @@ public class GameMap {
         Monster monster = spawnPoint.spawn();
         add(monster);
     }
+
+	public void remove(GameObject gameObject) {
+		gameObjects.remove(gameObject);
+	}
 }

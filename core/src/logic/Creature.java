@@ -146,10 +146,15 @@ public abstract class Creature extends GameObject {
      * This method is used to begin an Attack Event if the creature is  alive and attackable.
      */
     public void attack() {
+<<<<<<< HEAD:core/src/logic/Creature.java
         if (attackable && isAlive()) {
         	
         	attack_prepare();
 
+=======
+        if (isAlive()) {
+        	attack_prepare();
+>>>>>>> master:core/src/logic/creature/Creature.java
             if (attackable) {
                 attackDate = new Date();
                 Thread attackThread = new Thread(() -> {
@@ -157,7 +162,6 @@ public abstract class Creature extends GameObject {
                     // preAnimation delay
                     attackable = false;
                     Date newDate = new Date();
-
                     while (newDate.getTime() - attackDate.getTime() <= preDelay) {
                         newDate = new Date();
                     }
@@ -168,19 +172,22 @@ public abstract class Creature extends GameObject {
                     // postAnimation delay
                     attackDate = new Date();
                     newDate = new Date();
-
                     while (newDate.getTime() - attackDate.getTime() <= postDelay) {
                         newDate = new Date();
                     }
                     attackable = true;
-
                 });
                 attackThread.start();
             }
         }
     }
 
+<<<<<<< HEAD:core/src/logic/Creature.java
     protected abstract String attack_prepare();
+=======
+    protected abstract void attack_prepare();
+
+>>>>>>> master:core/src/logic/creature/Creature.java
     protected abstract void attackMethod();
 
     public String getPosition() {
