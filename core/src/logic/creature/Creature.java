@@ -51,11 +51,13 @@ public abstract class Creature extends GameObject {
      * @return Tile
      */
     private Tile overlapTile(URect movementBox) {
-        for (GameObject tile : map.gameObjects) {
-            if (tile instanceof Tile && movementBox.overlap((URect) tile)) {
-                return (Tile) tile;
-            }
-        }
+    	if (map != null) {
+	        for (GameObject tile : map.gameObjects) {
+	            if (tile instanceof Tile && movementBox.overlap((URect) tile)) {
+	                return (Tile) tile;
+	            }
+	        }
+    	}
         return null;
     }
 

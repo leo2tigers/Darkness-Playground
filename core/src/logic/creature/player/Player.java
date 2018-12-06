@@ -66,8 +66,19 @@ public class Player extends Creature implements Controllable {
 
 	public void setGun(Gun gun) {
 		this.gun = gun;
-		gun.owner = this;
-		this.preDelay = this.gun.preDelay;
-		this.postDelay = this.gun.postDelay;
+		if (this.gun != null) {
+			this.gun.owner = this;
+			this.preDelay = this.gun.preDelay;
+			this.postDelay = this.gun.postDelay;
+		} else {
+			this.preDelay = 0;
+			this.postDelay = 0;
+			this.attackable = false;
+		}
+	}
+	
+	@Override
+	public String toString() {
+		return super.toString() + " , " + (gun != null ? gun : "unarmed");
 	}
 }
