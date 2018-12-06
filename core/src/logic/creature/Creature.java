@@ -9,23 +9,24 @@ import java.util.Date;
 
 public abstract class Creature extends GameObject {
 
+    public final String name;
+    
     public int health;
-    private int maxHealth;
-    private int armour = 0;
-    protected int attackPower;
     public int orientation = 1;
+    private int maxHealth;
+    protected int armour = 0;
+    protected int attackPower;
 
-    public final String name ;
     public double speedX;
-    protected double speedY = 0;
-    private double jumping_speed = 50;
+    public double speedY = 0;
+    public double jumping_speed = 50;
     public URect hitBox, movementBox;
     public GameMap map;
     public Tile current_tile;
     public boolean jumping = false;
-    protected boolean movable = true;
+    public boolean movable = true;
     public boolean attackable = true;
-    private int preDelay = 100, postDelay = 100;
+    public int preDelay = 100, postDelay = 100;
     private Date attackDate;
 
     public Creature(String name, int maxHealth, double positionX, double positionY) {

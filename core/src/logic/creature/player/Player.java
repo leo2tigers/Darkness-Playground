@@ -14,8 +14,15 @@ public class Player extends Creature implements Controllable {
     public Gun gun;
 
 
-    public Player(String name, int maxHealth, double positionX, double positionY, Gun gun) {
-        super(name, maxHealth, positionX, positionY);
+    public Player(String name, double positionX, double positionY, Gun gun) {
+        super(name, PlayerStats.MAX_HEALTH, positionX, positionY);
+        this.armour = PlayerStats.ARMOUR;
+        this.speedX = PlayerStats.MOVEMENT_SPEED;
+        this.jumping_speed = PlayerStats.JUMPING_SPEED;
+        this.setHitBox(PlayerStats.HitBox.RELATIVE_X, PlayerStats.HitBox.RELATIVE_Y, 
+        		       PlayerStats.HitBox.WIDTH, PlayerStats.HitBox.HEIGHT);
+        this.setMovementBox(PlayerStats.MovementBox.RELATIVE_X, PlayerStats.MovementBox.RELATIVE_Y, 
+        		            PlayerStats.MovementBox.WIDTH, PlayerStats.MovementBox.HEIGHT);
         this.setGun(gun);
         setupInputListener(this);
     }
@@ -60,5 +67,7 @@ public class Player extends Creature implements Controllable {
 	public void setGun(Gun gun) {
 		this.gun = gun;
 		gun.owner = this;
+		this.preDelay = this.gun.preDelay;
+		this.postDelay = this.gun.postDelay;
 	}
 }

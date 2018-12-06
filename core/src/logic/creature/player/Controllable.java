@@ -13,7 +13,8 @@ public interface Controllable {
 		boolean left = false, 
 				right = false, 
 				up = false, 
-				down = false;
+				down = false, 
+				attack = false;
 	}
 	final Key key = new Key();
 	final Key prev_key = new Key();
@@ -33,6 +34,9 @@ public interface Controllable {
 				}
 				if (keycode == Input.Keys.DOWN) {
 					key.down = true;
+				}
+				if (keycode == Input.Keys.Z) {
+					key.attack = true;
 				}
 				return true;
 			}
