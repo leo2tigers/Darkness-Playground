@@ -20,6 +20,8 @@ public class FlameThrower extends Gun {
             reloading = false;
             owner.attackable = true;
         });
+        this.preDelay = 0;
+        this.postDelay = 0;
 	}
 
 	@Override
