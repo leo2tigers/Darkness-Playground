@@ -17,46 +17,28 @@ public class Player extends Creature implements Controllable {
     public Player(String name, int maxHealth, double positionX, double positionY, Gun gun) {
         super(name, maxHealth, positionX, positionY);
         this.setGun(gun);
-    }
-
-    @Override
-    public void keyPressed(String key) {
-        if (key.equals("LEFT")) {
-            orientation = -1;
-            keyClass.left_KeyPressed = true;
-        }
-        if (key.equals("RIGHT")) {
-            orientation = 1;
-            keyClass.right_KeyPressed = true;
-        }
-        if (key.equals("UP")) {
-        	keyClass.up_KeyPressed = true;
-        }
-        if (key.equals("DOWN")) {
-        	keyClass.down_KeyPressed = true;
-        }
-        move();
+        setupInputListener(this);
     }
 
     @Override
     public void move() {
         if (
-                (keyClass.left_KeyPressed && keyClass.right_KeyPressed)
-                || (!keyClass.left_KeyPressed && !keyClass.right_KeyPressed)
+                (key.left && key.right)
+                || (!key.left && !key.right)
                 || !movable
                 || !isAlive()
         ) {
             if (speedY != 0) translate(0, speedY);
         }else {
             translate(speedX * orientation, speedY);
-            if (keyClass.up_KeyPressed && !jumping) {
+            if (key.up && !jumping) {
                 jump();
-            }else if (keyClass.down_KeyPressed && !jumping) {
+            }else if (key.down && !jumping) {
                 jump_down();
             }
         }
         
-        resetKey();
+        nextKey();
     }
 
     @Override
