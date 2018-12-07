@@ -20,34 +20,13 @@ public class Player extends Creature {
     public Player(String name, double positionX, double positionY, Gun gun) {
         super(name, PlayerStats.MAX_HEALTH, positionX, positionY, new Texture("player_w-pistol_run2.png"));
         this.armour = PlayerStats.ARMOUR;
-        this.speedX = PlayerStats.MOVEMENT_SPEED;
+        this.speedX = 0;
         this.jumping_speed = PlayerStats.JUMPING_SPEED;
         this.setHitBox(PlayerStats.HitBox.RELATIVE_X, PlayerStats.HitBox.RELATIVE_Y, 
         		       PlayerStats.HitBox.WIDTH, PlayerStats.HitBox.HEIGHT);
         this.setMovementBox(PlayerStats.MovementBox.RELATIVE_X, PlayerStats.MovementBox.RELATIVE_Y, 
         		            PlayerStats.MovementBox.WIDTH, PlayerStats.MovementBox.HEIGHT);
         this.setGun(gun);
-    }
-
-    @Override
-    public void move() {/*
-        if (
-                (key.left && key.right)
-                || (!key.left && !key.right)
-                || !movable
-                || !isAlive()
-        ) {
-            if (speedY != 0) translate(0, speedY);
-        }else {
-            translate(speedX * orientation, speedY);
-            if (key.up && !jumping) {
-                jump();
-            }else if (key.down && !jumping) {
-                jump_down();
-            }
-        }
-        
-        nextKey();*/
     }
 
     @Override
@@ -87,5 +66,15 @@ public class Player extends Creature {
 	public void render(SpriteBatch batch)
 	{
 		batch.draw(this.img, (float)positionX, (float)positionY);
+	}
+
+	public void moveLeft() {
+		this.speedX = -PlayerStats.MOVEMENT_SPEED;
+		this.orientation = -1;
+	}
+
+	public void moveRigth() {
+		this.speedX = PlayerStats.MOVEMENT_SPEED;
+		this.orientation = 1;
 	}
 }
