@@ -11,23 +11,23 @@ import com.badlogic.gdx.graphics.Texture;
 
 public abstract class Creature extends GameObject {
 
+    public final String name;
+    
     public int health;
-    private int maxHealth;
-    private int armour = 0;
-    protected int attackPower;
     public int orientation = 1;
-
-    public final String name ;
+    public int maxHealth;
+    public int armour = 0;
+    public int attackPower;
     public double speedX;
-    protected double speedY = 0;
-    private double jumping_speed = 50;
+    public double speedY = 0;
+    public double jumping_speed = 50;
+    public boolean jumping = false;
+    public boolean movable = true;
+    public boolean attackable = true;
+    public int preDelay = 100, postDelay = 100;
     public URect hitBox, movementBox;
     public GameMap map;
     public Tile current_tile;
-    public boolean jumping = false;
-    protected boolean movable = true;
-    public boolean attackable = true;
-    private int preDelay = 100, postDelay = 100;
     private Date attackDate;
     
     protected Texture img;
@@ -50,12 +50,19 @@ public abstract class Creature extends GameObject {
         this.current_tile = overlapTile(movementBox);
     }
 
+    /**
+     * This method is used to find the overlapped tile.
+     * @param movementBox
+     * @return Tile
+     */
     private Tile overlapTile(URect movementBox) {
-        for (GameObject tile : map.gameObjects) {
-            if (tile instanceof Tile && movementBox.overlap((URect) tile)) {
-                return (Tile) tile;
-            }
-        }
+    	if (map != null) {
+	        for (GameObject tile : map.gameObjects) {
+	            if (tile instanceof Tile && movementBox.overlap((URect) tile)) {
+	                return (Tile) tile;
+	            }
+	        }
+    	}
         return null;
     }
 
@@ -81,6 +88,14 @@ public abstract class Creature extends GameObject {
 
     public boolean isAlive() {return health > 0;}
 
+    /**
+     * This method is used to translate the creature and its components
+     * by create new movementBox and check whether it overlap any tile.
+     * If there is any overlapped tile, the new position will be on that tile.
+     * @param x
+     * @param y
+     * @return
+     */
     protected double[] translate(double x, double y) {
         double new_positionX = positionX + x;
         double new_positionY = positionY + y;
@@ -110,6 +125,7 @@ public abstract class Creature extends GameObject {
     public void move(){
         //TODO move()
     }
+    
     protected void jump() {
         jumping = true;
         speedY = jumping_speed;
@@ -133,6 +149,9 @@ public abstract class Creature extends GameObject {
         move();
     }
 
+    /**
+     * This method is used to begin an Attack Event if the creature is  alive and attackable.
+     */
     public void attack() {
         if (isAlive()) {
         	attack_prepare();

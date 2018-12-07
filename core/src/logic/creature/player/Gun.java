@@ -7,6 +7,8 @@ abstract public class Gun {
     int max_ammo, ammo, reload_time;
     protected Thread reloadThread;
     private final boolean reload_interruptable;
+	public int preDelay;
+	public int postDelay;
     
     Gun(String type, int max_ammo, int reload_time, boolean reload_interruptable) {
 		super();

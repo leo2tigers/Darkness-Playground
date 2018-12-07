@@ -15,7 +15,7 @@ public class TestLauncher {
 		config.width = DarknessPlayground.WIDTH;
 		config.height = DarknessPlayground.HEIGHT;
 		config.resizable = false;
-		Player player = new Player("player one", 5, 0.0, 0.0, new Pistol());
+		Player player = new Player("player one", 0.0, 0.0, new Pistol());
 		new LwjglApplication(new PlayerMonitor(player), config);
 	}
 }

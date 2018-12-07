@@ -6,11 +6,12 @@ import logic.*;
 
 public class OwO extends Monster {
 	
-	protected Texture atkImg;
-	protected Texture jumpImg;
+
+	static String img_path_stand = ClassLoader.getSystemResource("Monsters/Normal OwO/new_owo.png").getPath();
+	static String img_path_jump = ClassLoader.getSystemResource("Monsters/Normal OwO/new_owo_jump.png").getPath();
 	
-    public OwO(String name, int maxHealth, double positionX, double positionY, Texture img) {
-        super("OwO-" + name, 1, positionX, positionY, img);
+    public OwO(String name, double positionX, double positionY) {
+        super("OwO-" + name, 1, positionX, positionY);
     }
     
     public OwO(String name,int maxHealth, double positionX, double positionY, Texture img, Texture atkImg, Texture jumpImg) {

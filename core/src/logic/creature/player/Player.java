@@ -1,59 +1,55 @@
+/**
+ * The Player class represents a player character controlled by a player.
+ * 
+ * @author 13thFloorGuy
+ * @version 0.0
+ * @since 12/04/2018
+ */
 package logic.creature.player;
 
 import com.badlogic.gdx.graphics.Texture;
 
 import logic.creature.Creature;
 
-public class Player extends Creature {
+import logic.creature.Creature;
 
-    private boolean left_KeyPressed, right_KeyPressed, up_KeyPressed, down_KeyPressed;
+public class Player extends Creature implements Controllable {
     public Gun gun;
 
 
-    public Player(String name, int maxHealth, double positionX, double positionY, Gun gun, Texture img) {
-        super(name, maxHealth, positionX, positionY, img);
-        this.setGun(gun);
-    }
 
-    public void keyPressed(String key) {
-        if (key.equals("LEFT")) {
-            orientation = -1;
-            left_KeyPressed = true;
-        }
-        if (key.equals("RIGHT")) {
-            orientation = 1;
-            right_KeyPressed = true;
-        }
-        if (key.equals("UP")) {
-            up_KeyPressed = true;
-        }
-        if (key.equals("DOWN")) {
-            down_KeyPressed = true;
-        }
-        move();
+    public Player(String name, double positionX, double positionY, Gun gun) {
+        super(name, PlayerStats.MAX_HEALTH, positionX, positionY);
+        this.armour = PlayerStats.ARMOUR;
+        this.speedX = PlayerStats.MOVEMENT_SPEED;
+        this.jumping_speed = PlayerStats.JUMPING_SPEED;
+        this.setHitBox(PlayerStats.HitBox.RELATIVE_X, PlayerStats.HitBox.RELATIVE_Y, 
+        		       PlayerStats.HitBox.WIDTH, PlayerStats.HitBox.HEIGHT);
+        this.setMovementBox(PlayerStats.MovementBox.RELATIVE_X, PlayerStats.MovementBox.RELATIVE_Y, 
+        		            PlayerStats.MovementBox.WIDTH, PlayerStats.MovementBox.HEIGHT);
+        this.setGun(gun);
+        setupInputListener(this);
     }
 
     @Override
     public void move() {
         if (
-                (left_KeyPressed && right_KeyPressed)
-                        || (!left_KeyPressed && !right_KeyPressed)
-                        || !movable
-                        || !isAlive()
+                (key.left && key.right)
+                || (!key.left && !key.right)
+                || !movable
+                || !isAlive()
         ) {
             if (speedY != 0) translate(0, speedY);
         }else {
             translate(speedX * orientation, speedY);
-            if (up_KeyPressed && !jumping) {
+            if (key.up && !jumping) {
                 jump();
-            }else if (down_KeyPressed && !jumping) {
+            }else if (key.down && !jumping) {
                 jump_down();
             }
         }
-        left_KeyPressed = false;
-        right_KeyPressed = false;
-        up_KeyPressed = false;
-        down_KeyPressed = false;
+        
+        nextKey();
     }
 
     @Override
@@ -74,6 +70,19 @@ public class Player extends Creature {
 
 	public void setGun(Gun gun) {
 		this.gun = gun;
-		gun.owner = this;
+		if (this.gun != null) {
+			this.gun.owner = this;
+			this.preDelay = this.gun.preDelay;
+			this.postDelay = this.gun.postDelay;
+		} else {
+			this.preDelay = 0;
+			this.postDelay = 0;
+			this.attackable = false;
+		}
+	}
+	
+	@Override
+	public String toString() {
+		return super.toString() + " , " + (gun != null ? gun : "unarmed");
 	}
 }

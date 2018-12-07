@@ -5,13 +5,21 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.darknessplayground.game.DarknessPlayground;
 
+import logic.*;
+import logic.creature.player.*;
+
 public class MainGame implements Screen {
 	
 	private DarknessPlayground game;
+	
+	private GameMap map;
+	private Player player;
 
 	public MainGame(DarknessPlayground game) {
 		// TODO Auto-generated constructor stub
 		this.game = game;
+		this.map = new GameMap();
+		this.player = new Player("player one", 0, 0, new Pistol()); //To be implemented
 		
 	}
 
@@ -34,10 +42,7 @@ public class MainGame implements Screen {
 	}
 
 	@Override
-	public void resize(int width, int height) {
-		// Game Window is not resizable, so left this blank.
-
-	}
+	public void resize(int width, int height) {/*Game Window cannot be resized, so left this blank.*/}
 
 	@Override
 	public void pause() {
