@@ -86,6 +86,6 @@ public class Player extends Creature {
 	
 	public void render(SpriteBatch batch)
 	{
-		batch.draw(this.img, 400, 100);
+		batch.draw(this.img, (float)positionX, (float)positionY);
 	}
 }
