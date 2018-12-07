@@ -53,19 +53,19 @@ public class Player extends Creature {
     }
 
     @Override
-    protected void attack_prepare() {
+    protected void attack_prepare() {/*
         if (attackable && gun.ammo != 0) {
-        } else if (!gun.reloading) {
+        } else if (!gun.reloading && gun.ammo == 0) {
             attackable = false;
             gun.reload();
         } else {
         	gun.reload_interrupt();
-        }
+        }*/
     }
 
     @Override
     protected void attackMethod() {
-        gun.fire();
+        gun.fire_method();
     }
     
     @Override

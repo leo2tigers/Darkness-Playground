@@ -28,7 +28,7 @@ public class Shotgun extends Gun {
     }
 
     @Override
-    public void fire() {
+    public void fire_method() {
         int damage = 1;
         URect firstBox = new URect(owner.positionX + 50*owner.orientation, owner.positionY, 25, 25);
         URect secondBox = new URect(owner.positionX + 75*owner.orientation, owner.positionY, 50, 50);

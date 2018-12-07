@@ -12,7 +12,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
-public abstract class Creature extends GameObject implements IRenderable {
+public abstract class Creature extends GameObject /*implements IRenderable*/ {
 
     public final String name;
     
@@ -32,6 +32,7 @@ public abstract class Creature extends GameObject implements IRenderable {
     public URect hitBox, movementBox;
     public GameMap map;
     public Tile current_tile;
+    public String status = "NORMAL";
     private Date attackDate;
     
     protected Texture img;
@@ -136,8 +137,10 @@ public abstract class Creature extends GameObject implements IRenderable {
     }
     
     public void jump() {
-        jumping = true;
-        speedY = jumping_speed;
+        if (!jumping) {
+        	jumping = true;
+        	speedY = jumping_speed;
+        }
     }
     protected void jump_down() {
         jumping = true;
@@ -152,7 +155,7 @@ public abstract class Creature extends GameObject implements IRenderable {
 
     public void update() {
         if (jumping) {
-            double gravity = 1;
+            double gravity = 1000;
             speedY -= gravity;
         }
         move();
@@ -168,7 +171,7 @@ public abstract class Creature extends GameObject implements IRenderable {
             if (attackable) {
                 attackDate = new Date();
                 Thread attackThread = new Thread(() -> {
-
+                	status = "ATTACKING";
                     // preAnimation delay
                     attackable = false;
                     Date newDate = new Date();
@@ -186,6 +189,7 @@ public abstract class Creature extends GameObject implements IRenderable {
                         newDate = new Date();
                     }
                     attackable = true;
+                    status = "NORMAL";
                 });
                 attackThread.start();
             }

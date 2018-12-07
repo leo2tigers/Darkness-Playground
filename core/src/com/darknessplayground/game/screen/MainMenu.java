@@ -29,15 +29,13 @@ public class MainMenu implements Screen {
 	private Texture exitButtonInActive;
 
 	public MainMenu(DarknessPlayground game) {
-		// TODO Auto-generated constructor stub
 		this.game = game;
 	}
 
 	@Override
 	public void show() {
-		// TODO Auto-generated method stub
-		String bgPath = ClassLoader.getSystemResource("MainMenuBG.png").getPath();
-		this.bg = new Texture(bgPath.substring(bgPath.lastIndexOf("/")+1));
+		//String bgPath = ClassLoader.getSystemResource("MainMenuBG.png").getPath();
+		this.bg = new Texture(/*bgPath.substring(bgPath.lastIndexOf("/")+1)*/"MainMenuBG.png");
 		this.gameTitle = new Texture("Menu/GameTitle.png");
 		this.playButtonActive = new Texture("Menu/PlayBtnNewActive.png");
 		this.playButtonInActive = new Texture("Menu/PlayBtnNew.png");
@@ -47,7 +45,6 @@ public class MainMenu implements Screen {
 
 	@Override
 	public void render(float delta) {
-		// TODO Auto-generated method stub
 		Gdx.gl.glClearColor(0.1f, 0.1f, 0.22f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		

@@ -1,7 +1,5 @@
 package logic.creature.player;
 
-import com.badlogic.gdx.graphics.Texture;
-
 import logic.Projectile;
 
 public class Pistol extends Gun {
@@ -20,16 +18,16 @@ public class Pistol extends Gun {
             reloading = false;
             owner.attackable = true;
         });
-        this.preDelay = 500;
-        this.postDelay = 500;
+        this.preDelay = 100;
+        this.postDelay = 100;
     }
 
     @Override
-    public void fire() {
+    public void fire_method() {
         int damage = 1;
         owner.map.add(new Projectile(owner.positionX, owner.positionY, 
-        		                     /*width*/10, /*height*/10, 
+        		                     /*width*/20, /*height*/20, 
         		                     owner.orientation, /*speed*/25, 
-        		                     /*lifetime*/50, damage, Projectile.TO_MONSTER, new Texture("Bullets/pistol_bullet.png")));
+        		                     /*lifetime*/5000, damage, Projectile.TO_MONSTER, /*new Texture("Bullets/pistol_bullet.png")*/null));
     }
 }

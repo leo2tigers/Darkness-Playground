@@ -41,7 +41,6 @@ public class MainGame implements Screen {
 	public void show() {
 		// TODO Auto-generated method stub
 		this.map.setPlayer(this.player);
-		System.out.println(this.map.getTiles().get(0));
 	}
 
 	@Override
@@ -65,14 +64,19 @@ public class MainGame implements Screen {
 		}
 		
 		handleInput();
-		String information = this.player.toString() + "\n";
-		information += "Tiles : \n";
+		String information = ">> " + this.player.toString() + 
+				             "\n    - osition = " + this.player.getPosition() + 
+				             "\n    - Attackable = " + this.player.attackable +
+				             "\n    - Gun = " + this.player.gun +
+				             "\n    - Status = " + this.player.status +
+				             "\n";
+		information += ">> Tiles : \n";
 		for (Tile tile : this.map.getTiles()) {
-			information += "    " + tile.toString();
+			information += "    - " + tile.toString();
 		}
-		information += "GameObjects : \n";
+		information += "\n>> GameObjects : \n";
 		for (GameObject gameObject : this.map.gameObjects) {
-			information += "    " + gameObject.toString();
+			information += "    - " + gameObject.toString();
 		}
 		GlyphLayout label = new GlyphLayout(this.debugFont, information);
         
@@ -138,6 +142,7 @@ public class MainGame implements Screen {
 		{
 			//this.player.attack();
 			this.player.inCombat();
+			this.player.attack();
 		}
 		
 		if(Gdx.input.isKeyJustPressed(Keys.F1))

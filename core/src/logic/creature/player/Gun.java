@@ -24,9 +24,16 @@ abstract public class Gun {
 	public void reload() {
 		reloadThread.start();
 	}
-    abstract public void fire();
+	
+    public void fire() {
+    	if (ammo!= 0) {
+    		fire_method();
+    	}
+    }
 
-    @Override
+    abstract void fire_method();
+
+	@Override
     public String toString() {
         return type + ": " + ammo + " / " + max_ammo;
     }
