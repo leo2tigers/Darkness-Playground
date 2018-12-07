@@ -16,6 +16,6 @@ public abstract class PlayerStats {
 		public static final double WIDTH = 100;
 		public static final double HEIGHT = 10;
 		public static final double RELATIVE_X = 0;
-		public static final double RELATIVE_Y = -75;
+		public static final double RELATIVE_Y = -5;
 	}
 }
