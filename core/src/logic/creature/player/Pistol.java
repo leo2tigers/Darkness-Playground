@@ -1,5 +1,7 @@
 package logic.creature.player;
 
+import com.badlogic.gdx.graphics.Texture;
+
 import logic.Projectile;
 
 public class Pistol extends Gun {
@@ -28,6 +30,6 @@ public class Pistol extends Gun {
         owner.map.add(new Projectile(owner.positionX, owner.positionY, 
         		                     /*width*/10, /*height*/10, 
         		                     owner.orientation, /*speed*/25, 
-        		                     /*lifetime*/50, damage, Projectile.TO_MONSTER));
+        		                     /*lifetime*/50, damage, Projectile.TO_MONSTER, new Texture("Bullets/pistol_bullet.png")));
     }
 }
