@@ -2,12 +2,13 @@ package logic.creature.monster;
 
 import com.badlogic.gdx.graphics.Texture;
 
+import logic.GameMap;
 import logic.Projectile;
 
 public class OwO_Ranger extends OwO {
 
-	public OwO_Ranger(String name, double positionX, double positionY) {
-		super("Ranger-" + name, 2, positionX, positionY, new Texture("Monsters/Ranged OwO/new_ranged_owo.png"), new Texture("Monsters/Ranged OwO/new_ranged_owo_attack.png"), new Texture("Monsters/Ranged OwO/new_ranged_owo_jump.png"));
+	public OwO_Ranger(GameMap map, String name, double positionX, double positionY) {
+		super(map, "Ranger-" + name, 2, positionX, positionY, new Texture("Monsters/Ranged OwO/new_ranged_owo.png"), new Texture("Monsters/Ranged OwO/new_ranged_owo_attack.png"), new Texture("Monsters/Ranged OwO/new_ranged_owo_jump.png"));
 	}
 
 	@Override

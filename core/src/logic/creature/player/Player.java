@@ -7,18 +7,24 @@
  */
 package logic.creature.player;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import logic.GameMap;
 import logic.creature.Creature;
 
 public class Player extends Creature {
     public Gun gun;
+    private float timeOutOfCombat;
+    private float timeSinceLastRegen;
+    private int xp;
+    private int xpToCurrentLevel;
+    private int xpToNextLevel;
+    private int level;
 
-
-
-    public Player(String name, double positionX, double positionY, Gun gun) {
-        super(name, PlayerStats.MAX_HEALTH, positionX, positionY, new Texture("player_w-pistol_run2.png"));
+    public Player(GameMap map, String name, double positionX, double positionY, Gun gun) {
+        super(map, name, PlayerStats.MAX_HEALTH, positionX, positionY, new Texture("player_w-pistol_run2.png"));
         this.armour = PlayerStats.ARMOUR;
         this.speedX = 0;
         this.jumping_speed = PlayerStats.JUMPING_SPEED;
@@ -27,6 +33,23 @@ public class Player extends Creature {
         this.setMovementBox(PlayerStats.MovementBox.RELATIVE_X, PlayerStats.MovementBox.RELATIVE_Y, 
         		            PlayerStats.MovementBox.WIDTH, PlayerStats.MovementBox.HEIGHT);
         this.setGun(gun);
+        this.timeOutOfCombat = 0;
+        this.timeSinceLastRegen = 0;
+        this.xp = 0;
+        this.level = 1;
+        this.xpToCurrentLevel = 0;
+        this.xpToNextLevel = 200;
+    }
+    
+    @Override
+    public void update() {
+        if (jumping) {
+            double gravity = 1;
+            speedY -= gravity;
+        }
+        move();
+        this.speedX = 0;
+        this.regenHP(Gdx.graphics.getDeltaTime());
     }
 
     @Override
@@ -43,6 +66,12 @@ public class Player extends Creature {
     @Override
     protected void attackMethod() {
         gun.fire();
+    }
+    
+    @Override
+    public void getHit(int damage) {
+        setHealth(getHealth() - (damage - armour > 0 ? damage - armour : 0));
+        this.inCombat();
     }
 
 	public void setGun(Gun gun) {
@@ -63,6 +92,7 @@ public class Player extends Creature {
 		return super.toString() + " , " + (gun != null ? gun : "unarmed");
 	}
 	
+	@Override
 	public void render(SpriteBatch batch)
 	{
 		batch.draw(this.img, (float)positionX, (float)positionY);
@@ -73,8 +103,57 @@ public class Player extends Creature {
 		this.orientation = -1;
 	}
 
-	public void moveRigth() {
+	public void moveRight() {
 		this.speedX = PlayerStats.MOVEMENT_SPEED;
 		this.orientation = 1;
+	}
+	
+	public void regenHP(float dt)
+	{
+		this.timeOutOfCombat += dt;
+		if(this.timeOutOfCombat >= 5)
+		{
+			this.timeSinceLastRegen += dt;
+			if(this.timeSinceLastRegen >= 1)
+			{
+				this.timeSinceLastRegen -= 1;
+				if(this.timeOutOfCombat < 10)
+				{
+					this.setHealth(this.getHealth() + 1);
+				}
+				else
+				{
+					this.setHealth(this.getHealth() + 2);
+				}
+			}
+		}
+	}
+	
+	public void xpFromTime(int xp)
+	{
+		this.addXp(xp);
+	}
+	
+	public void inCombat()
+	{
+		this.timeOutOfCombat = 0;
+		this.timeSinceLastRegen = 0;
+	}
+	
+	public void addXp(int xp)
+	{
+		this.xp += xp;
+		if(this.xp >= this.xpToNextLevel)
+		{
+			this.level++;
+			this.xpToCurrentLevel = this.xpToNextLevel;
+			this.xpToNextLevel = this.calculateXpToNextLevel(this.xpToCurrentLevel);
+		}
+	}
+	
+	private int calculateXpToNextLevel(int lastLevelXp)
+	{
+		int multiplier = (this.level - (this.level % 10)) / 10;
+		return lastLevelXp + 200 + (100*multiplier);
 	}
 }

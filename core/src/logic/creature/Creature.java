@@ -9,9 +9,10 @@ import java.util.Date;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
-public abstract class Creature extends GameObject {
+public abstract class Creature extends GameObject implements IRenderable {
 
     public final String name;
     
@@ -26,7 +27,8 @@ public abstract class Creature extends GameObject {
     public boolean jumping = false;
     public boolean movable = true;
     public boolean attackable = true;
-    public int preDelay = 100, postDelay = 100;
+    public int preDelay = 100;
+    public int postDelay = 100;
     public URect hitBox, movementBox;
     public GameMap map;
     public Tile current_tile;
@@ -34,7 +36,8 @@ public abstract class Creature extends GameObject {
     
     protected Texture img;
 
-    public Creature(String name, int maxHealth, double positionX, double positionY, Texture img) {
+    public Creature(GameMap map, String name, int maxHealth, double positionX, double positionY, Texture img) {
+    	this.map = map;
         this.name = name;
         this.maxHealth = maxHealth;
         this.health = maxHealth;
@@ -72,7 +75,7 @@ public abstract class Creature extends GameObject {
         setHealth(getHealth() - (damage - armour > 0 ? damage - armour : 0));
     }
 
-    private int getHealth() {
+    public int getHealth() {
         return health;
     }
 
@@ -80,7 +83,7 @@ public abstract class Creature extends GameObject {
         return maxHealth;
     }
 
-    private void setHealth(int health) {
+    public void setHealth(int health) {
         this.health = health > 0 ? (health < maxHealth ? health : maxHealth) : 0;
     }
 
@@ -88,7 +91,9 @@ public abstract class Creature extends GameObject {
         this.maxHealth = maxHealth > 1 ? maxHealth : 1;
     }
 
-    public boolean isAlive() {return health > 0;}
+    public boolean isAlive() {
+    	return health > 0;
+    }
 
     /**
      * This method is used to translate the creature and its components
@@ -190,6 +195,8 @@ public abstract class Creature extends GameObject {
     protected abstract void attack_prepare();
 
     protected abstract void attackMethod();
+    
+    public abstract void render(SpriteBatch batch);
 
     public String getPosition() {
         return "( " + positionX + " , " + positionY + " )";

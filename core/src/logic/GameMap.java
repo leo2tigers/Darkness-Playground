@@ -4,8 +4,6 @@ import logic.creature.monster.Monster;
 import logic.creature.player.Player;
 
 import java.util.*;
-import java.util.function.Function;
-
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -13,8 +11,11 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 public class GameMap {
 
     private ArrayList<SpawnPoint> spawnPoints = new ArrayList<SpawnPoint>();
-    public ArrayList<Tile> tiles;
+    private ArrayList<Tile> tiles;
     private ArrayList<Projectile> projectiles;
+    private ArrayList<Monster> monsters;
+    private ArrayList<Projectile> projectilesToRemove;
+    private ArrayList<Monster> monstersToRemove;
 
     public Player player;
     public final ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
@@ -22,6 +23,9 @@ public class GameMap {
     public GameMap() {
     	this.tiles = new ArrayList<Tile>();
     	this.projectiles = new ArrayList<Projectile>();
+    	this.monsters = new ArrayList<Monster>();
+    	this.projectilesToRemove = new ArrayList<Projectile>();
+    	this.monstersToRemove = new ArrayList<Monster>();
     	this.tiles.add(new Tile(0, 0, 1200, 100, new Texture("Tiles/playground_floor.png")));
     }
 
@@ -65,6 +69,19 @@ public class GameMap {
 		return projectiles;
 	}
 	
+	public ArrayList<Monster> getMonsters()
+	{
+		return monsters;
+	}
+	
+	public ArrayList<Projectile> getProjectilesToRemove() {
+		return projectilesToRemove;
+	}
+
+	public ArrayList<Monster> getMonstersToRemove() {
+		return monstersToRemove;
+	}
+
 	public void render(SpriteBatch batch)
 	{
 		for (Tile t : this.tiles) {
