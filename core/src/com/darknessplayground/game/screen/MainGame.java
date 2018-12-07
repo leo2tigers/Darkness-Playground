@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.darknessplayground.game.DarknessPlayground;
 
@@ -16,20 +18,26 @@ public class MainGame implements Screen {
 	
 	private GameMap map;
 	private Player player;
+	private BitmapFont debugFont;
+	
+	private boolean infoDebugActive;
+	private boolean rectDebugActive;
 
 	public MainGame(DarknessPlayground game) {
 		// TODO Auto-generated constructor stub
 		this.game = game;
 		this.map = new GameMap();
-		this.player = new Player("player one", 400, 100, new Pistol()); //To be implemented
-		
+		this.player = new Player("player_one", 400, 100, new Pistol()); //To be implemented
+		this.debugFont = new BitmapFont();
+		this.infoDebugActive = false;
+		this.rectDebugActive = false;
 	}
 
 	@Override
 	public void show() {
 		// TODO Auto-generated method stub
 		this.map.setPlayer(this.player);
-
+		System.out.println(this.map.getTiles().get(0));
 	}
 
 	@Override
@@ -45,16 +53,26 @@ public class MainGame implements Screen {
 		}
 		
 		handleInput();
-		System.out.println("x" + player.speedY);
-        System.out.println("sx" + player.getX());
-        System.out.println("sy" + player.getY());
+		String information = this.player.toString() + "\n";
+		information += "Tiles : \n";
+		for (Tile tile : this.map.tiles) {
+			information += "    " + tile.toString();
+		}
+		information += "GameObjects : \n";
+		for (GameObject gameObject : this.map.gameObjects) {
+			information += "    " + gameObject.toString();
+		}
+		GlyphLayout label = new GlyphLayout(this.debugFont, information);
+        
+        this.map.updateAll();
 		
 		this.game.batch.begin();
 		this.map.render(this.game.batch);
+		if(this.infoDebugActive) this.debugFont.draw(this.game.batch, label, 0, Gdx.graphics.getHeight() - 15);
 		this.game.batch.end();
 
 		this.game.shapeRenderer.begin(ShapeType.Line);
-		this.map.render(this.game.shapeRenderer);
+		if(this.rectDebugActive) this.map.render(this.game.shapeRenderer);
 		this.game.shapeRenderer.end();
 	}
 
@@ -93,20 +111,29 @@ public class MainGame implements Screen {
 		}
 		else if(Gdx.input.isKeyJustPressed(Keys.DOWN))
 		{
-			
+			//
 		}
 		
 		if(Gdx.input.isKeyPressed(Keys.LEFT))
 		{
-			
+			this.player.moveLeft();
 		}
 		if(Gdx.input.isKeyPressed(Keys.RIGHT))
 		{
-			
+			this.player.moveRigth();
 		}
 		if(Gdx.input.isKeyPressed(Keys.SPACE))
 		{
-			
+			//this.player.attack();
+		}
+		
+		if(Gdx.input.isKeyJustPressed(Keys.F1))
+		{
+			this.infoDebugActive = (this.infoDebugActive) ? false : true;
+		}
+		if(Gdx.input.isKeyJustPressed(Keys.F2))
+		{
+			this.rectDebugActive = (this.rectDebugActive) ? false : true;
 		}
 	}
 
