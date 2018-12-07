@@ -39,10 +39,10 @@ public class MainMenu implements Screen {
 		String bgPath = ClassLoader.getSystemResource("MainMenuBG.png").getPath();
 		this.bg = new Texture(bgPath.substring(bgPath.lastIndexOf("/")+1));
 		this.gameTitle = new Texture("Menu/GameTitle.png");
-		this.playButtonActive = new Texture("Menu/PlayBtnActive.png");
-		this.playButtonInActive = new Texture("Menu/PlayBtnInactive.png");
-		this.exitButtonActive = new Texture("Menu/ExitBtnActive.png");
-		this.exitButtonInActive = new Texture("Menu/ExitBtnInactive.png");
+		this.playButtonActive = new Texture("Menu/PlayBtnNewActive.png");
+		this.playButtonInActive = new Texture("Menu/PlayBtnNew.png");
+		this.exitButtonActive = new Texture("Menu/ExitBtnNewActive.png");
+		this.exitButtonInActive = new Texture("Menu/ExitBtnNew.png");
 	}
 
 	@Override
