@@ -16,6 +16,7 @@ public class SpawnPoint extends GameObject {
     public Monster spawn() {
     	// TODO spawn
 		return null;
+
     }
 
     @Override

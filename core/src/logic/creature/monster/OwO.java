@@ -1,9 +1,12 @@
 package logic.creature.monster;
 
+import com.badlogic.gdx.graphics.Texture;
+
 import logic.*;
 
 public class OwO extends Monster {
 	
+
 	static String img_path_stand = ClassLoader.getSystemResource("Monsters/Normal OwO/new_owo.png").getPath();
 	static String img_path_jump = ClassLoader.getSystemResource("Monsters/Normal OwO/new_owo_jump.png").getPath();
 	
@@ -11,8 +14,10 @@ public class OwO extends Monster {
         super("OwO-" + name, 1, positionX, positionY);
     }
     
-    public OwO(String name,int health, double positionX, double positionY) {
-        super("OwO-" + name, health, positionX, positionY);
+    public OwO(String name,int maxHealth, double positionX, double positionY, Texture img, Texture atkImg, Texture jumpImg) {
+        super("OwO-" + name, maxHealth, positionX, positionY, img);
+        this.atkImg = atkImg;
+        this.jumpImg = jumpImg;
     }
     
     @Override

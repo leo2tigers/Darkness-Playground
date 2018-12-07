@@ -7,11 +7,15 @@
  */
 package logic.creature.player;
 
+import com.badlogic.gdx.graphics.Texture;
+
+import logic.creature.Creature;
 
 import logic.creature.Creature;
 
 public class Player extends Creature implements Controllable {
     public Gun gun;
+
 
 
     public Player(String name, double positionX, double positionY, Gun gun) {

@@ -1,6 +1,10 @@
 package logic;
 
 import java.util.*;
+
+import com.badlogic.gdx.graphics.Texture;
+
+
 import logic.creature.monster.Monster;
 
 public class Projectile extends GameObject {
@@ -13,11 +17,13 @@ public class Projectile extends GameObject {
 	private int damage_check_type;
     public static final int TO_MONSTER = 0;
 	public static final int TO_PLAYER = 1;
+	
+	private Texture img;
 
     public Projectile(double positionX, double positionY, 
     		          double width, double height, 
     		          double orientation, double speed, 
-    		          int lifetime, int damage, int damage_check_type) {
+    		          int lifetime, int damage, int damage_check_type, Texture img) {
         this.positionX = positionX;
         this.positionY = positionY;
         this.orientation = orientation;
@@ -26,6 +32,7 @@ public class Projectile extends GameObject {
         this.damage = damage;
         this.damage_check_type = damage_check_type;
         this.damageBox = new URect(positionX, positionY, width, height);
+        this.img = img;
     }
 
     @Override

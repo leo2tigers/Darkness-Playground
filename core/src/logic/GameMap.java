@@ -8,15 +8,21 @@ import java.util.*;
 public class GameMap {
 
     private ArrayList<SpawnPoint> spawnPoints = new ArrayList<SpawnPoint>();
+    private ArrayList<Tile> tiles;
+    private ArrayList<Projectile> projectiles;
 
     public Player player;
     public final ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
 
-    public GameMap() {}
+    public GameMap() {
+    	this.tiles = new ArrayList<Tile>();
+    	this.projectiles = new ArrayList<Projectile>();
+    }
 
     public void setPlayer(Player player) {
         this.player = player;
         player.map = this;
+        
     }
 
     public void add(GameObject gameObject) {
@@ -43,5 +49,13 @@ public class GameMap {
 
 	public void remove(GameObject gameObject) {
 		gameObjects.remove(gameObject);
+	}
+
+	public ArrayList<Tile> getTiles() {
+		return tiles;
+	}
+
+	public ArrayList<Projectile> getProjectiles() {
+		return projectiles;
 	}
 }
