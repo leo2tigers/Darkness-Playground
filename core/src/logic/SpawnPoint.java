@@ -1,5 +1,7 @@
 package logic;
 
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+
 import logic.creature.monster.Monster;
 import logic.creature.monster.MonsterType;
 
@@ -23,4 +25,9 @@ public class SpawnPoint extends GameObject {
     public void update() {
         return;
     }
+
+	@Override
+	public void shapeRender(ShapeRenderer shapeRenderer) {
+		shapeRenderer.rect((float) positionX, (float) positionY, 100, 100);
+	}
 }

@@ -8,6 +8,7 @@ import logic.URect;
 import java.util.Date;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public abstract class Creature extends GameObject {
 
@@ -188,5 +189,11 @@ public abstract class Creature extends GameObject {
 
     public String getPosition() {
         return "( " + positionX + " , " + positionY + " )";
+    }
+
+    @Override
+    public void shapeRender(ShapeRenderer shapeRenderer) {
+    	this.hitBox.shapeRender(shapeRenderer);
+    	this.movementBox.shapeRender(shapeRenderer);
     }
 }

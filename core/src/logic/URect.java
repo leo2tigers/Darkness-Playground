@@ -1,5 +1,6 @@
 package logic;
 
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 
 public class URect extends GameObject {
@@ -39,4 +40,9 @@ public class URect extends GameObject {
     public void update() {
         return;
     }
+
+	@Override
+	public void shapeRender(ShapeRenderer shapeRenderer) {
+		shapeRenderer.rect((float) (positionX - width/2), (float) (positionY - height/2), (float) width, (float) height);
+	}
 }

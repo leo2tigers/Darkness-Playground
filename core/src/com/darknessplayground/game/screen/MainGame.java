@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.darknessplayground.game.DarknessPlayground;
 
 import logic.*;
@@ -42,6 +43,10 @@ public class MainGame implements Screen {
 			this.dispose();
 			this.game.toMainMenu();
 		}
+		
+		this.game.shapeRenderer.begin(ShapeType.Line);
+		this.map.render(this.game.shapeRenderer);
+		this.game.shapeRenderer.end();
 		
 		this.game.batch.begin();
 		this.map.render(this.game.batch);

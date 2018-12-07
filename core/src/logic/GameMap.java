@@ -7,6 +7,7 @@ import java.util.*;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class GameMap {
 
@@ -65,10 +66,16 @@ public class GameMap {
 	
 	public void render(SpriteBatch batch)
 	{
-		for(Tile t : this.tiles)
-		{
+		for (Tile t : this.tiles) {
 			t.render(batch);
 		}
 		this.player.render(batch);
+	}
+
+	public void render(ShapeRenderer shapeRenderer) {
+		for (GameObject gameObject : this.gameObjects) {
+			gameObject.shapeRender(shapeRenderer);
+		}
+		player.shapeRender(shapeRenderer);
 	}
 }

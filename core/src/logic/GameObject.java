@@ -1,5 +1,6 @@
 package logic;
 
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public abstract class GameObject extends Actor {
@@ -13,4 +14,5 @@ public abstract class GameObject extends Actor {
     }
     GameMap map;
     abstract public void update();
+	abstract public void shapeRender(ShapeRenderer shapeRenderer);
 }

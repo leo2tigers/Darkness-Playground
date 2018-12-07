@@ -2,6 +2,7 @@ package com.darknessplayground.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.darknessplayground.game.screen.*;
 
 public class DarknessPlayground extends Game {
@@ -9,10 +10,13 @@ public class DarknessPlayground extends Game {
 	public static final int HEIGHT = 720;
 	
 	public SpriteBatch batch;
+	public ShapeRenderer shapeRenderer;
+	public boolean rectDebugging = true;
 	
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
+		shapeRenderer = new ShapeRenderer();
 		toMainMenu();
 	}
 

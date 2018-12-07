@@ -3,7 +3,8 @@ package logic;
 import java.util.*;
 
 import com.badlogic.gdx.graphics.Texture;
-
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.scenes.scene2d.ui.Widget;
 
 import logic.creature.monster.Monster;
 
@@ -71,4 +72,9 @@ public class Projectile extends GameObject {
     		map.player.getHit(damage);
     	}
     }
+
+	@Override
+	public void shapeRender(ShapeRenderer shapeRenderer) {
+		damageBox.shapeRender(shapeRenderer);
+	}
 }
