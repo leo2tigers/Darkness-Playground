@@ -21,7 +21,7 @@ public class MainGame implements Screen {
 		// TODO Auto-generated constructor stub
 		this.game = game;
 		this.map = new GameMap();
-		this.player = new Player("player one", 0, 0, new Pistol()); //To be implemented
+		this.player = new Player("player one", 400, 100, new Pistol()); //To be implemented
 		
 	}
 
@@ -44,14 +44,18 @@ public class MainGame implements Screen {
 			this.game.toMainMenu();
 		}
 		
-		this.game.shapeRenderer.begin(ShapeType.Line);
-		this.map.render(this.game.shapeRenderer);
-		this.game.shapeRenderer.end();
+		handleInput();
+		System.out.println("x" + player.speedY);
+        System.out.println("sx" + player.getX());
+        System.out.println("sy" + player.getY());
 		
 		this.game.batch.begin();
 		this.map.render(this.game.batch);
 		this.game.batch.end();
 
+		this.game.shapeRenderer.begin(ShapeType.Line);
+		this.map.render(this.game.shapeRenderer);
+		this.game.shapeRenderer.end();
 	}
 
 	@Override
@@ -81,6 +85,29 @@ public class MainGame implements Screen {
 
 	}
 	
-	
+	private void handleInput()
+	{
+		if(Gdx.input.isKeyJustPressed(Keys.UP))
+		{
+			this.player.jump();
+		}
+		else if(Gdx.input.isKeyJustPressed(Keys.DOWN))
+		{
+			
+		}
+		
+		if(Gdx.input.isKeyPressed(Keys.LEFT))
+		{
+			
+		}
+		if(Gdx.input.isKeyPressed(Keys.RIGHT))
+		{
+			
+		}
+		if(Gdx.input.isKeyPressed(Keys.SPACE))
+		{
+			
+		}
+	}
 
 }
