@@ -128,7 +128,7 @@ public abstract class Creature extends GameObject {
         //TODO move()
     }
     
-    protected void jump() {
+    public void jump() {
         jumping = true;
         speedY = jumping_speed;
     }
