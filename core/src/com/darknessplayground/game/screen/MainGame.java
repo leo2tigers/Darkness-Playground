@@ -125,6 +125,7 @@ public class MainGame implements Screen {
 		if(Gdx.input.isKeyPressed(Keys.SPACE))
 		{
 			//this.player.attack();
+			this.player.inCombat();
 		}
 		
 		if(Gdx.input.isKeyJustPressed(Keys.F1))
