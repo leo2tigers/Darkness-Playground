@@ -55,7 +55,7 @@ public class MainGame implements Screen {
 		handleInput();
 		String information = this.player.toString() + "\n";
 		information += "Tiles : \n";
-		for (Tile tile : this.map.tiles) {
+		for (Tile tile : this.map.getTiles()) {
 			information += "    " + tile.toString();
 		}
 		information += "GameObjects : \n";
