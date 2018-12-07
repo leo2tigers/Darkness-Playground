@@ -5,6 +5,9 @@ import logic.creature.player.Player;
 
 import java.util.*;
 
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
 public class GameMap {
 
     private ArrayList<SpawnPoint> spawnPoints = new ArrayList<SpawnPoint>();
@@ -17,6 +20,7 @@ public class GameMap {
     public GameMap() {
     	this.tiles = new ArrayList<Tile>();
     	this.projectiles = new ArrayList<Projectile>();
+    	this.tiles.add(new Tile(0, 0, 1200, 100, new Texture("Tiles/playground_floor.png")));
     }
 
     public void setPlayer(Player player) {
@@ -57,5 +61,14 @@ public class GameMap {
 
 	public ArrayList<Projectile> getProjectiles() {
 		return projectiles;
+	}
+	
+	public void render(SpriteBatch batch)
+	{
+		for(Tile t : this.tiles)
+		{
+			t.render(batch);
+		}
+		this.player.render(batch);
 	}
 }
