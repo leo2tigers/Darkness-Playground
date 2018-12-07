@@ -14,6 +14,8 @@ public class GameMap {
     private ArrayList<Tile> tiles;
     private ArrayList<Projectile> projectiles;
     private ArrayList<Monster> monsters;
+    private ArrayList<Projectile> projectilesToRemove;
+    private ArrayList<Monster> monstersToRemove;
 
     public Player player;
     public final ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
@@ -22,6 +24,8 @@ public class GameMap {
     	this.tiles = new ArrayList<Tile>();
     	this.projectiles = new ArrayList<Projectile>();
     	this.monsters = new ArrayList<Monster>();
+    	this.projectilesToRemove = new ArrayList<Projectile>();
+    	this.monstersToRemove = new ArrayList<Monster>();
     	this.tiles.add(new Tile(0, 0, 1200, 100, new Texture("Tiles/playground_floor.png")));
     }
 
@@ -70,6 +74,14 @@ public class GameMap {
 		return monsters;
 	}
 	
+	public ArrayList<Projectile> getProjectilesToRemove() {
+		return projectilesToRemove;
+	}
+
+	public ArrayList<Monster> getMonstersToRemove() {
+		return monstersToRemove;
+	}
+
 	public void render(SpriteBatch batch)
 	{
 		for (Tile t : this.tiles) {

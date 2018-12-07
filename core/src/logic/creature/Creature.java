@@ -36,7 +36,8 @@ public abstract class Creature extends GameObject implements IRenderable {
     
     protected Texture img;
 
-    public Creature(String name, int maxHealth, double positionX, double positionY, Texture img) {
+    public Creature(GameMap map, String name, int maxHealth, double positionX, double positionY, Texture img) {
+    	this.map = map;
         this.name = name;
         this.maxHealth = maxHealth;
         this.health = maxHealth;

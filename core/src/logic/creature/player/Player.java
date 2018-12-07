@@ -11,15 +11,20 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import logic.GameMap;
 import logic.creature.Creature;
 
 public class Player extends Creature {
     public Gun gun;
     private float timeOutOfCombat;
     private float timeSinceLastRegen;
+    private int xp;
+    private int xpToCurrentLevel;
+    private int xpToNextLevel;
+    private int level;
 
-    public Player(String name, double positionX, double positionY, Gun gun) {
-        super(name, PlayerStats.MAX_HEALTH, positionX, positionY, new Texture("player_w-pistol_run2.png"));
+    public Player(GameMap map, String name, double positionX, double positionY, Gun gun) {
+        super(map, name, PlayerStats.MAX_HEALTH, positionX, positionY, new Texture("player_w-pistol_run2.png"));
         this.armour = PlayerStats.ARMOUR;
         this.speedX = 0;
         this.jumping_speed = PlayerStats.JUMPING_SPEED;
@@ -30,6 +35,10 @@ public class Player extends Creature {
         this.setGun(gun);
         this.timeOutOfCombat = 0;
         this.timeSinceLastRegen = 0;
+        this.xp = 0;
+        this.level = 1;
+        this.xpToCurrentLevel = 0;
+        this.xpToNextLevel = 200;
     }
     
     @Override
@@ -120,9 +129,31 @@ public class Player extends Creature {
 		}
 	}
 	
+	public void xpFromTime()
+	{
+		this.addXp(4);
+	}
+	
 	public void inCombat()
 	{
 		this.timeOutOfCombat = 0;
 		this.timeSinceLastRegen = 0;
+	}
+	
+	public void addXp(int xp)
+	{
+		this.xp += xp;
+		if(this.xp >= this.xpToNextLevel)
+		{
+			this.level++;
+			this.xpToCurrentLevel = this.xpToNextLevel;
+			this.xpToNextLevel = this.calculateXpToNextLevel(this.xpToCurrentLevel);
+		}
+	}
+	
+	private int calculateXpToNextLevel(int lastLevelXp)
+	{
+		int multiplier = (this.level - (this.level % 10)) / 10;
+		return lastLevelXp + 200 + (100*multiplier);
 	}
 }
