@@ -1,5 +1,6 @@
 package logic.creature.player;
 
+import logic.GameMap;
 import logic.creature.Creature;
 
 public class Monitor {
@@ -37,7 +38,7 @@ public class Monitor {
 	}
 	
 	public static void main(String[] args) {
-		Player player_one = new Player("player one", 0., 0.,null);
+		Player player_one = new Player(new GameMap(), "player one", 0., 0.,null);
 		Monitor monitor = new Monitor(player_one);
 		System.out.println(player_one);
 		System.out.println(monitor);

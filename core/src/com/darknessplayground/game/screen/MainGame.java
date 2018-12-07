@@ -22,15 +22,17 @@ public class MainGame implements Screen {
 	
 	private boolean infoDebugActive;
 	private boolean rectDebugActive;
+	private float timeForPassiveXp;
 
 	public MainGame(DarknessPlayground game) {
 		// TODO Auto-generated constructor stub
 		this.game = game;
 		this.map = new GameMap();
-		this.player = new Player("player_one", 400, 100, new Pistol()); //To be implemented
+		this.player = new Player(this.map, "player_one", 400, 100, new Pistol()); //To be implemented
 		this.debugFont = new BitmapFont();
 		this.infoDebugActive = false;
 		this.rectDebugActive = false;
+		this.timeForPassiveXp = 0;
 	}
 
 	@Override
@@ -41,7 +43,7 @@ public class MainGame implements Screen {
 	}
 
 	@Override
-	public void render(float delta) {
+	public void render(float dt) {
 		// TODO Auto-generated method stub
 		Gdx.gl.glClearColor(0.1f, 0.1f, 0.22f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -50,6 +52,13 @@ public class MainGame implements Screen {
 		{
 			this.dispose();
 			this.game.toMainMenu();
+		}
+		
+		this.timeForPassiveXp += dt;
+		if(this.timeForPassiveXp >= 1)
+		{
+			this.timeForPassiveXp--;
+			this.player.xpFromTime();
 		}
 		
 		handleInput();
