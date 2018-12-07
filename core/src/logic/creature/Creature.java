@@ -47,7 +47,7 @@ public abstract class Creature extends GameObject {
 
     public void setMovementBox(double relativeX, double relativeY, double width, double height) {
         this.movementBox = new URect(positionX + relativeX, positionY + relativeY, width, height);
-        this.current_tile = overlapTile(movementBox);
+        //this.current_tile = overlapTile(movementBox);
     }
 
     /**
