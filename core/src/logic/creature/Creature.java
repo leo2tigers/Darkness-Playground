@@ -9,6 +9,7 @@ import java.util.Date;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public abstract class Creature extends GameObject {
@@ -190,6 +191,8 @@ public abstract class Creature extends GameObject {
     protected abstract void attack_prepare();
 
     protected abstract void attackMethod();
+    
+    public abstract void render(SpriteBatch batch);
 
     public String getPosition() {
         return "( " + positionX + " , " + positionY + " )";

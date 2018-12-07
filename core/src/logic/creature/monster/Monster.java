@@ -1,10 +1,11 @@
 package logic.creature.monster;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import logic.creature.Creature;
 
-public class Monster extends Creature {
+public abstract class Monster extends Creature {
 
     public Monster(String name, int maxHealth, double positionX, double positionY, Texture img) {
         super(name, maxHealth, positionX, positionY, img);
@@ -18,4 +19,5 @@ public class Monster extends Creature {
     protected void attackMethod() {
 
     }
+
 }

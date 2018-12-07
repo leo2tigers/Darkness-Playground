@@ -1,6 +1,7 @@
 package logic.creature.monster;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import logic.*;
 
@@ -29,4 +30,10 @@ public class OwO extends Monster {
     		map.player.getHit(1);
     	}
     }
+
+	@Override
+	public void render(SpriteBatch batch) {
+		batch.draw(this.img, this.getX(), this.getY());
+		
+	}
 }

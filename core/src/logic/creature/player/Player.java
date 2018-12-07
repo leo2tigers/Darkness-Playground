@@ -63,6 +63,7 @@ public class Player extends Creature {
 		return super.toString() + " , " + (gun != null ? gun : "unarmed");
 	}
 	
+	@Override
 	public void render(SpriteBatch batch)
 	{
 		batch.draw(this.img, (float)positionX, (float)positionY);
