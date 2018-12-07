@@ -12,7 +12,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import logic.creature.Creature;
 
-public class Player extends Creature implements IControllable {
+public class Player extends Creature {
     public Gun gun;
 
 
@@ -27,11 +27,10 @@ public class Player extends Creature implements IControllable {
         this.setMovementBox(PlayerStats.MovementBox.RELATIVE_X, PlayerStats.MovementBox.RELATIVE_Y, 
         		            PlayerStats.MovementBox.WIDTH, PlayerStats.MovementBox.HEIGHT);
         this.setGun(gun);
-        setupInputListener(this);
     }
 
     @Override
-    public void move() {
+    public void move() {/*
         if (
                 (key.left && key.right)
                 || (!key.left && !key.right)
@@ -48,7 +47,7 @@ public class Player extends Creature implements IControllable {
             }
         }
         
-        nextKey();
+        nextKey();*/
     }
 
     @Override
