@@ -74,7 +74,7 @@ public abstract class Creature extends GameObject implements IRenderable {
         setHealth(getHealth() - (damage - armour > 0 ? damage - armour : 0));
     }
 
-    private int getHealth() {
+    public int getHealth() {
         return health;
     }
 
@@ -82,7 +82,7 @@ public abstract class Creature extends GameObject implements IRenderable {
         return maxHealth;
     }
 
-    private void setHealth(int health) {
+    public void setHealth(int health) {
         this.health = health > 0 ? (health < maxHealth ? health : maxHealth) : 0;
     }
 
@@ -90,7 +90,9 @@ public abstract class Creature extends GameObject implements IRenderable {
         this.maxHealth = maxHealth > 1 ? maxHealth : 1;
     }
 
-    public boolean isAlive() {return health > 0;}
+    public boolean isAlive() {
+    	return health > 0;
+    }
 
     /**
      * This method is used to translate the creature and its components

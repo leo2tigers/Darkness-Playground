@@ -7,6 +7,7 @@
  */
 package logic.creature.player;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -14,8 +15,8 @@ import logic.creature.Creature;
 
 public class Player extends Creature {
     public Gun gun;
-
-
+    private float timeOutOfCombat;
+    private float timeSinceLastRegen;
 
     public Player(String name, double positionX, double positionY, Gun gun) {
         super(name, PlayerStats.MAX_HEALTH, positionX, positionY, new Texture("player_w-pistol_run2.png"));
@@ -27,6 +28,19 @@ public class Player extends Creature {
         this.setMovementBox(PlayerStats.MovementBox.RELATIVE_X, PlayerStats.MovementBox.RELATIVE_Y, 
         		            PlayerStats.MovementBox.WIDTH, PlayerStats.MovementBox.HEIGHT);
         this.setGun(gun);
+        this.timeOutOfCombat = 0;
+        this.timeSinceLastRegen = 0;
+    }
+    
+    @Override
+    public void update() {
+        if (jumping) {
+            double gravity = 1;
+            speedY -= gravity;
+        }
+        move();
+        this.speedX = 0;
+        this.regenHP(Gdx.graphics.getDeltaTime());
     }
 
     @Override
@@ -43,6 +57,12 @@ public class Player extends Creature {
     @Override
     protected void attackMethod() {
         gun.fire();
+    }
+    
+    @Override
+    public void getHit(int damage) {
+        setHealth(getHealth() - (damage - armour > 0 ? damage - armour : 0));
+        this.inCombat();
     }
 
 	public void setGun(Gun gun) {
@@ -77,5 +97,32 @@ public class Player extends Creature {
 	public void moveRight() {
 		this.speedX = PlayerStats.MOVEMENT_SPEED;
 		this.orientation = 1;
+	}
+	
+	public void regenHP(float dt)
+	{
+		this.timeOutOfCombat += dt;
+		if(this.timeOutOfCombat >= 5)
+		{
+			this.timeSinceLastRegen += dt;
+			if(this.timeSinceLastRegen >= 1)
+			{
+				this.timeSinceLastRegen -= 1;
+				if(this.timeOutOfCombat < 10)
+				{
+					this.setHealth(this.getHealth() + 1);
+				}
+				else
+				{
+					this.setHealth(this.getHealth() + 2);
+				}
+			}
+		}
+	}
+	
+	public void inCombat()
+	{
+		this.timeOutOfCombat = 0;
+		this.timeSinceLastRegen = 0;
 	}
 }
