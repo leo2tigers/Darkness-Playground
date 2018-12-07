@@ -49,7 +49,7 @@ public abstract class Creature extends GameObject {
 
     public void setMovementBox(double relativeX, double relativeY, double width, double height) {
         this.movementBox = new URect(positionX + relativeX, positionY + relativeY, width, height, Color.BLUE);
-        //this.current_tile = overlapTile(movementBox);
+        this.current_tile = overlapTile(movementBox);
     }
 
     /**
@@ -59,7 +59,7 @@ public abstract class Creature extends GameObject {
      */
     private Tile overlapTile(URect movementBox) {
     	if (map != null) {
-	        for (GameObject tile : map.gameObjects) {
+	        for (GameObject tile : map.getTiles()) {
 	            if (tile instanceof Tile && movementBox.overlap((URect) tile)) {
 	                return (Tile) tile;
 	            }
@@ -101,11 +101,11 @@ public abstract class Creature extends GameObject {
     protected double[] translate(double x, double y) {
         double new_positionX = positionX + x;
         double new_positionY = positionY + y;
-
+        
         URect check_movementBox = new URect(movementBox.positionX + x, movementBox.positionY + y, movementBox.width, movementBox.height, Color.BLUE);
 
         Tile check_tile = overlapTile(check_movementBox);
-        System.out.println("\toverlap " + check_movementBox + "\n\t check ---> " + check_tile + "\n\t overlap ? " + check_movementBox.overlap(check_tile));
+        //System.out.println("\toverlap " + check_movementBox + "\n\t check ---> " + check_tile + "\n\t overlap ? " + check_movementBox.overlap(check_tile));
         if (check_movementBox.overlap(check_tile)) {
             new_positionY = check_tile.positionY + check_tile.height/2;
             jumping = false;
@@ -113,7 +113,7 @@ public abstract class Creature extends GameObject {
         }else {
             jumping = true;
         }
-
+		
         movementBox.translate(new_positionX - positionX, new_positionY - positionY);
         hitBox.translate(new_positionX - positionX, new_positionY - positionY);
 
@@ -125,7 +125,9 @@ public abstract class Creature extends GameObject {
 
 
     public void move(){
-        //TODO move()
+        if (movable) {
+        	this.translate(this.speedX,  this.speedY);
+        }
     }
     
     public void jump() {
@@ -145,10 +147,11 @@ public abstract class Creature extends GameObject {
 
     public void update() {
         if (jumping) {
-            double gravity = 10;
+            double gravity = 1;
             speedY -= gravity;
         }
         move();
+        this.speedX = 0;
     }
 
     /**
