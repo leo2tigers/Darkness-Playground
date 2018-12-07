@@ -7,6 +7,7 @@ import logic.URect;
 
 import java.util.Date;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
@@ -43,11 +44,11 @@ public abstract class Creature extends GameObject {
     }
 
     public void setHitBox(double relativeX, double relativeY, double width, double height) {
-        this.hitBox = new URect(positionX + relativeX, positionY + relativeY, width, height);
+        this.hitBox = new URect(positionX + relativeX, positionY + relativeY, width, height, Color.RED);
     }
 
     public void setMovementBox(double relativeX, double relativeY, double width, double height) {
-        this.movementBox = new URect(positionX + relativeX, positionY + relativeY, width, height);
+        this.movementBox = new URect(positionX + relativeX, positionY + relativeY, width, height, Color.BLUE);
         //this.current_tile = overlapTile(movementBox);
     }
 
@@ -101,7 +102,7 @@ public abstract class Creature extends GameObject {
         double new_positionX = positionX + x;
         double new_positionY = positionY + y;
 
-        URect check_movementBox = new URect(movementBox.positionX + x, movementBox.positionY + y, movementBox.width, movementBox.height);
+        URect check_movementBox = new URect(movementBox.positionX + x, movementBox.positionY + y, movementBox.width, movementBox.height, Color.BLUE);
 
         Tile check_tile = overlapTile(check_movementBox);
         System.out.println("\toverlap " + check_movementBox + "\n\t check ---> " + check_tile + "\n\t overlap ? " + check_movementBox.overlap(check_tile));

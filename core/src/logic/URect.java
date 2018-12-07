@@ -1,17 +1,28 @@
 package logic;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 
 public class URect extends GameObject {
     public double width, height;
     public Rectangle rectangle;
-
+    public Color color = null;
+    
     public URect(double positionX, double positionY, double width, double height) {
         this.positionX = positionX;
         this.positionY = positionY;
         this.width = width;
         this.height = height;
+        this.rectangle = new Rectangle((float)positionX, (float)positionY, (float)width, (float)height);
+    }
+
+    public URect(double positionX, double positionY, double width, double height, Color color) {
+        this.positionX = positionX;
+        this.positionY = positionY;
+        this.width = width;
+        this.height = height;
+        this.color = color;
         this.rectangle = new Rectangle((float)positionX, (float)positionY, (float)width, (float)height);
     }
 
@@ -43,6 +54,10 @@ public class URect extends GameObject {
 
 	@Override
 	public void shapeRender(ShapeRenderer shapeRenderer) {
-		shapeRenderer.rect((float) (positionX - width/2), (float) (positionY - height/2), (float) width, (float) height);
+		if (color != null) {
+			shapeRenderer.rect((float) (positionX - width/2), (float) (positionY - height/2), 
+					           (float) width, (float) height,
+					           color, color, color, color);
+		}
 	}
 }
