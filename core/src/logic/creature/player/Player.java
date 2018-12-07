@@ -8,18 +8,17 @@
 package logic.creature.player;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import logic.creature.Creature;
 
-import logic.creature.Creature;
-
-public class Player extends Creature implements Controllable {
+public class Player extends Creature implements IControllable {
     public Gun gun;
 
 
 
     public Player(String name, double positionX, double positionY, Gun gun) {
-        super(name, PlayerStats.MAX_HEALTH, positionX, positionY);
+        super(name, PlayerStats.MAX_HEALTH, positionX, positionY, new Texture("player_w-pistol_run2.png"));
         this.armour = PlayerStats.ARMOUR;
         this.speedX = PlayerStats.MOVEMENT_SPEED;
         this.jumping_speed = PlayerStats.JUMPING_SPEED;
@@ -84,5 +83,10 @@ public class Player extends Creature implements Controllable {
 	@Override
 	public String toString() {
 		return super.toString() + " , " + (gun != null ? gun : "unarmed");
+	}
+	
+	public void render(SpriteBatch batch)
+	{
+		batch.draw(this.img, 400, 100);
 	}
 }
