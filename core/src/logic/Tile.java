@@ -10,7 +10,7 @@ public class Tile extends URect {
     private Texture tilePic;
 
     public Tile(double positionX, double positionY, double width, double height, Texture tilePic) {
-        super(positionX, positionY, width, height);
+        super(positionX + width/2, positionY + height/2, width, height);
         this.tilePic = tilePic;
         id = idCount++;
     }
@@ -22,6 +22,6 @@ public class Tile extends URect {
     
     public void render(SpriteBatch batch)
     {
-    	batch.draw(this.tilePic, 0, 0);
+    	batch.draw(this.tilePic, (float) (this.positionX - width/2), (float) (this.positionY - height/2));
     }
 }
