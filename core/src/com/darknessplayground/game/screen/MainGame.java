@@ -2,6 +2,7 @@ package com.darknessplayground.game.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
 import com.darknessplayground.game.DarknessPlayground;
 
@@ -26,6 +27,7 @@ public class MainGame implements Screen {
 	@Override
 	public void show() {
 		// TODO Auto-generated method stub
+		this.map.setPlayer(this.player);
 
 	}
 
@@ -35,8 +37,14 @@ public class MainGame implements Screen {
 		Gdx.gl.glClearColor(0.1f, 0.1f, 0.22f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
-		this.game.batch.begin();
+		if(Gdx.input.isKeyJustPressed(Keys.ESCAPE))
+		{
+			this.dispose();
+			this.game.toMainMenu();
+		}
 		
+		this.game.batch.begin();
+		this.map.render(this.game.batch);
 		this.game.batch.end();
 
 	}
