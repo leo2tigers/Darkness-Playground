@@ -1,18 +1,23 @@
 package logic;
 
+import com.badlogic.gdx.math.Rectangle;
+
 public class URect extends GameObject {
     public double width, height;
+    public Rectangle rectangle;
 
     public URect(double positionX, double positionY, double width, double height) {
         this.positionX = positionX;
         this.positionY = positionY;
         this.width = width;
         this.height = height;
+        this.rectangle = new Rectangle((float)positionX, (float)positionY, (float)width, (float)height);
     }
 
     public void translate(double x, double y) {
         positionX += x;
         positionY += y;
+        this.rectangle.setPosition((float)positionX, (float)positionY);
     }
 
     public boolean overlap(URect other) {
