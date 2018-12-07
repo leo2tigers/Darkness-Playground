@@ -22,6 +22,7 @@ public class MainGame implements Screen {
 	
 	private boolean infoDebugActive;
 	private boolean rectDebugActive;
+	private float timeSurvived;
 	private float timeForPassiveXp;
 
 	public MainGame(DarknessPlayground game) {
@@ -32,6 +33,7 @@ public class MainGame implements Screen {
 		this.debugFont = new BitmapFont();
 		this.infoDebugActive = false;
 		this.rectDebugActive = false;
+		this.timeSurvived = 0;
 		this.timeForPassiveXp = 0;
 	}
 
@@ -54,11 +56,12 @@ public class MainGame implements Screen {
 			this.game.toMainMenu();
 		}
 		
+		this.timeSurvived += dt;
 		this.timeForPassiveXp += dt;
 		if(this.timeForPassiveXp >= 1)
 		{
 			this.timeForPassiveXp--;
-			this.player.xpFromTime();
+			this.player.xpFromTime(4 + (((int)this.timeSurvived - (int)this.timeSurvived%60)) / 60 * 2);
 		}
 		
 		handleInput();

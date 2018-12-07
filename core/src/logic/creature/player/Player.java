@@ -129,9 +129,9 @@ public class Player extends Creature {
 		}
 	}
 	
-	public void xpFromTime()
+	public void xpFromTime(int xp)
 	{
-		this.addXp(4);
+		this.addXp(xp);
 	}
 	
 	public void inCombat()
