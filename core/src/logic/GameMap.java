@@ -4,6 +4,7 @@ import logic.creature.monster.Monster;
 import logic.creature.player.Player;
 
 import java.util.*;
+import java.util.function.Function;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -12,7 +13,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 public class GameMap {
 
     private ArrayList<SpawnPoint> spawnPoints = new ArrayList<SpawnPoint>();
-    private ArrayList<Tile> tiles;
+    public ArrayList<Tile> tiles;
     private ArrayList<Projectile> projectiles;
 
     public Player player;
@@ -78,4 +79,12 @@ public class GameMap {
 		}
 		player.shapeRender(shapeRenderer);
 	}
+
+	public void updateAll() {
+		for (GameObject gameObject : this.gameObjects) {
+			gameObject.update();
+		}
+		this.player.update();
+	}
+
 }
