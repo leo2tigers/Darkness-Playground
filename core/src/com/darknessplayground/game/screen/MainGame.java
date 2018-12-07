@@ -120,7 +120,7 @@ public class MainGame implements Screen {
 		}
 		if(Gdx.input.isKeyPressed(Keys.RIGHT))
 		{
-			this.player.moveRigth();
+			this.player.moveRight();
 		}
 		if(Gdx.input.isKeyPressed(Keys.SPACE))
 		{

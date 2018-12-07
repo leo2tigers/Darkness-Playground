@@ -74,7 +74,7 @@ public class Player extends Creature {
 		this.orientation = -1;
 	}
 
-	public void moveRigth() {
+	public void moveRight() {
 		this.speedX = PlayerStats.MOVEMENT_SPEED;
 		this.orientation = 1;
 	}
