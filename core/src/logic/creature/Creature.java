@@ -12,7 +12,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
-public abstract class Creature extends GameObject {
+public abstract class Creature extends GameObject implements IRenderable {
 
     public final String name;
     
@@ -27,7 +27,8 @@ public abstract class Creature extends GameObject {
     public boolean jumping = false;
     public boolean movable = true;
     public boolean attackable = true;
-    public int preDelay = 100, postDelay = 100;
+    public int preDelay = 100;
+    public int postDelay = 100;
     public URect hitBox, movementBox;
     public GameMap map;
     public Tile current_tile;
