@@ -28,8 +28,7 @@ public class OwO extends Monster {
     }
     
     @Override
-    protected void attack_prepare() {
-    }
+    protected void attack_prepare() {}
     
     @Override
     protected void attackMethod() {
@@ -50,4 +49,11 @@ public class OwO extends Monster {
 	{
 		player.addXp(30);
 	}
+	
+	public static Spawnable spawnable = new Spawnable() {
+		@Override
+		public Monster spawn(SpawnPoint spawnPoint) {
+			return new OwO(spawnPoint.map, "from_spawn_point_01", Meth.center_random(spawnPoint.positionX, spawnPoint.spawnWidth), spawnPoint.positionY);
+		}
+	};
 }

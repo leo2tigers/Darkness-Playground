@@ -77,6 +77,7 @@ public class Projectile extends GameObject {
         }
         if (nearest != null) {
             nearest.getHit(damage);
+            map.remove(this);
         }
     }
     
@@ -94,7 +95,7 @@ public class Projectile extends GameObject {
 	@Override
 	public void render(SpriteBatch batch) {
 		try {
-			batch.draw(img, (float) positionX, (float) positionY);
+			batch.draw(img, (float) positionX, (float) positionY, (float) damageBox.width, (float) damageBox.height);
 		} catch (NullPointerException npe) {
 			MainGame.sendStatus("rendering delay");
 		}

@@ -12,6 +12,7 @@ import com.darknessplayground.game.DarknessPlayground;
 
 import logic.*;
 import logic.creature.monster.Monster;
+import logic.creature.monster.MonsterType;
 import logic.creature.monster.OwO;
 import logic.creature.player.*;
 
@@ -50,7 +51,7 @@ public class MainGame implements Screen {
 		this.bg = new Texture("playground_background.png");
 		this.map.add(new Tile(Tile.Type.FLOOR, 0, 0, 1280, 100, new Texture("Tiles/playground_floor.png")));
 		this.map.setPlayer(this.player);
-		this.map.add(new OwO(this.map, "ALPHA_TESTER", 100, 100));
+		this.map.addSpawnPoint(new SpawnPoint(MonsterType.OwO_NORMAL, 100, 100));
 	}
 
 	@Override
@@ -73,6 +74,8 @@ public class MainGame implements Screen {
 		}
 		
 		handleInput();
+		
+		// -- information for debugging --
 		information = ">> Game Status : " + status +
 				             "\n>> " + this.player.toString() + 
 				             "\n    - position = " + this.player.getPosition() + 
@@ -84,16 +87,33 @@ public class MainGame implements Screen {
 		for (Tile tile : this.map.getTiles()) {
 			information += "    - " + tile.toString();
 		}
+		information += "\n>> SpawnPoints : ";
+		if (this.map.getSpawnPoints().isEmpty()) {
+			information += " NONE";
+		} else {
+			for (SpawnPoint spawnPoint : this.map.getSpawnPoints()) {
+				information += "\n    - " + spawnPoint;
+			}
+		}
 		information += "\n>> Monsters : ";
-		for (Monster monster : this.map.getMonsters()) {
-			information += "\n    - " + monster.toString() + " , Position : " + monster.getPosition();
+		if (this.map.getMonsters().isEmpty()) {
+			information += " NONE";
+		} else {
+			for (Monster monster : this.map.getMonsters()) {
+				information += "\n    - " + monster.toString() + " , Position : " + monster.getPosition();
+			}
 		}
 		information += "\n>> Projectiles : ";
-		for (Projectile projectile : this.map.getProjectiles()) {
-			information += "\n    - " + projectile.toString();
+		if (this.map.getProjectiles().isEmpty()) {
+			information += " NONE";
+		} else {
+			for (Projectile projectile : this.map.getProjectiles()) {
+				information += "\n    - " + projectile.toString();
+			}
 		}
 		GlyphLayout label = new GlyphLayout(this.debugFont, information);
-        
+        // -- information for debugging --
+		
         this.map.updateAll();
 		
 		this.game.batch.begin();

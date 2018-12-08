@@ -3,6 +3,8 @@ package logic.creature.monster;
 import com.badlogic.gdx.graphics.Texture;
 
 import logic.GameMap;
+import logic.Meth;
+import logic.SpawnPoint;
 import logic.URect;
 
 public class OwO_Freeze extends OwO {
@@ -23,4 +25,10 @@ public class OwO_Freeze extends OwO {
     	}
 	}
 
+	public static Spawnable spawnable = new Spawnable() {
+		@Override
+		public Monster spawn(SpawnPoint spawnPoint) {
+			return new OwO_Freeze(spawnPoint.map, "from_spawn_point_01", Meth.center_random(spawnPoint.positionX, spawnPoint.spawnWidth), spawnPoint.positionY);
+		}
+	};
 }
