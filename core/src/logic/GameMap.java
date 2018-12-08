@@ -99,11 +99,11 @@ public class GameMap {
 	}
 
 	public void updateAll() {
-		for (GameObject gameObject : this.to_be_removed) {
-			gameObjects.remove(gameObject);
-		}
 		for (GameObject gameObject : this.gameObjects) {
 			gameObject.update();
+		}
+		for (GameObject gameObject : this.to_be_removed) {
+			gameObjects.remove(gameObject);
 		}
 		this.player.update();
 	}
