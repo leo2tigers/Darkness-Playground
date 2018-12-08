@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import logic.GameMap;
+import logic.GameProperties;
 import logic.creature.Creature;
 
 public class Player extends Creature {
@@ -44,8 +45,7 @@ public class Player extends Creature {
     @Override
     public void update() {
         if (jumping) {
-            double gravity = 1;
-            speedY -= gravity;
+            speedY -= GameProperties.Constant.GRAVITY;
         }
         move();
         this.speedX = 0;

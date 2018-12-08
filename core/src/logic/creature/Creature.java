@@ -2,6 +2,7 @@ package logic.creature;
 
 import logic.GameMap;
 import logic.GameObject;
+import logic.GameProperties;
 import logic.Tile;
 import logic.URect;
 
@@ -112,7 +113,7 @@ public abstract class Creature extends GameObject {
 
         Tile check_tile = overlapTile(check_movementBox);
         if (check_movementBox.overlap(check_tile)) {
-            new_positionY = check_tile.positionY + check_tile.height/2;
+            new_positionY = check_tile.positionY + check_tile.height;
             jumping = false;
             speedY = 0;
         }else {
@@ -160,8 +161,7 @@ public abstract class Creature extends GameObject {
 
     public void update() {
         if (jumping) {
-            double gravity = 1000;
-            speedY -= gravity;
+            speedY -= GameProperties.Constant.GRAVITY;
         }
         move();
         this.speedX = 0;
