@@ -20,6 +20,7 @@ public class DarknessPlayground extends Game {
 		batch = new SpriteBatch();
 		shapeRenderer = new ShapeRenderer();
 		toMainMenu();
+		//GameOver(0);
 	}
 
 	@Override
