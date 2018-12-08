@@ -34,7 +34,7 @@ public class MainGame implements Screen {
 	private boolean rectDebugActive;
 	private float timeSurvived;
 	private float timeForPassiveXp;
-	private GlyphLayout notice;
+	private String noticeText;
 	private float noticeShowTime;
 
 	private Texture bg;
@@ -52,7 +52,7 @@ public class MainGame implements Screen {
 		this.timeSurvived = 0;
 		this.timeForPassiveXp = 0;
 		this.noticeShowTime = 0;
-		this.notice = new GlyphLayout(noticeFont, "");
+		this.noticeText = "";
 	}
 
 	@Override
@@ -82,9 +82,9 @@ public class MainGame implements Screen {
 		{
 			this.noticeShowTime = 0;
 		}
-		if(this.noticeShowTime <= 0);
+		if(this.noticeShowTime <= 0)
 		{
-			this.notice.setText(this.debugFont, "");
+			this.noticeText = "";
 		}
 		
 		this.timeSurvived += dt;
@@ -141,15 +141,16 @@ public class MainGame implements Screen {
 			}
 		}
 		GlyphLayout label = new GlyphLayout(this.debugFont, information);
+		GlyphLayout notice = new GlyphLayout(noticeFont, this.noticeText);
         // -- information for debugging --
 		
         this.map.updateAll();
-		
+        
 		this.game.batch.begin();
 		this.game.batch.draw(bg, 0, 0, DarknessPlayground.WIDTH, DarknessPlayground.HEIGHT);
 		this.map.render(this.game.batch);
 		if(this.infoDebugActive) this.debugFont.draw(this.game.batch, label, 0, Gdx.graphics.getHeight() - 15);
-		this.noticeFont.draw(this.game.batch, this.notice, Gdx.graphics.getWidth()/2 - this.notice.width/2, this.notice.height+10);
+		this.noticeFont.draw(this.game.batch, notice, Gdx.graphics.getWidth()/2 - notice.width/2, notice.height+10);
 		this.game.batch.end();
 
 		this.game.shapeRenderer.begin(ShapeType.Line);
@@ -258,7 +259,7 @@ public class MainGame implements Screen {
 	public void showNotice(String notice)
 	{
 		this.noticeShowTime = 2;
-		this.notice.setText(debugFont, notice);
+		this.noticeText = notice;
 	}
 
 }
