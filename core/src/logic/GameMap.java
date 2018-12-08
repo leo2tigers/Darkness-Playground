@@ -1,12 +1,10 @@
 package logic;
 
 import logic.creature.monster.Monster;
-import logic.creature.monster.Spawnable;
 import logic.creature.player.Player;
 
 import java.util.ArrayList;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
