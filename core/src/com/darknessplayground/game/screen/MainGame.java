@@ -48,6 +48,7 @@ public class MainGame implements Screen {
 	@Override
 	public void show() {
 		this.bg = new Texture("playground_background.png");
+		this.map.add(new Tile(Tile.Type.FLOOR, 0, 0, 1280, 100, new Texture("Tiles/playground_floor.png")));
 		this.map.setPlayer(this.player);
 		this.map.add(new OwO(this.map, "ALPHA_TESTER", 100, 100));
 	}

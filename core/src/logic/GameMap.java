@@ -19,7 +19,6 @@ public class GameMap {
     public Player player;
 
     public GameMap() {
-    	this.tiles.add(new Tile(Tile.Type.FLOOR, 0, 0, 1200, 100, new Texture("Tiles/playground_floor.png")));
     }
 
     public void setPlayer(Player player) {
@@ -28,6 +27,10 @@ public class GameMap {
         
     }
 
+	public void add(Tile tile) {
+		this.tiles.add(tile);
+	}
+	
 	public void add(Monster monster) {
 		monsters.add(monster);
 		monster.map = this;
@@ -119,5 +122,4 @@ public class GameMap {
 		for_all(projectiles, updating);
 		this.player.update();
 	}
-
 }
