@@ -4,6 +4,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import logic.GameMap;
+import logic.Meth;
+import logic.SpawnPoint;
 import logic.URect;
 import logic.creature.player.Player;
 import logic.creature.player.PlayerStats;
@@ -54,7 +56,7 @@ public class OwO extends Monster {
 	public static Spawnable spawnable = new Spawnable() {
 		@Override
 		public Monster spawn(SpawnPoint spawnPoint) {
-			return new OwO(spawnPoint.map, "from_spawn_point_01", Meth.center_random(spawnPoint.positionX, spawnPoint.spawnWidth), spawnPoint.positionY);
+			return new OwO(spawnPoint.map, "from_spawn_point_01", Meth.center_random(spawnPoint.getX(), spawnPoint.spawnWidth), spawnPoint.getY());
 		}
 	};
 }

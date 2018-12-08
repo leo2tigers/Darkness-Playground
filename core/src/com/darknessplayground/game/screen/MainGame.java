@@ -12,6 +12,7 @@ import com.darknessplayground.game.DarknessPlayground;
 
 import logic.GameMap;
 import logic.Projectile;
+import logic.SpawnPoint;
 import logic.Tile;
 import logic.creature.monster.Monster;
 import logic.creature.monster.MonsterType;
@@ -99,7 +100,7 @@ public class MainGame implements Screen {
 			this.player.setShootingAnimationDelay(0.15f);
 		}
 		
-		handleInput();
+		handleInput(dt);
 		
 		// -- information for debugging --
 		information = ">> Game Status : " + status +

@@ -6,6 +6,7 @@ import logic.creature.IRenderable;
 public abstract class GameObject implements IRenderable {
     protected double positionX;
     protected double positionY;
+    public GameMap map;
 
     public static double getDistance(GameObject first, GameObject second) {
         return Math.sqrt(
