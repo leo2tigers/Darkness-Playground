@@ -86,9 +86,9 @@ public class MainGame implements Screen {
 		
 		this.handlePassiveXp(dt);
 		this.player.setShootingAnimationDelay(Math.max(0, this.player.getShootingAnimationDelay() - dt));
-		if(this.player.getShootingAnimationDelay() <= 0 && this.player.getAnimationState() == 3)
+		if(this.player.getShootingAnimationDelay() <= 0 && this.player.getAnimationState() == 5)
 		{
-			this.player.setAnimationState(4);
+			this.player.setAnimationState(6);
 			this.player.setShootingAnimationDelay(0.15f);
 		}
 		
@@ -234,8 +234,8 @@ public class MainGame implements Screen {
 			//this.player.attack();
 			System.out.println("key pressed");
 			if(this.player.gun.getAmmo() > 0) {
-				this.player.setAnimationState(3);
-				this.player.setShootingAnimationDelay(0.25f);
+				this.player.setAnimationState(5);
+				this.player.setShootingAnimationDelay(0.05f);
 			}
 			this.player.inCombat();
 			this.player.attack();
