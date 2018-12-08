@@ -32,8 +32,11 @@ abstract public class Gun {
     
 	public void reload() {
 		this.reloadSound.play();
+		createReloadThread();
 		reloadThread.start();
 	}
+	
+	abstract protected void createReloadThread();
 	
     public void fire() throws NoAmmoException {
     	if (ammo!= 0) {

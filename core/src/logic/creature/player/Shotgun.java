@@ -12,23 +12,6 @@ public class Shotgun extends Gun {
     public Shotgun() {
     	super("Shotgun", 5, 2000, true);
     	this.fireSound = Gdx.audio.newSound(Gdx.files.internal("Sfx/Shotgun_Fire.mp3"));
-    	reloadThread = new Thread(() -> {
-    		int reload_time_per_ammo = reload_time/ammo;
-            reloading = true;
-            owner.attackable = false;
-            for (int i = 0; i < max_ammo - ammo; ++i) {
-                try {
-                    Thread.sleep(reload_time_per_ammo);
-                    ++ammo;
-                } catch (InterruptedException e) {
-                	break;
-                }
-            }
-            reloading =false;
-            owner.attackable = true;
-        });
-        this.preDelay = 500;
-        this.postDelay = 500;
     }
 
     @Override
@@ -73,4 +56,25 @@ public class Shotgun extends Gun {
 	        }
         }
     }
+
+	@Override
+	protected void createReloadThread() {
+    	reloadThread = new Thread(() -> {
+    		int reload_time_per_ammo = reload_time/ammo;
+            reloading = true;
+            owner.attackable = false;
+            for (int i = 0; i < max_ammo - ammo; ++i) {
+                try {
+                    Thread.sleep(reload_time_per_ammo);
+                    ++ammo;
+                } catch (InterruptedException e) {
+                	break;
+                }
+            }
+            reloading =false;
+            owner.attackable = true;
+        });
+        this.preDelay = 500;
+        this.postDelay = 500;
+	}
 }

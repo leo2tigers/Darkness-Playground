@@ -11,6 +11,7 @@ public class OwO_Sniper extends OwO {
 
 	public OwO_Sniper(GameMap map, String name, double positionX, double positionY) {
 		super(map, "Sniper-" + name, 5, positionX, positionY, new Texture("Monsters/Sniper OwO/new_sniper_owo.png"), new Texture("Monsters/Sniper OwO/new_sniper_owo_attack.png"), new Texture("Monsters/Sniper OwO/new_sniper_owo_jump.png"));
+		this.max_sight_range = 3000;
 	}
 
 	@Override

@@ -22,6 +22,7 @@ public abstract class Creature extends GameObject {
     public int maxHealth;
     public int armour = 0;
     public int attackPower;
+    public double movement_speed;
     public double speedX;
     public double speedY = 0;
     public double jumping_speed = 50;
@@ -171,6 +172,7 @@ public abstract class Creature extends GameObject {
      * This method is used to begin an Attack Event if the creature is  alive and attackable.
      */
     public void attack() {
+    	System.out.println("call attack");
         if (isAlive()) {
         	attack_prepare();
             if (attackable) {

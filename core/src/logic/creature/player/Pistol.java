@@ -10,7 +10,10 @@ public class Pistol extends Gun {
 	public Pistol() {
         super("Pistol", 7, 1500, false);
         this.fireSound = Gdx.audio.newSound(Gdx.files.internal("Sfx/Pistol_Fire.mp3"));
-        reloadThread = new Thread(() -> {
+    }
+	
+	protected void createReloadThread() {
+		reloadThread = new Thread(() -> {
             reloading = true;
             owner.attackable = false;
             try {
@@ -24,10 +27,11 @@ public class Pistol extends Gun {
         });
         this.preDelay = 300;
         this.postDelay = 500;
-    }
+	}
 
     @Override
     public void fire_method() throws NoAmmoException {
+    	System.out.println("call fire_method");
     	if(this.ammo <= 0) {
     		throw new NoAmmoException();
     	}

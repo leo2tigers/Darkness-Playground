@@ -83,6 +83,7 @@ public class Player extends Creature {
 
     @Override
     protected void attackMethod() {
+    	System.out.println("call attackMethod");
     	try {
     		gun.fire_method();
     	}
