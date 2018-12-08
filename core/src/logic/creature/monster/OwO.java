@@ -3,7 +3,8 @@ package logic.creature.monster;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import logic.*;
+import logic.GameMap;
+import logic.URect;
 import logic.creature.player.Player;
 
 public class OwO extends Monster {

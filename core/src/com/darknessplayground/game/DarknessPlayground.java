@@ -3,7 +3,8 @@ package com.darknessplayground.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.darknessplayground.game.screen.*;
+import com.darknessplayground.game.screen.MainGame;
+import com.darknessplayground.game.screen.MainMenu;
 
 public class DarknessPlayground extends Game {
 	public static final int WIDTH = 1280;

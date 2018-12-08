@@ -9,8 +9,11 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.darknessplayground.game.DarknessPlayground;
 
-import logic.*;
-import logic.creature.player.*;
+import logic.GameMap;
+import logic.GameObject;
+import logic.Tile;
+import logic.creature.player.Pistol;
+import logic.creature.player.Player;
 
 public class MainGame implements Screen {
 	

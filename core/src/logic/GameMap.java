@@ -3,7 +3,8 @@ package logic;
 import logic.creature.monster.Monster;
 import logic.creature.player.Player;
 
-import java.util.*;
+import java.util.ArrayList;
+
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -99,8 +100,16 @@ public class GameMap {
 	}
 
 	public void updateAll() {
-		for (GameObject gameObject : this.gameObjects) {
+		/*for (GameObject gameObject : this.gameObjects) {
 			gameObject.update();
+		}*/
+		for (Projectile projectile : this.projectiles)
+		{
+			projectile.update();
+		}
+		for (Monster monster : this.monsters)
+		{
+			monster.update();
 		}
 		for (GameObject gameObject : this.to_be_removed) {
 			gameObjects.remove(gameObject);
