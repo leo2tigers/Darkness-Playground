@@ -22,6 +22,7 @@ public abstract class Creature extends GameObject {
     public int maxHealth;
     public int armour = 0;
     public int attackPower;
+    public double movement_speed;
     public double speedX;
     public double speedY = 0;
     public double jumping_speed = 50;
