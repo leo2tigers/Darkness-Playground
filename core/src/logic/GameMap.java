@@ -108,17 +108,9 @@ public class GameMap {
 		}
 	};
 	public void updateAll() {
-		/*for (GameObject gameObject : this.gameObjects) {
-			gameObject.update();
-		}*/
-		for (Projectile projectile : this.projectiles)
-		{
-			projectile.update();
-		}
-		for (Monster monster : this.monsters)
-		{
-			monster.update();
-		}
+		for_all(tiles, updating);
+		for_all(monsters, updating);
+		for_all(projectiles, updating);
 		for (GameObject gameObject : this.to_be_removed) {
 			if (gameObject instanceof Monster) {
 				monsters.remove(gameObject);
@@ -126,9 +118,6 @@ public class GameMap {
 				projectiles.remove(gameObject);
 			}
 		}
-		for_all(tiles, updating);
-		for_all(monsters, updating);
-		for_all(projectiles, updating);
 		this.player.update();
 	}
 	
