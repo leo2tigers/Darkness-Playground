@@ -171,6 +171,7 @@ public abstract class Creature extends GameObject {
      * This method is used to begin an Attack Event if the creature is  alive and attackable.
      */
     public void attack() {
+    	System.out.println("call attack");
         if (isAlive()) {
         	attack_prepare();
             if (attackable) {

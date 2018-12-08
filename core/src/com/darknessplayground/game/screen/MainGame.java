@@ -228,6 +228,7 @@ public class MainGame implements Screen {
 		if(Gdx.input.isKeyPressed(Keys.SPACE))
 		{
 			//this.player.attack();
+			System.out.println("key pressed");
 			this.player.setAnimationState(3);
 			this.player.setShootingAnimationDelay(0.25f);
 			this.player.inCombat();

@@ -31,6 +31,7 @@ public class Pistol extends Gun {
 
     @Override
     public void fire_method() throws NoAmmoException {
+    	System.out.println("call fire_method");
     	if(this.ammo <= 0) {
     		throw new NoAmmoException();
     	}
