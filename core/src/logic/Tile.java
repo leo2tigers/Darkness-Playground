@@ -42,4 +42,9 @@ public class Tile extends URect {
     {
     	batch.draw(this.tilePic, (float) (this.positionX ), (float) (this.positionY));
     }
+    
+    public void dispose()
+    {
+    	this.tilePic.dispose();
+    }
 }

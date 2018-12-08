@@ -9,11 +9,15 @@ package logic.creature.player;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.darknessplayground.game.screen.MainGame;
 
 import logic.GameMap;
 import logic.GameProperties;
 import logic.creature.Creature;
+import logic.exceptions.NoAmmoException;
 
 public class Player extends Creature {
     public Gun gun;
@@ -23,8 +27,14 @@ public class Player extends Creature {
     private int xpToCurrentLevel;
     private int xpToNextLevel;
     private int level;
+    private MainGame screen;
+    private float timeRunning;
+    private Animation<Texture>[][] playerAnimation;
+    private int animationState;
+    private float stateTime;
+    private float shootingAnimationDelay;
 
-    public Player(GameMap map, String name, double positionX, double positionY, Gun gun) {
+    public Player(GameMap map, String name, double positionX, double positionY, Gun gun, MainGame screen) {
         super(map, name, PlayerStats.MAX_HEALTH, positionX, positionY, new Texture("player_w-pistol_run2.png"));
         this.armour = PlayerStats.ARMOUR;
         this.speedX = 0;
@@ -40,6 +50,23 @@ public class Player extends Creature {
         this.level = 1;
         this.xpToCurrentLevel = 0;
         this.xpToNextLevel = 200;
+        
+        this.playerAnimation = new Animation[2][5];
+        this.playerAnimation[0][0] = new Animation<Texture>(0.2f, new Texture("Player/Pistol/player_w-pistol_stand_still_left.png"));
+        this.playerAnimation[0][1] = new Animation<>(0.2f, new Texture("Player/Pistol/player_w-pistol_run1_left.png"));
+        this.playerAnimation[0][2] = new Animation<>(0.2f, new Texture("Player/Pistol/player_w-pistol_run2_left.png"));
+        this.playerAnimation[0][3] = new Animation<>(0.3f, new Texture("Player/Pistol/player_w-pistol_fire_left.png"));
+        this.playerAnimation[0][4] = new Animation<>(0.3f, new Texture("Player/Pistol/player_w-pistol_after_fire_left.png"));
+        this.playerAnimation[1][0] = new Animation<Texture>(0.2f, new Texture("Player/Pistol/player_w-pistol_stand_still_right.png"));
+        this.playerAnimation[1][1] = new Animation<>(0.2f, new Texture("Player/Pistol/player_w-pistol_run1_right.png"));
+        this.playerAnimation[1][2] = new Animation<>(0.2f, new Texture("Player/Pistol/player_w-pistol_run2_right.png"));
+        this.playerAnimation[1][3] = new Animation<>(0.3f, new Texture("Player/Pistol/player_w-pistol_fire_right.png"));
+        this.playerAnimation[1][4] = new Animation<>(0.3f, new Texture("Player/Pistol/player_w-pistol_after_fire_right.png"));
+        this.timeRunning = 0;
+        this.animationState = 0;
+        this.stateTime = 0;
+        this.shootingAnimationDelay = 0;
+        
     }
     
     @Override
@@ -65,7 +92,13 @@ public class Player extends Creature {
 
     @Override
     protected void attackMethod() {
-        gun.fire_method();
+    	try {
+    		gun.fire_method();
+    	}
+    	catch(NoAmmoException e)
+    	{
+    		this.screen.showNotice("No Ammo");
+    	}
     }
     
     @Override
@@ -95,7 +128,16 @@ public class Player extends Creature {
 	@Override
 	public void render(SpriteBatch batch)
 	{
-		batch.draw(this.img, (float)positionX, (float)positionY);
+		int orientation = -1;
+		if(this.orientation == 1)
+		{
+			orientation = 1;
+		}
+		else if(this.orientation == -1)
+		{
+			orientation = 0;
+		}
+		batch.draw(this.playerAnimation[orientation][this.animationState].getKeyFrame(stateTime, true), (float)positionX, (float)positionY);
 	}
 
 	public void moveLeft() {
@@ -155,5 +197,41 @@ public class Player extends Creature {
 	{
 		int multiplier = (this.level - (this.level % 10)) / 10;
 		return lastLevelXp + 200 + (100*multiplier);
+	}
+	
+	public float getTimeRunning() {
+		return timeRunning;
+	}
+
+	public void setTimeRunning(float timeRunning) {
+		this.timeRunning = timeRunning;
+	}
+
+	public int getAnimationState() {
+		return animationState;
+	}
+
+	public void setAnimationState(int animationState) {
+		this.animationState = animationState;
+	}
+	
+	public void calculateAnimationState()
+	{
+		this.setAnimationState((int)(this.timeRunning*(10/2))%2 + 1);
+	}
+
+	public float getShootingAnimationDelay() {
+		return shootingAnimationDelay;
+	}
+
+	public void setShootingAnimationDelay(float shootingAnimationDelay) {
+		this.shootingAnimationDelay = shootingAnimationDelay;
+	}
+
+	@Override
+	public void dispose()
+	{
+		this.img.dispose();
+		this.gun.dispose();
 	}
 }

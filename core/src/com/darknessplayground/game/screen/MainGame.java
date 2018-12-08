@@ -10,11 +10,15 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.darknessplayground.game.DarknessPlayground;
 
-import logic.*;
+import logic.GameMap;
+import logic.Projectile;
+import logic.SpawnPoint;
+import logic.Tile;
 import logic.creature.monster.Monster;
 import logic.creature.monster.MonsterType;
 import logic.creature.monster.OwO;
-import logic.creature.player.*;
+import logic.creature.player.Pistol;
+import logic.creature.player.Player;
 
 public class MainGame implements Screen {
 	
@@ -30,6 +34,8 @@ public class MainGame implements Screen {
 	private boolean rectDebugActive;
 	private float timeSurvived;
 	private float timeForPassiveXp;
+	private GlyphLayout notice;
+	private float noticeShowTime;
 
 	private Texture bg;
 
@@ -38,12 +44,14 @@ public class MainGame implements Screen {
 	public MainGame(DarknessPlayground game) {
 		this.game = game;
 		this.map = new GameMap();
-		this.player = new Player(this.map, "player_one", 400, 100, new Pistol());
+		this.player = new Player(this.map, "player_one", 400, 100, new Pistol(), this);
 		this.debugFont = new BitmapFont();
 		this.infoDebugActive = false;
 		this.rectDebugActive = false;
 		this.timeSurvived = 0;
 		this.timeForPassiveXp = 0;
+		this.noticeShowTime = 0;
+		this.notice = new GlyphLayout(debugFont, "");
 	}
 
 	@Override
@@ -65,6 +73,19 @@ public class MainGame implements Screen {
 			this.game.toMainMenu();
 		}
 		
+		if(this.noticeShowTime > 0)
+		{
+			this.noticeShowTime -= dt;
+		}
+		else
+		{
+			this.noticeShowTime = 0;
+		}
+		if(this.noticeShowTime <= 0);
+		{
+			this.notice.setText(this.debugFont, "");
+		}
+		
 		this.timeSurvived += dt;
 		this.timeForPassiveXp += dt;
 		if(this.timeForPassiveXp >= 1)
@@ -72,8 +93,14 @@ public class MainGame implements Screen {
 			this.timeForPassiveXp--;
 			this.player.xpFromTime(4 + (((int)this.timeSurvived - (int)this.timeSurvived%60)) / 60 * 2);
 		}
+		this.player.setShootingAnimationDelay(Math.max(0, this.player.getShootingAnimationDelay() - dt));
+		if(this.player.getShootingAnimationDelay() <= 0 && this.player.getAnimationState() == 3)
+		{
+			this.player.setAnimationState(4);
+			this.player.setShootingAnimationDelay(0.15f);
+		}
 		
-		handleInput();
+		handleInput(dt);
 		
 		// -- information for debugging --
 		information = ">> Game Status : " + status +
@@ -120,6 +147,7 @@ public class MainGame implements Screen {
 		this.game.batch.draw(bg, 0, 0, DarknessPlayground.WIDTH, DarknessPlayground.HEIGHT);
 		this.map.render(this.game.batch);
 		if(this.infoDebugActive) this.debugFont.draw(this.game.batch, label, 0, Gdx.graphics.getHeight() - 15);
+		this.debugFont.draw(this.game.batch, this.notice, Gdx.graphics.getWidth()/2 - this.notice.width/2, this.notice.height+10);
 		this.game.batch.end();
 
 		this.game.shapeRenderer.begin(ShapeType.Line);
@@ -150,11 +178,12 @@ public class MainGame implements Screen {
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
-
+		this.debugFont.dispose();
+		this.player.dispose();
+		this.map.dispose();
 	}
 	
-	private void handleInput()
+	private void handleInput(float dt)
 	{
 		if(Gdx.input.isKeyJustPressed(Keys.UP))
 		{
@@ -165,17 +194,42 @@ public class MainGame implements Screen {
 			//
 		}
 		
+		if(!Gdx.input.isKeyPressed(Keys.LEFT) && !Gdx.input.isKeyPressed(Keys.RIGHT) && this.player.getShootingAnimationDelay() <= 0)
+		{
+			this.player.setAnimationState(0);
+			this.player.setTimeRunning(0);
+		}
 		if(Gdx.input.isKeyPressed(Keys.LEFT))
 		{
 			this.player.moveLeft();
+			this.player.setTimeRunning(this.player.getTimeRunning() + dt);
+			if(this.player.jumping)
+			{
+				this.player.setAnimationState(2);
+			}
+			else
+			{
+				this.player.calculateAnimationState();
+			}
 		}
 		if(Gdx.input.isKeyPressed(Keys.RIGHT))
 		{
 			this.player.moveRight();
+			this.player.setTimeRunning(this.player.getTimeRunning() + dt);
+			if(this.player.jumping)
+			{
+				this.player.setAnimationState(2);
+			}
+			else
+			{
+				this.player.calculateAnimationState();
+			}
 		}
 		if(Gdx.input.isKeyPressed(Keys.SPACE))
 		{
 			//this.player.attack();
+			this.player.setAnimationState(3);
+			this.player.setShootingAnimationDelay(0.25f);
 			this.player.inCombat();
 			this.player.attack();
 		}
@@ -192,6 +246,12 @@ public class MainGame implements Screen {
 
 	public static void sendStatus(String string) {
 		status = string;
+	}
+	
+	public void showNotice(String notice)
+	{
+		this.noticeShowTime = 2;
+		this.notice.setText(debugFont, notice);
 	}
 
 }

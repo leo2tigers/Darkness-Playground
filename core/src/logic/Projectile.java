@@ -107,4 +107,9 @@ public class Projectile extends GameObject {
 	           ((this.damage_check_type == 0) ? "TO_MONSTER" : "TO_PLAYER") + 
 	           " ( " + this.positionX + " , "  + this.positionY + " )";
 	}
+	
+	public void dispose()
+	{
+		this.img.dispose();
+	}
 }

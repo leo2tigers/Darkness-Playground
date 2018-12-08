@@ -1,5 +1,10 @@
 package logic.creature.player;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
+
+import logic.exceptions.NoAmmoException;
+
 abstract public class Gun {
     Player owner;
     final String type;
@@ -9,6 +14,9 @@ abstract public class Gun {
     private final boolean reload_interruptable;
 	public int preDelay;
 	public int postDelay;
+	
+	protected Sound reloadSound;
+	protected Sound fireSound;
     
     Gun(String type, int max_ammo, int reload_time, boolean reload_interruptable) {
 		super();
@@ -19,19 +27,21 @@ abstract public class Gun {
 		this.reload_interruptable = reload_interruptable;
 		this.enable = true;
 		this.reloading = false;
+		this.reloadSound = Gdx.audio.newSound(Gdx.files.internal("Sfx/Gun_reload.mp3"));
 	}
     
 	public void reload() {
+		this.reloadSound.play();
 		reloadThread.start();
 	}
 	
-    public void fire() {
+    public void fire() throws NoAmmoException {
     	if (ammo!= 0) {
     		fire_method();
     	}
     }
 
-    abstract void fire_method();
+    abstract void fire_method() throws NoAmmoException;
 
 	@Override
     public String toString() {
@@ -43,5 +53,10 @@ abstract public class Gun {
 			reloadThread.interrupt();
 			owner.attackable = true;
 		}
+	}
+	
+	public void dispose()
+	{
+		this.reloadSound.dispose();
 	}
 }

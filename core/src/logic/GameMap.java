@@ -4,7 +4,8 @@ import logic.creature.monster.Monster;
 import logic.creature.monster.Spawnable;
 import logic.creature.player.Player;
 
-import java.util.*;
+import java.util.ArrayList;
+
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -117,6 +118,9 @@ public class GameMap {
 		}
 	};
 	public void updateAll() {
+		for_all(tiles, updating);
+		for_all(monsters, updating);
+		for_all(projectiles, updating);
 		for (GameObject gameObject : this.to_be_removed) {
 			if (gameObject instanceof Monster) {
 				monsters.remove(gameObject);
@@ -130,4 +134,22 @@ public class GameMap {
 		for_all(projectiles, updating);
 		this.player.update();
 	}
+	
+	public void dispose()
+	{
+		this.player.dispose();
+		for(Projectile projectile : this.projectiles)
+		{
+			projectile.dispose();
+		}
+		for(Monster monster : this.monsters)
+		{
+			monster.dispose();
+		}
+		for(Tile tile : this.tiles)
+		{
+			tile.dispose();
+		}
+	}
+
 }
