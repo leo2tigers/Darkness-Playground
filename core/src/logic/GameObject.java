@@ -1,9 +1,9 @@
 package logic;
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.scenes.scene2d.Actor;
+import logic.creature.IRenderable;
 
-public abstract class GameObject extends Actor {
+public abstract class GameObject implements IRenderable {
     public double positionX;
     public double positionY;
 

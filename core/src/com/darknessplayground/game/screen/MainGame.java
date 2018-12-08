@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
@@ -17,6 +18,8 @@ import logic.creature.player.Player;
 
 public class MainGame implements Screen {
 	
+	private static String status = "normal";
+
 	private DarknessPlayground game;
 	
 	private GameMap map;
@@ -28,11 +31,14 @@ public class MainGame implements Screen {
 	private float timeSurvived;
 	private float timeForPassiveXp;
 
+	private Texture bg;
+
+	private static String information;
+
 	public MainGame(DarknessPlayground game) {
-		// TODO Auto-generated constructor stub
 		this.game = game;
 		this.map = new GameMap();
-		this.player = new Player(this.map, "player_one", 400, 100, new Pistol()); //To be implemented
+		this.player = new Player(this.map, "player_one", 400, 100, new Pistol());
 		this.debugFont = new BitmapFont();
 		this.infoDebugActive = false;
 		this.rectDebugActive = false;
@@ -42,13 +48,13 @@ public class MainGame implements Screen {
 
 	@Override
 	public void show() {
-		// TODO Auto-generated method stub
+		this.bg = new Texture("playground_background.png");
 		this.map.setPlayer(this.player);
+		this.map.add(new OwO(this.map, "ALPHA_TESTER", 100, 100));
 	}
 
 	@Override
 	public void render(float dt) {
-		// TODO Auto-generated method stub
 		Gdx.gl.glClearColor(0.1f, 0.1f, 0.22f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
@@ -67,8 +73,9 @@ public class MainGame implements Screen {
 		}
 		
 		handleInput();
-		String information = ">> " + this.player.toString() + 
-				             "\n    - osition = " + this.player.getPosition() + 
+		information = ">> Game Status : " + status +
+				             "\n>> " + this.player.toString() + 
+				             "\n    - position = " + this.player.getPosition() + 
 				             "\n    - Attackable = " + this.player.attackable +
 				             "\n    - Gun = " + this.player.gun +
 				             "\n    - Status = " + this.player.status +
@@ -77,15 +84,20 @@ public class MainGame implements Screen {
 		for (Tile tile : this.map.getTiles()) {
 			information += "    - " + tile.toString();
 		}
-		information += "\n>> GameObjects : \n";
-		for (GameObject gameObject : this.map.gameObjects) {
-			information += "    - " + gameObject.toString();
+		information += "\n>> Monsters : ";
+		for (Monster monster : this.map.getMonsters()) {
+			information += "\n    - " + monster.toString() + " , Position : " + monster.getPosition();
+		}
+		information += "\n>> Projectiles : ";
+		for (Projectile projectile : this.map.getProjectiles()) {
+			information += "\n    - " + projectile.toString();
 		}
 		GlyphLayout label = new GlyphLayout(this.debugFont, information);
         
         this.map.updateAll();
 		
 		this.game.batch.begin();
+		this.game.batch.draw(bg, 0, 0, DarknessPlayground.WIDTH, DarknessPlayground.HEIGHT);
 		this.map.render(this.game.batch);
 		if(this.infoDebugActive) this.debugFont.draw(this.game.batch, label, 0, Gdx.graphics.getHeight() - 15);
 		this.game.batch.end();
@@ -157,6 +169,10 @@ public class MainGame implements Screen {
 		{
 			this.rectDebugActive = (this.rectDebugActive) ? false : true;
 		}
+	}
+
+	public static void sendStatus(String string) {
+		status = string;
 	}
 
 }

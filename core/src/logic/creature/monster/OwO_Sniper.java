@@ -22,6 +22,6 @@ public class OwO_Sniper extends OwO {
 				               /*width*/20, /*height*/10, 
 				               orientation, /*speed*/50, 
 				               /*lifetime*/50, damage, Projectile.TO_PLAYER, 
-				               new Texture("Monsters/Sniper OwO/sniper_projectile.png")));
+				               "Monsters/Sniper OwO/sniper_projectile.png"));
 	}
 }

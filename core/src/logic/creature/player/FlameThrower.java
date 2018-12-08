@@ -28,11 +28,9 @@ public class FlameThrower extends Gun {
 	public void fire_method() {
 		int damage = 2;
 		URect damageBox = new URect(owner.positionX + 100*owner.orientation, owner.positionY, 100, 100);
-		for (GameObject gameObject : owner.map.gameObjects) {
-        	if (gameObject instanceof Monster) {
-        		if (damageBox.overlap(((Monster) gameObject).hitBox)) {
-        			((Monster) gameObject).getHit(damage);
-        		}
+		for (GameObject gameObject : owner.map.getMonsters()) {
+        	if (damageBox.overlap(((Monster) gameObject).hitBox)) {
+        		((Monster) gameObject).getHit(damage);
         	}
         }
 	}

@@ -12,7 +12,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
-public abstract class Creature extends GameObject /*implements IRenderable*/ {
+public abstract class Creature extends GameObject {
 
     public final String name;
     
@@ -111,13 +111,18 @@ public abstract class Creature extends GameObject /*implements IRenderable*/ {
         URect check_movementBox = new URect(movementBox.positionX + x, movementBox.positionY + y, movementBox.width, movementBox.height, Color.BLUE);
 
         Tile check_tile = overlapTile(check_movementBox);
-        //System.out.println("\toverlap " + check_movementBox + "\n\t check ---> " + check_tile + "\n\t overlap ? " + check_movementBox.overlap(check_tile));
         if (check_movementBox.overlap(check_tile)) {
             new_positionY = check_tile.positionY + check_tile.height/2;
             jumping = false;
             speedY = 0;
         }else {
             jumping = true;
+        }
+        
+        if (new_positionX < 0) {
+        	new_positionX = 0;
+        } else  if (new_positionX > 1280 - this.movementBox.width) {
+        	new_positionX = 1280 - this.movementBox.width;
         }
 		
         movementBox.translate(new_positionX - positionX, new_positionY - positionY);
@@ -199,6 +204,10 @@ public abstract class Creature extends GameObject /*implements IRenderable*/ {
     protected abstract void attack_prepare();
 
     protected abstract void attackMethod();
+    
+    public void setImg(String img_path) {
+		this.img = new Texture(img_path);
+	}
     
     public abstract void render(SpriteBatch batch);
 

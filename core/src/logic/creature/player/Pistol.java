@@ -21,17 +21,17 @@ public class Pistol extends Gun {
             reloading = false;
             owner.attackable = true;
         });
-        this.preDelay = 100;
-        this.postDelay = 100;
+        this.preDelay = 300;
+        this.postDelay = 500;
     }
 
     @Override
     public void fire_method() {
         int damage = 1;
-        this.fireSound.play();
-        owner.map.add(new Projectile(owner.positionX, owner.positionY, 
+        owner.map.add(new Projectile(owner.positionX + PlayerStats.Pistol.RELATIVE_X, owner.positionY + PlayerStats.Pistol.RELATIVE_Y, 
         		                     /*width*/20, /*height*/20, 
         		                     owner.orientation, /*speed*/25, 
-        		                     /*lifetime*/5000, damage, Projectile.TO_MONSTER, /*new Texture("Bullets/pistol_bullet.png")*/null));
+        		                     /*lifetime*/1000, damage, Projectile.TO_MONSTER, "Bullets/pistol_bullet.png"));
+        this.ammo -= 1;
     }
 }

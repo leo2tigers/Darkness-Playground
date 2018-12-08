@@ -38,15 +38,13 @@ public class Shotgun extends Gun {
         URect secondBox = new URect(owner.positionX + 75*owner.orientation, owner.positionY, 50, 50);
         URect thirdBox = new URect(owner.positionX + 100*owner.orientation, owner.positionY, 100, 100);
         ArrayList<Monster> overlapped_monster = new ArrayList<>();
-        for (GameObject gameObject : owner.map.gameObjects) {
-        	if (gameObject instanceof Monster) {
-        		if (firstBox.overlap(((Monster) gameObject).hitBox)) {
-        			overlapped_monster.add((Monster) gameObject);
-        		}else if (secondBox.overlap(((Monster) gameObject).hitBox)) {
-        			overlapped_monster.add((Monster) gameObject);
-        		}else if (thirdBox.overlap(((Monster) gameObject).hitBox)) {
-        			overlapped_monster.add((Monster) gameObject);
-        		}
+        for (GameObject gameObject : owner.map.getMonsters()) {
+        	if (firstBox.overlap(((Monster) gameObject).hitBox)) {
+        		overlapped_monster.add((Monster) gameObject);
+        	} else if (secondBox.overlap(((Monster) gameObject).hitBox)) {
+        		overlapped_monster.add((Monster) gameObject);
+        	} else if (thirdBox.overlap(((Monster) gameObject).hitBox)) {
+        		overlapped_monster.add((Monster) gameObject);
         	}
         }
         if (!overlapped_monster.isEmpty()) {

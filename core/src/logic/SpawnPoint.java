@@ -1,5 +1,6 @@
 package logic;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 import logic.creature.monster.Monster;
@@ -29,5 +30,10 @@ public class SpawnPoint extends GameObject {
 	@Override
 	public void shapeRender(ShapeRenderer shapeRenderer) {
 		shapeRenderer.rect((float) positionX, (float) positionY, 100, 100);
+	}
+
+	@Override
+	public void render(SpriteBatch batch) {
+		//TODO SpawnPount.render
 	}
 }

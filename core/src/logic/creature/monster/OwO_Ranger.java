@@ -22,6 +22,6 @@ public class OwO_Ranger extends OwO {
 				               /*width*/10, /*height*/10, 
 				               orientation, /*speed*/25, 
 				               /*lifetime*/50, damage, Projectile.TO_PLAYER, 
-				               new Texture("Monsters/Ranged OwO/normal_projectile.png")));
+				               "Monsters/Ranged OwO/normal_projectile.png"));
 	}
 }

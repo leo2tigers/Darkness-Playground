@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import logic.GameMap;
 import logic.URect;
 import logic.creature.player.Player;
+import logic.creature.player.PlayerStats;
 
 public class OwO extends Monster {
 	
@@ -15,10 +16,16 @@ public class OwO extends Monster {
 	
     public OwO(GameMap map, String name, double positionX, double positionY) {
         super(map, "OwO-" + name, 1, positionX, positionY, null);
+        this.setHitBox(0, 0, 100, 100);
+        this.setMovementBox(0, -5, 100, 10);
+        setImg(img_path_stand);
     }
     
     public OwO(GameMap map, String name,int maxHealth, double positionX, double positionY, Texture img, Texture atkImg, Texture jumpImg) {
         super(map, "OwO-" + name, maxHealth, positionX, positionY, img);
+        this.setHitBox(0, 0, 100, 100);
+        this.setMovementBox(0, -5, 100, 10);
+        setImg(img_path_stand);
     }
     
     @Override
@@ -35,7 +42,7 @@ public class OwO extends Monster {
 
 	@Override
 	public void render(SpriteBatch batch) {
-		batch.draw(this.img, this.getX(), this.getY());
+		batch.draw(this.img, (float) positionX, (float)positionY);
 		
 	}
 	
