@@ -113,7 +113,7 @@ public abstract class Creature extends GameObject {
 
         Tile check_tile = overlapTile(check_movementBox);
         if (check_movementBox.overlap(check_tile)) {
-            new_positionY = check_tile.getY() + check_tile.height/2;
+            new_positionY = check_tile.getY() + check_tile.height;
             jumping = false;
             speedY = 0;
         }else {

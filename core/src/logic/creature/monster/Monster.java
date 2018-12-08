@@ -3,7 +3,6 @@ package logic.creature.monster;
 import com.badlogic.gdx.graphics.Texture;
 
 import logic.GameMap;
-import logic.SpawnPoint;
 import logic.creature.Creature;
 import logic.creature.player.Player;
 

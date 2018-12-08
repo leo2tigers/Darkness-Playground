@@ -11,7 +11,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.darknessplayground.game.screen.MainGame;
 
 import logic.GameMap;
@@ -80,15 +79,7 @@ public class Player extends Creature {
     }
 
     @Override
-    protected void attack_prepare() {/*
-        if (attackable && gun.ammo != 0) {
-        } else if (!gun.reloading && gun.ammo == 0) {
-            attackable = false;
-            gun.reload();
-        } else {
-        	gun.reload_interrupt();
-        }*/
-    }
+    protected void attack_prepare() {}
 
     @Override
     protected void attackMethod() {

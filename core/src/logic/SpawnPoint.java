@@ -6,9 +6,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
-import logic.creature.monster.Monster;
 import logic.creature.monster.MonsterType;
-import logic.creature.monster.OwO;
 
 public class SpawnPoint extends GameObject {
     private int spawnCount = 0;

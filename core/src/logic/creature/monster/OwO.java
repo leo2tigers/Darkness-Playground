@@ -8,7 +8,6 @@ import logic.Meth;
 import logic.SpawnPoint;
 import logic.URect;
 import logic.creature.player.Player;
-import logic.creature.player.PlayerStats;
 
 public class OwO extends Monster {
 	

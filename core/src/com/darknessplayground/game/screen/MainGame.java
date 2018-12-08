@@ -16,7 +16,6 @@ import logic.SpawnPoint;
 import logic.Tile;
 import logic.creature.monster.Monster;
 import logic.creature.monster.MonsterType;
-import logic.creature.monster.OwO;
 import logic.creature.player.Pistol;
 import logic.creature.player.Player;
 
@@ -106,6 +105,7 @@ public class MainGame implements Screen {
 		information = ">> Game Status : " + status +
 				             "\n>> " + this.player.toString() + 
 				             "\n    - position = " + this.player.getPosition() + 
+				             "\n    - Speed = " + this.player.speedX + " , " + this.player.speedY +
 				             "\n    - Attackable = " + this.player.attackable +
 				             "\n    - Gun = " + this.player.gun +
 				             "\n    - Status = " + this.player.status +
