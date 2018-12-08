@@ -3,11 +3,13 @@ package com.darknessplayground.game.screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.utils.Align;
 import com.darknessplayground.game.DarknessPlayground;
 
 import logic.GameMap;
@@ -29,6 +31,9 @@ public class MainGame implements Screen {
 	private Player player;
 	private BitmapFont debugFont;
 	private BitmapFont noticeFont;
+	private Texture weaponUINormal;
+	private Texture weaponUINoAmmo;
+	private Texture weaponUIReloading;
 	
 	private boolean infoDebugActive;
 	private boolean rectDebugActive;
@@ -47,6 +52,9 @@ public class MainGame implements Screen {
 		this.player = new Player(this.map, "player_one", 400, 100, new Pistol(), this);
 		this.debugFont = new BitmapFont();
 		this.noticeFont = new BitmapFont(Gdx.files.internal("Fonts/Agency_FB_32px.fnt"));
+		this.weaponUINormal = new Texture("UI/weapon/weapon-ui_normal.png");
+		this.weaponUINoAmmo = new Texture("UI/weapon/weapon-ui_no-ammo.png");
+		this.weaponUIReloading = new Texture("UI/weapon/weapon-ui_reloading.png");
 		this.infoDebugActive = false;
 		this.rectDebugActive = false;
 		this.timeSurvived = 0;
@@ -141,7 +149,7 @@ public class MainGame implements Screen {
 			}
 		}
 		GlyphLayout label = new GlyphLayout(this.debugFont, information);
-		GlyphLayout notice = new GlyphLayout(noticeFont, this.noticeText);
+		GlyphLayout notice = new GlyphLayout(noticeFont, noticeText, Color.RED, 50, Align.left, false);
         // -- information for debugging --
 		
         this.map.updateAll();
@@ -150,6 +158,7 @@ public class MainGame implements Screen {
 		this.game.batch.draw(bg, 0, 0, DarknessPlayground.WIDTH, DarknessPlayground.HEIGHT);
 		this.map.render(this.game.batch);
 		if(this.infoDebugActive) this.debugFont.draw(this.game.batch, label, 0, Gdx.graphics.getHeight() - 15);
+		this.showWeaponUI();
 		this.noticeFont.draw(this.game.batch, notice, Gdx.graphics.getWidth()/2 - notice.width/2, notice.height+10);
 		this.game.batch.end();
 
@@ -182,8 +191,12 @@ public class MainGame implements Screen {
 	@Override
 	public void dispose() {
 		this.debugFont.dispose();
+		this.noticeFont.dispose();
 		this.player.dispose();
 		this.map.dispose();
+		this.weaponUINormal.dispose();
+		this.weaponUINoAmmo.dispose();
+		this.weaponUIReloading.dispose();
 	}
 	
 	private void handleInput(float dt)
@@ -232,8 +245,10 @@ public class MainGame implements Screen {
 		{
 			//this.player.attack();
 			System.out.println("key pressed");
-			this.player.setAnimationState(3);
-			this.player.setShootingAnimationDelay(0.25f);
+			if(this.player.gun.getAmmo() > 0) {
+				this.player.setAnimationState(3);
+				this.player.setShootingAnimationDelay(0.25f);
+			}
 			this.player.inCombat();
 			this.player.attack();
 		}
@@ -260,6 +275,32 @@ public class MainGame implements Screen {
 	{
 		this.noticeShowTime = 2;
 		this.noticeText = notice;
+	}
+	
+	private void showWeaponUI()
+	{
+		int ammo = this.player.gun.getAmmo();
+		int maxAmmo = this.player.gun.getMaxAmmo();
+		int positionX = Gdx.graphics.getWidth() - this.weaponUINormal.getWidth() - 10;
+		int positionY = 10;
+		if(this.player.gun.isReloading())
+		{
+			this.game.batch.draw(weaponUIReloading, positionX, positionY);
+			GlyphLayout ammoDisplay = new GlyphLayout(noticeFont, ammo + "/" + maxAmmo, new Color(0, 1, 1, 1), 50, Align.left, false);
+			this.noticeFont.draw(this.game.batch, ammoDisplay, Gdx.graphics.getWidth() - 70 - ammoDisplay.width, 10 + 40);
+		}
+		else if(ammo <= 0)
+		{
+			this.game.batch.draw(weaponUINoAmmo, positionX, positionY);
+			GlyphLayout ammoDisplay = new GlyphLayout(noticeFont, ammo + "/" + maxAmmo, Color.RED, 50, Align.left, false);
+			this.noticeFont.draw(this.game.batch, ammoDisplay, Gdx.graphics.getWidth() - 70 - ammoDisplay.width, 10 + 40); 
+		}
+		else
+		{
+			this.game.batch.draw(weaponUINormal, positionX, positionY);
+			GlyphLayout ammoDisplay = new GlyphLayout(noticeFont, ammo + "/" + maxAmmo, new Color(0.70196f, 0.70196f, 0.70196f, 1), 50, Align.left, false);
+			this.noticeFont.draw(this.game.batch, ammoDisplay, Gdx.graphics.getWidth() - 70 - ammoDisplay.width, 10 + 40);
+		}
 	}
 
 }
