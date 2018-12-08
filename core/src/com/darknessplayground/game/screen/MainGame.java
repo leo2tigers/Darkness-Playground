@@ -28,6 +28,7 @@ public class MainGame implements Screen {
 	private GameMap map;
 	private Player player;
 	private BitmapFont debugFont;
+	private BitmapFont noticeFont;
 	
 	private boolean infoDebugActive;
 	private boolean rectDebugActive;
@@ -45,12 +46,13 @@ public class MainGame implements Screen {
 		this.map = new GameMap();
 		this.player = new Player(this.map, "player_one", 400, 100, new Pistol(), this);
 		this.debugFont = new BitmapFont();
+		this.noticeFont = new BitmapFont(Gdx.files.internal("Fonts/Agency_FB_32px.fnt"));
 		this.infoDebugActive = false;
 		this.rectDebugActive = false;
 		this.timeSurvived = 0;
 		this.timeForPassiveXp = 0;
 		this.noticeShowTime = 0;
-		this.notice = new GlyphLayout(debugFont, "");
+		this.notice = new GlyphLayout(noticeFont, "");
 	}
 
 	@Override
@@ -147,7 +149,7 @@ public class MainGame implements Screen {
 		this.game.batch.draw(bg, 0, 0, DarknessPlayground.WIDTH, DarknessPlayground.HEIGHT);
 		this.map.render(this.game.batch);
 		if(this.infoDebugActive) this.debugFont.draw(this.game.batch, label, 0, Gdx.graphics.getHeight() - 15);
-		this.debugFont.draw(this.game.batch, this.notice, Gdx.graphics.getWidth()/2 - this.notice.width/2, this.notice.height+10);
+		this.noticeFont.draw(this.game.batch, this.notice, Gdx.graphics.getWidth()/2 - this.notice.width/2, this.notice.height+10);
 		this.game.batch.end();
 
 		this.game.shapeRenderer.begin(ShapeType.Line);
@@ -225,7 +227,7 @@ public class MainGame implements Screen {
 				this.player.calculateAnimationState();
 			}
 		}
-		if(Gdx.input.isKeyPressed(Keys.SPACE))
+		if(Gdx.input.isKeyJustPressed(Keys.SPACE))
 		{
 			//this.player.attack();
 			System.out.println("key pressed");
