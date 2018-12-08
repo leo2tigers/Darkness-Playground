@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.darknessplayground.game.screen.MainGame;
 import com.darknessplayground.game.screen.MainMenu;
+import com.darknessplayground.game.screen.GameOver;
 
 public class DarknessPlayground extends Game {
 	public static final int WIDTH = 1280;
@@ -39,5 +40,10 @@ public class DarknessPlayground extends Game {
 	public void toGame()
 	{
 		this.setScreen(new MainGame(this));
+	}
+	
+	public void GameOver(int finalScore)
+	{
+		this.setScreen(new GameOver(this, finalScore));
 	}
 }
