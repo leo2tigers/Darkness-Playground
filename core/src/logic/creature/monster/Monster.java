@@ -26,7 +26,7 @@ public abstract class Monster extends Creature {
         setHealth(getHealth() - (damage - armour > 0 ? damage - armour : 0));
         if(getHealth() <= 0)
         {
-        	this.map.getMonstersToRemove().add(this);
+        	this.map.remove(this);
         }
     }
     

@@ -34,7 +34,7 @@ public class OwO extends Monster {
 
 	@Override
 	public void render(SpriteBatch batch) {
-		batch.draw(this.img, this.getX(), this.getY());
+		batch.draw(this.img, (float) positionX, (float)positionY);
 		
 	}
 	

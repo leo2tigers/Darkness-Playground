@@ -25,9 +25,9 @@ public class Pistol extends Gun {
     @Override
     public void fire_method() {
         int damage = 1;
-        owner.map.add(new Projectile(owner.positionX, owner.positionY, 
+        owner.map.add(new Projectile(owner.positionX + PlayerStats.Pistol.RELATIVE_X, owner.positionY + PlayerStats.Pistol.RELATIVE_Y, 
         		                     /*width*/20, /*height*/20, 
         		                     owner.orientation, /*speed*/25, 
-        		                     /*lifetime*/5000, damage, Projectile.TO_MONSTER, /*new Texture("Bullets/pistol_bullet.png")*/null));
+        		                     /*lifetime*/5000, damage, Projectile.TO_MONSTER, "Bullets/pistol_bullet.png"));
     }
 }

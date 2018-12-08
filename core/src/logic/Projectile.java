@@ -2,8 +2,12 @@ package logic;
 
 import java.util.Date;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.darknessplayground.game.screen.MainGame;
 
 import logic.creature.monster.Monster;
 
@@ -19,11 +23,12 @@ public class Projectile extends GameObject {
 	public static final int TO_PLAYER = 1;
 	
 	private Texture img;
+	private String img_path;
 
     public Projectile(double positionX, double positionY, 
     		          double width, double height, 
     		          double orientation, double speed, 
-    		          int lifetime, int damage, int damage_check_type, Texture img) {
+    		          int lifetime, int damage, int damage_check_type, String img_path) {
         this.positionX = positionX;
         this.positionY = positionY;
         this.orientation = orientation;
@@ -31,10 +36,19 @@ public class Projectile extends GameObject {
         this.lifetime = lifetime;
         this.damage = damage;
         this.damage_check_type = damage_check_type;
-        this.damageBox = new URect(positionX, positionY, width, height);
-        this.img = img;
+        this.damageBox = new URect(positionX, positionY, width, height, Color.CORAL);
+        this.img_path = img_path;
+        setTexture();
     }
-
+    
+    public void setTexture()  {
+    	Gdx.app.postRunnable(new Runnable(){
+            public void run(){
+            	img = new Texture(img_path);
+            }
+        });
+    }
+    
     @Override
     public void update() {
         positionX += speed*orientation;
@@ -54,8 +68,8 @@ public class Projectile extends GameObject {
     private void damage_to_monster() {
     	Monster nearest = null;
         double distance = 720.0;
-        for (GameObject monster : map.gameObjects) {
-            if (monster instanceof Monster && damageBox.overlap(((Monster) monster).hitBox)) {
+        for (Monster monster : map.getMonsters()) {
+            if (damageBox.overlap(((Monster) monster).hitBox)) {
                 if (getDistance(this, monster) <= distance) {
                     nearest = (Monster) monster;
                 }
@@ -75,5 +89,14 @@ public class Projectile extends GameObject {
 	@Override
 	public void shapeRender(ShapeRenderer shapeRenderer) {
 		damageBox.shapeRender(shapeRenderer);
+	}
+	
+	@Override
+	public void render(SpriteBatch batch) {
+		try {
+			batch.draw(img, (float) positionX, (float) positionY);
+		} catch (NullPointerException npe) {
+			MainGame.sendStatus("rendering delay");
+		}
 	}
 }

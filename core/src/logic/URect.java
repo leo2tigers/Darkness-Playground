@@ -1,6 +1,7 @@
 package logic;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class URect extends GameObject {
@@ -55,4 +56,7 @@ public class URect extends GameObject {
 					           color, color, color, color);
 		}
 	}
+	
+	@Override
+	public void render(SpriteBatch batch) {}
 }

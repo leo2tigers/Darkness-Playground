@@ -10,23 +10,15 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class GameMap {
 
-    private ArrayList<SpawnPoint> spawnPoints = new ArrayList<SpawnPoint>();
-    private ArrayList<Tile> tiles;
-    private ArrayList<Projectile> projectiles;
-    private ArrayList<Monster> monsters;
-    private ArrayList<Projectile> projectilesToRemove;
-    private ArrayList<Monster> monstersToRemove;
-
-    public Player player;
-    public final ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
+    private final ArrayList<SpawnPoint> spawnPoints = new ArrayList<SpawnPoint>();
+    private final ArrayList<Tile> tiles = new ArrayList<Tile>();
+    private final ArrayList<Projectile> projectiles = new ArrayList<Projectile>();
+    private final ArrayList<Monster> monsters = new ArrayList<Monster>();
     public final ArrayList<GameObject> to_be_removed = new ArrayList<>();
 
+    public Player player;
+
     public GameMap() {
-    	this.tiles = new ArrayList<Tile>();
-    	this.projectiles = new ArrayList<Projectile>();
-    	this.monsters = new ArrayList<Monster>();
-    	this.projectilesToRemove = new ArrayList<Projectile>();
-    	this.monstersToRemove = new ArrayList<Monster>();
     	this.tiles.add(new Tile(0, 0, 1200, 100, new Texture("Tiles/playground_floor.png")));
     }
 
@@ -36,16 +28,14 @@ public class GameMap {
         
     }
 
-    public void add(GameObject gameObject) {
-        gameObjects.add(gameObject);
-        gameObject.map = this;
-    }
-
-    public void addAll(GameObject...args) {
-        for (GameObject gameObject : args) {
-            gameObjects.add(gameObject);
-            gameObject.map = this;
-        }
+	public void add(Monster monster) {
+		monsters.add(monster);
+		monster.map = this;
+	}
+    
+    public void add(Projectile projectile) {
+        projectiles.add(projectile);
+        projectile.map = this;
     }
     
     public void addSpawnPoint(SpawnPoint spawnPoint) {
@@ -74,37 +64,59 @@ public class GameMap {
 	{
 		return monsters;
 	}
-	
-	public ArrayList<Projectile> getProjectilesToRemove() {
-		return projectilesToRemove;
-	}
 
-	public ArrayList<Monster> getMonstersToRemove() {
-		return monstersToRemove;
-	}
-
-	public void render(SpriteBatch batch)
-	{
-		for (Tile t : this.tiles) {
-			t.render(batch);
-		}
+	public void render(SpriteBatch batch) {
+		GameObjectMethod Rendering = new GameObjectMethod() {
+			@Override
+			public void apply(GameObject gameObject) {
+				gameObject.render(batch);
+			}
+		};
+		for_all(tiles, Rendering);
+		for_all(monsters, Rendering);
+		for_all(projectiles, Rendering);
 		this.player.render(batch);
+	}
+	
+	interface GameObjectMethod {
+		abstract void apply(GameObject gameObject);
+	}
+	private final static GameObjectMethod updating = new GameObjectMethod() {
+		@Override
+		public void apply(GameObject gameObject) {
+			gameObject.update();
+		}
+	};
+	private static <Type extends GameObject> void for_all(ArrayList<Type> arrayList, GameObjectMethod gameObjectMethod) {
+		for (Type gameObject : arrayList) {
+			gameObjectMethod.apply((GameObject) gameObject);
+		}
 	}
 
 	public void render(ShapeRenderer shapeRenderer) {
-		for (GameObject gameObject : this.gameObjects) {
-			gameObject.shapeRender(shapeRenderer);
-		}
+		GameObjectMethod shapeRendering = new GameObjectMethod() {
+			@Override
+			public void apply(GameObject gameObject) {
+				gameObject.shapeRender(shapeRenderer);
+			}
+		};
+		for_all(tiles, shapeRendering);
+		for_all(monsters, shapeRendering);
+		for_all(projectiles, shapeRendering);
 		player.shapeRender(shapeRenderer);
 	}
 
 	public void updateAll() {
 		for (GameObject gameObject : this.to_be_removed) {
-			gameObjects.remove(gameObject);
+			if (gameObject instanceof Monster) {
+				monsters.remove(gameObject);
+			} else if (gameObject instanceof Projectile) {
+				projectiles.remove(gameObject);
+			}
 		}
-		for (GameObject gameObject : this.gameObjects) {
-			gameObject.update();
-		}
+		for_all(tiles, updating);
+		for_all(monsters, updating);
+		for_all(projectiles, updating);
 		this.player.update();
 	}
 

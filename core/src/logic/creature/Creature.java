@@ -12,7 +12,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
-public abstract class Creature extends GameObject /*implements IRenderable*/ {
+public abstract class Creature extends GameObject {
 
     public final String name;
     
