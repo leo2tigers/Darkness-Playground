@@ -111,7 +111,6 @@ public abstract class Creature extends GameObject {
         URect check_movementBox = new URect(movementBox.positionX + x, movementBox.positionY + y, movementBox.width, movementBox.height, Color.BLUE);
 
         Tile check_tile = overlapTile(check_movementBox);
-        //System.out.println("\toverlap " + check_movementBox + "\n\t check ---> " + check_tile + "\n\t overlap ? " + check_movementBox.overlap(check_tile));
         if (check_movementBox.overlap(check_tile)) {
             new_positionY = check_tile.positionY + check_tile.height/2;
             jumping = false;
@@ -199,6 +198,10 @@ public abstract class Creature extends GameObject {
     protected abstract void attack_prepare();
 
     protected abstract void attackMethod();
+    
+    public void setImg(String img_path) {
+		this.img = new Texture(img_path);
+	}
     
     public abstract void render(SpriteBatch batch);
 

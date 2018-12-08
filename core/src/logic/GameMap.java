@@ -64,6 +64,15 @@ public class GameMap {
 	{
 		return monsters;
 	}
+	
+	interface GameObjectMethod {
+		abstract void apply(GameObject gameObject);
+	}
+	private static <Type extends GameObject> void for_all(ArrayList<Type> arrayList, GameObjectMethod gameObjectMethod) {
+		for (Type gameObject : arrayList) {
+			gameObjectMethod.apply((GameObject) gameObject);
+		}
+	}
 
 	public void render(SpriteBatch batch) {
 		GameObjectMethod Rendering = new GameObjectMethod() {
@@ -76,21 +85,6 @@ public class GameMap {
 		for_all(monsters, Rendering);
 		for_all(projectiles, Rendering);
 		this.player.render(batch);
-	}
-	
-	interface GameObjectMethod {
-		abstract void apply(GameObject gameObject);
-	}
-	private final static GameObjectMethod updating = new GameObjectMethod() {
-		@Override
-		public void apply(GameObject gameObject) {
-			gameObject.update();
-		}
-	};
-	private static <Type extends GameObject> void for_all(ArrayList<Type> arrayList, GameObjectMethod gameObjectMethod) {
-		for (Type gameObject : arrayList) {
-			gameObjectMethod.apply((GameObject) gameObject);
-		}
 	}
 
 	public void render(ShapeRenderer shapeRenderer) {
@@ -106,6 +100,12 @@ public class GameMap {
 		player.shapeRender(shapeRenderer);
 	}
 
+	private final static GameObjectMethod updating = new GameObjectMethod() {
+		@Override
+		public void apply(GameObject gameObject) {
+			gameObject.update();
+		}
+	};
 	public void updateAll() {
 		for (GameObject gameObject : this.to_be_removed) {
 			if (gameObject instanceof Monster) {

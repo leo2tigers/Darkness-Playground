@@ -8,7 +8,7 @@ public abstract class PlayerStats {
 	
 	abstract public class Pistol {
 		public static final double RELATIVE_X = 0;
-		public static final double RELATIVE_Y = 100;
+		public static final double RELATIVE_Y = 75;
 	}
 	
 	abstract public  class HitBox {

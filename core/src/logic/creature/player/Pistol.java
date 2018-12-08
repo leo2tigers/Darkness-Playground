@@ -18,8 +18,8 @@ public class Pistol extends Gun {
             reloading = false;
             owner.attackable = true;
         });
-        this.preDelay = 100;
-        this.postDelay = 100;
+        this.preDelay = 300;
+        this.postDelay = 500;
     }
 
     @Override
@@ -29,5 +29,6 @@ public class Pistol extends Gun {
         		                     /*width*/20, /*height*/20, 
         		                     owner.orientation, /*speed*/25, 
         		                     /*lifetime*/5000, damage, Projectile.TO_MONSTER, "Bullets/pistol_bullet.png"));
+        this.ammo -= 1;
     }
 }

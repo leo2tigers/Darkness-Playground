@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.darknessplayground.game.DarknessPlayground;
 
 import logic.*;
+import logic.creature.monster.OwO;
 import logic.creature.player.*;
 
 public class MainGame implements Screen {
@@ -30,7 +31,7 @@ public class MainGame implements Screen {
 	public MainGame(DarknessPlayground game) {
 		this.game = game;
 		this.map = new GameMap();
-		this.player = new Player(this.map, "player_one", 400, 100, new Pistol()); //To be implemented
+		this.player = new Player(this.map, "player_one", 400, 100, new Pistol());
 		this.debugFont = new BitmapFont();
 		this.infoDebugActive = false;
 		this.rectDebugActive = false;
@@ -41,6 +42,7 @@ public class MainGame implements Screen {
 	@Override
 	public void show() {
 		this.map.setPlayer(this.player);
+		this.map.add(new OwO(this.map, "ALPHA TESTER", 100, 100));
 	}
 
 	@Override
@@ -156,7 +158,7 @@ public class MainGame implements Screen {
 	}
 
 	public static void sendStatus(String string) {
-		// TODO Auto-generated method stub
+		status = string;
 	}
 
 }
