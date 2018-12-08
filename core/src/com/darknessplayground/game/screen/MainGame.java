@@ -11,8 +11,10 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.darknessplayground.game.DarknessPlayground;
 
 import logic.GameMap;
-import logic.GameObject;
+import logic.Projectile;
 import logic.Tile;
+import logic.creature.monster.Monster;
+import logic.creature.monster.OwO;
 import logic.creature.player.Pistol;
 import logic.creature.player.Player;
 
