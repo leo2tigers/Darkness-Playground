@@ -49,6 +49,7 @@ public class MainGame implements Screen {
 		this.timeSurvived = 0;
 		this.timeForPassiveXp = 0;
 		this.noticeShowTime = 0;
+		this.notice = new GlyphLayout(debugFont, "");
 	}
 
 	@Override
@@ -89,8 +90,14 @@ public class MainGame implements Screen {
 			this.timeForPassiveXp--;
 			this.player.xpFromTime(4 + (((int)this.timeSurvived - (int)this.timeSurvived%60)) / 60 * 2);
 		}
+		this.player.setShootingAnimationDelay(Math.max(0, this.player.getShootingAnimationDelay() - dt));
+		if(this.player.getShootingAnimationDelay() <= 0 && this.player.getAnimationState() == 3)
+		{
+			this.player.setAnimationState(4);
+			this.player.setShootingAnimationDelay(0.15f);
+		}
 		
-		handleInput();
+		handleInput(dt);
 		information = ">> Game Status : " + status +
 				             "\n>> " + this.player.toString() + 
 				             "\n    - position = " + this.player.getPosition() + 
@@ -154,7 +161,7 @@ public class MainGame implements Screen {
 		this.map.dispose();
 	}
 	
-	private void handleInput()
+	private void handleInput(float dt)
 	{
 		if(Gdx.input.isKeyJustPressed(Keys.UP))
 		{
@@ -165,17 +172,28 @@ public class MainGame implements Screen {
 			//
 		}
 		
+		if(!Gdx.input.isKeyPressed(Keys.LEFT) && !Gdx.input.isKeyPressed(Keys.RIGHT) && this.player.getShootingAnimationDelay() <= 0)
+		{
+			this.player.setAnimationState(0);
+			this.player.setTimeRunning(0);
+		}
 		if(Gdx.input.isKeyPressed(Keys.LEFT))
 		{
 			this.player.moveLeft();
+			this.player.setTimeRunning(this.player.getTimeRunning() + dt);
+			this.player.calculateAnimationState();
 		}
 		if(Gdx.input.isKeyPressed(Keys.RIGHT))
 		{
 			this.player.moveRight();
+			this.player.setTimeRunning(this.player.getTimeRunning() + dt);
+			this.player.calculateAnimationState();
 		}
 		if(Gdx.input.isKeyPressed(Keys.SPACE))
 		{
 			//this.player.attack();
+			this.player.setAnimationState(3);
+			this.player.setShootingAnimationDelay(0.25f);
 			this.player.inCombat();
 			this.player.attack();
 		}

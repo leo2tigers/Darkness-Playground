@@ -39,9 +39,9 @@ public class Shotgun extends Gun {
     	}
     	this.fireSound.play();
         int damage = 1;
-        URect firstBox = new URect(owner.positionX + 50*owner.orientation, owner.positionY, 25, 25);
-        URect secondBox = new URect(owner.positionX + 75*owner.orientation, owner.positionY, 50, 50);
-        URect thirdBox = new URect(owner.positionX + 100*owner.orientation, owner.positionY, 100, 100);
+        URect firstBox = new URect(owner.getX() + 50*owner.orientation, owner.getY(), 25, 25);
+        URect secondBox = new URect(owner.getX() + 75*owner.orientation, owner.getY(), 50, 50);
+        URect thirdBox = new URect(owner.getX() + 100*owner.orientation, owner.getY(), 100, 100);
         ArrayList<Monster> overlapped_monster = new ArrayList<>();
         for (GameObject gameObject : owner.map.getMonsters()) {
         	if (firstBox.overlap(((Monster) gameObject).hitBox)) {
@@ -54,9 +54,9 @@ public class Shotgun extends Gun {
         }
         if (!overlapped_monster.isEmpty()) {
 	        Monster hit_monster = overlapped_monster.get(0);
-	        double distance = Math.abs(overlapped_monster.get(0).positionX - owner.positionX);
+	        double distance = Math.abs(overlapped_monster.get(0).getX() - owner.getX());
 	        for (Monster monster : overlapped_monster) {
-	        	if (Math.abs(monster.positionX - owner.positionX) <= distance) {
+	        	if (Math.abs(monster.getX() - owner.getX()) <= distance) {
 	        		hit_monster = monster;
 	        	}
 	        }

@@ -4,8 +4,8 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import logic.creature.IRenderable;
 
 public abstract class GameObject implements IRenderable {
-    public double positionX;
-    public double positionY;
+    protected double positionX;
+    protected double positionY;
 
     public static double getDistance(GameObject first, GameObject second) {
         return Math.sqrt(
@@ -15,4 +15,14 @@ public abstract class GameObject implements IRenderable {
     GameMap map;
     abstract public void update();
 	abstract public void shapeRender(ShapeRenderer shapeRenderer);
+	
+	public double getX()
+	{
+		return this.positionX;
+	}
+	
+	public double getY()
+	{
+		return this.positionY;
+	}
 }
