@@ -2,6 +2,7 @@ package logic.creature;
 
 import logic.GameMap;
 import logic.GameObject;
+import logic.GameProperties;
 import logic.Tile;
 import logic.URect;
 
@@ -160,8 +161,7 @@ public abstract class Creature extends GameObject {
 
     public void update() {
         if (jumping) {
-            double gravity = 1000;
-            speedY -= gravity;
+            speedY -= GameProperties.Constant.GRAVITY;
         }
         move();
         this.speedX = 0;

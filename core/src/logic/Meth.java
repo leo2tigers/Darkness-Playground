@@ -9,4 +9,12 @@ public class Meth {
         str += n;
         return str;
     }
+    
+    public static double random(double left_boundary, double right_boundary) {
+    	return Math.random()*(right_boundary - left_boundary) + left_boundary;
+    }
+    
+    public static double center_random(double center, double width) {
+    	return random(center - width/2, center + width/2);
+    }
 }

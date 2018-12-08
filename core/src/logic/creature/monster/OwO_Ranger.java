@@ -3,7 +3,9 @@ package logic.creature.monster;
 import com.badlogic.gdx.graphics.Texture;
 
 import logic.GameMap;
+import logic.Meth;
 import logic.Projectile;
+import logic.SpawnPoint;
 
 public class OwO_Ranger extends OwO {
 
@@ -24,4 +26,11 @@ public class OwO_Ranger extends OwO {
 				               /*lifetime*/50, damage, Projectile.TO_PLAYER, 
 				               "Monsters/Ranged OwO/normal_projectile.png"));
 	}
+	
+	public static Spawnable spawnable = new Spawnable() {
+		@Override
+		public Monster spawn(SpawnPoint spawnPoint) {
+			return new OwO_Ranger(spawnPoint.map, "from_spawn_point_01", Meth.center_random(spawnPoint.positionX, spawnPoint.spawnWidth), spawnPoint.positionY);
+		}
+	};
 }

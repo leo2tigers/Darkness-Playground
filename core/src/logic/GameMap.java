@@ -1,6 +1,7 @@
 package logic;
 
 import logic.creature.monster.Monster;
+import logic.creature.monster.Spawnable;
 import logic.creature.player.Player;
 
 import java.util.ArrayList;
@@ -20,7 +21,6 @@ public class GameMap {
     public Player player;
 
     public GameMap() {
-    	this.tiles.add(new Tile(Tile.Type.FLOOR, 0, 0, 1200, 100, new Texture("Tiles/playground_floor.png")));
     }
 
     public void setPlayer(Player player) {
@@ -29,6 +29,10 @@ public class GameMap {
         
     }
 
+	public void add(Tile tile) {
+		this.tiles.add(tile);
+	}
+	
 	public void add(Monster monster) {
 		monsters.add(monster);
 		monster.map = this;
@@ -41,12 +45,12 @@ public class GameMap {
     
     public void addSpawnPoint(SpawnPoint spawnPoint) {
         spawnPoints.add(spawnPoint);
+        spawnPoint.map = this;
     }
 
     public void spawnFromSpawnPoint(int spawnPointNumber) {
         SpawnPoint spawnPoint = spawnPoints.get(spawnPointNumber);
-        Monster monster = spawnPoint.spawn();
-        add(monster);
+        spawnPoint.spawn();
     }
 
 	public void remove(GameObject gameObject) {
@@ -55,6 +59,10 @@ public class GameMap {
 
 	public ArrayList<Tile> getTiles() {
 		return tiles;
+	}
+
+	public ArrayList<SpawnPoint> getSpawnPoints() {
+		return spawnPoints;
 	}
 
 	public ArrayList<Projectile> getProjectiles() {
@@ -83,6 +91,7 @@ public class GameMap {
 			}
 		};
 		for_all(tiles, Rendering);
+		for_all(spawnPoints, Rendering);
 		for_all(monsters, Rendering);
 		for_all(projectiles, Rendering);
 		this.player.render(batch);
@@ -96,6 +105,7 @@ public class GameMap {
 			}
 		};
 		for_all(tiles, shapeRendering);
+		for_all(spawnPoints, shapeRendering);
 		for_all(monsters, shapeRendering);
 		for_all(projectiles, shapeRendering);
 		player.shapeRender(shapeRenderer);
@@ -118,6 +128,10 @@ public class GameMap {
 				projectiles.remove(gameObject);
 			}
 		}
+		for_all(tiles, updating);
+		for_all(spawnPoints, updating);
+		for_all(monsters, updating);
+		for_all(projectiles, updating);
 		this.player.update();
 	}
 	

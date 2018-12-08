@@ -1,5 +1,6 @@
 package logic;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -26,7 +27,7 @@ public class Tile extends URect {
     public final Type type;
 
     public Tile(Type type,double positionX, double positionY, double width, double height, Texture tilePic) {
-        super(positionX + width/2, positionY + height/2, width, height);
+        super(positionX, positionY, width, height, Color.GREEN);
         this.type = type;
         this.tilePic = tilePic;
         id = idCount++;
@@ -39,7 +40,7 @@ public class Tile extends URect {
     
     public void render(SpriteBatch batch)
     {
-    	batch.draw(this.tilePic, (float) (this.positionX - width/2), (float) (this.positionY - height/2));
+    	batch.draw(this.tilePic, (float) (this.positionX ), (float) (this.positionY));
     }
     
     public void dispose()

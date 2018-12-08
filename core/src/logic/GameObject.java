@@ -12,7 +12,6 @@ public abstract class GameObject implements IRenderable {
                 Math.pow(first.positionX - second.positionX, 2) + Math.pow(first.positionY - second.positionY, 2)
         );
     }
-    GameMap map;
     abstract public void update();
 	abstract public void shapeRender(ShapeRenderer shapeRenderer);
 	
