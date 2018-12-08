@@ -82,26 +82,9 @@ public class MainGame implements Screen {
 			this.game.toMainMenu();
 		}
 		
-		if(this.noticeShowTime > 0)
-		{
-			this.noticeShowTime -= dt;
-		}
-		else
-		{
-			this.noticeShowTime = 0;
-		}
-		if(this.noticeShowTime <= 0)
-		{
-			this.noticeText = "";
-		}
+		this.handleNoticeShow(dt);
 		
-		this.timeSurvived += dt;
-		this.timeForPassiveXp += dt;
-		if(this.timeForPassiveXp >= 1)
-		{
-			this.timeForPassiveXp--;
-			this.player.xpFromTime(4 + (((int)this.timeSurvived - (int)this.timeSurvived%60)) / 60 * 2);
-		}
+		this.handlePassiveXp(dt);
 		this.player.setShootingAnimationDelay(Math.max(0, this.player.getShootingAnimationDelay() - dt));
 		if(this.player.getShootingAnimationDelay() <= 0 && this.player.getAnimationState() == 3)
 		{
@@ -215,7 +198,12 @@ public class MainGame implements Screen {
 			this.player.setAnimationState(0);
 			this.player.setTimeRunning(0);
 		}
-		if(Gdx.input.isKeyPressed(Keys.LEFT))
+		else if(Gdx.input.isKeyPressed(Keys.LEFT) && Gdx.input.isKeyPressed(Keys.RIGHT))
+		{
+			this.player.setAnimationState(0);
+			this.player.setTimeRunning(0);
+		}
+		else if(Gdx.input.isKeyPressed(Keys.LEFT))
 		{
 			this.player.moveLeft();
 			this.player.setTimeRunning(this.player.getTimeRunning() + dt);
@@ -228,7 +216,7 @@ public class MainGame implements Screen {
 				this.player.calculateAnimationState();
 			}
 		}
-		if(Gdx.input.isKeyPressed(Keys.RIGHT))
+		else if(Gdx.input.isKeyPressed(Keys.RIGHT))
 		{
 			this.player.moveRight();
 			this.player.setTimeRunning(this.player.getTimeRunning() + dt);
@@ -270,6 +258,33 @@ public class MainGame implements Screen {
 	public static void sendStatus(String string) {
 		status = string;
 	}
+	
+	private void handlePassiveXp(float dt)
+	{
+		this.timeSurvived += dt;
+		this.timeForPassiveXp += dt;
+		if(this.timeForPassiveXp >= 1)
+		{
+			this.timeForPassiveXp--;
+			this.player.xpFromTime(4 + (((int)this.timeSurvived - (int)this.timeSurvived%60)) / 60 * 2);
+		}
+	}
+	
+	private void handleNoticeShow(float dt)
+	{
+		if(this.noticeShowTime > 0)
+		{
+			this.noticeShowTime -= dt;
+		}
+		else
+		{
+			this.noticeShowTime = 0;
+		}
+		if(this.noticeShowTime <= 0)
+		{
+			this.noticeText = "";
+		}
+	}	
 	
 	public void showNotice(String notice)
 	{
