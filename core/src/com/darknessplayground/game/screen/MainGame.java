@@ -203,13 +203,27 @@ public class MainGame implements Screen {
 		{
 			this.player.moveLeft();
 			this.player.setTimeRunning(this.player.getTimeRunning() + dt);
-			this.player.calculateAnimationState();
+			if(this.player.jumping)
+			{
+				this.player.setAnimationState(2);
+			}
+			else
+			{
+				this.player.calculateAnimationState();
+			}
 		}
 		if(Gdx.input.isKeyPressed(Keys.RIGHT))
 		{
 			this.player.moveRight();
 			this.player.setTimeRunning(this.player.getTimeRunning() + dt);
-			this.player.calculateAnimationState();
+			if(this.player.jumping)
+			{
+				this.player.setAnimationState(2);
+			}
+			else
+			{
+				this.player.calculateAnimationState();
+			}
 		}
 		if(Gdx.input.isKeyPressed(Keys.SPACE))
 		{
