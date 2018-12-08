@@ -3,6 +3,8 @@ package logic.creature.player;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 
+import logic.exceptions.NoAmmoException;
+
 abstract public class Gun {
     Player owner;
     final String type;
@@ -33,13 +35,13 @@ abstract public class Gun {
 		reloadThread.start();
 	}
 	
-    public void fire() {
+    public void fire() throws NoAmmoException {
     	if (ammo!= 0) {
     		fire_method();
     	}
     }
 
-    abstract void fire_method();
+    abstract void fire_method() throws NoAmmoException;
 
 	@Override
     public String toString() {

@@ -3,6 +3,7 @@ package logic.creature.player;
 import com.badlogic.gdx.Gdx;
 
 import logic.Projectile;
+import logic.exceptions.NoAmmoException;
 
 public class Pistol extends Gun {
 
@@ -26,7 +27,10 @@ public class Pistol extends Gun {
     }
 
     @Override
-    public void fire_method() {
+    public void fire_method() throws NoAmmoException {
+    	if(this.ammo <= 0) {
+    		throw new NoAmmoException();
+    	}
         int damage = 1;
         owner.map.add(new Projectile(owner.positionX + PlayerStats.Pistol.RELATIVE_X, owner.positionY + PlayerStats.Pistol.RELATIVE_Y, 
         		                     /*width*/20, /*height*/20, 

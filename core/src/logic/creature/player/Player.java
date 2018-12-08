@@ -10,9 +10,11 @@ package logic.creature.player;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.darknessplayground.game.screen.MainGame;
 
 import logic.GameMap;
 import logic.creature.Creature;
+import logic.exceptions.NoAmmoException;
 
 public class Player extends Creature {
     public Gun gun;
@@ -22,8 +24,9 @@ public class Player extends Creature {
     private int xpToCurrentLevel;
     private int xpToNextLevel;
     private int level;
+    private MainGame screen;
 
-    public Player(GameMap map, String name, double positionX, double positionY, Gun gun) {
+    public Player(GameMap map, String name, double positionX, double positionY, Gun gun, MainGame screen) {
         super(map, name, PlayerStats.MAX_HEALTH, positionX, positionY, new Texture("player_w-pistol_run2.png"));
         this.armour = PlayerStats.ARMOUR;
         this.speedX = 0;
@@ -65,7 +68,13 @@ public class Player extends Creature {
 
     @Override
     protected void attackMethod() {
-        gun.fire_method();
+    	try {
+    		gun.fire_method();
+    	}
+    	catch(NoAmmoException e)
+    	{
+    		this.screen.showNotice("No Ammo");
+    	}
     }
     
     @Override

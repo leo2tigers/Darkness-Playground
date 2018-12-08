@@ -6,6 +6,7 @@ import com.badlogic.gdx.Gdx;
 
 import logic.*;
 import logic.creature.monster.Monster;
+import logic.exceptions.NoAmmoException;
 
 public class Shotgun extends Gun {
     public Shotgun() {
@@ -31,7 +32,11 @@ public class Shotgun extends Gun {
     }
 
     @Override
-    public void fire_method() {
+    public void fire_method() throws NoAmmoException {
+    	if(this.ammo <= 0)
+    	{
+    		throw new NoAmmoException();
+    	}
     	this.fireSound.play();
         int damage = 1;
         URect firstBox = new URect(owner.positionX + 50*owner.orientation, owner.positionY, 25, 25);
