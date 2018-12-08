@@ -1,10 +1,9 @@
 package logic;
 
-import java.util.*;
+import java.util.Date;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.scenes.scene2d.ui.Widget;
 
 import logic.creature.monster.Monster;
 

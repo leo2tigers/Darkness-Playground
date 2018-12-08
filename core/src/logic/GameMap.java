@@ -19,6 +19,7 @@ public class GameMap {
 
     public Player player;
     public final ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
+    public final ArrayList<GameObject> to_be_removed = new ArrayList<>();
 
     public GameMap() {
     	this.tiles = new ArrayList<Tile>();
@@ -58,7 +59,7 @@ public class GameMap {
     }
 
 	public void remove(GameObject gameObject) {
-		gameObjects.remove(gameObject);
+		this.to_be_removed.add(gameObject);
 	}
 
 	public ArrayList<Tile> getTiles() {
@@ -98,6 +99,9 @@ public class GameMap {
 	}
 
 	public void updateAll() {
+		for (GameObject gameObject : this.to_be_removed) {
+			gameObjects.remove(gameObject);
+		}
 		for (GameObject gameObject : this.gameObjects) {
 			gameObject.update();
 		}
