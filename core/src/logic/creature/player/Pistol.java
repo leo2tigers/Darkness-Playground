@@ -31,6 +31,7 @@ public class Pistol extends Gun {
     	if(this.ammo <= 0) {
     		throw new NoAmmoException();
     	}
+    	this.fireSound.play();
         int damage = 1;
         if(owner.orientation == -1)
         {
