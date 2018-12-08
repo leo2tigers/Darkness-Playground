@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
@@ -29,6 +30,8 @@ public class MainGame implements Screen {
 	private float timeSurvived;
 	private float timeForPassiveXp;
 
+	private Texture bg;
+
 	private static String information;
 
 	public MainGame(DarknessPlayground game) {
@@ -44,6 +47,7 @@ public class MainGame implements Screen {
 
 	@Override
 	public void show() {
+		this.bg = new Texture("playground_background.png");
 		this.map.setPlayer(this.player);
 		this.map.add(new OwO(this.map, "ALPHA_TESTER", 100, 100));
 	}
@@ -92,6 +96,7 @@ public class MainGame implements Screen {
         this.map.updateAll();
 		
 		this.game.batch.begin();
+		this.game.batch.draw(bg, 0, 0, DarknessPlayground.WIDTH, DarknessPlayground.HEIGHT);
 		this.map.render(this.game.batch);
 		if(this.infoDebugActive) this.debugFont.draw(this.game.batch, label, 0, Gdx.graphics.getHeight() - 15);
 		this.game.batch.end();
