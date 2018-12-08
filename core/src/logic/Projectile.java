@@ -99,4 +99,11 @@ public class Projectile extends GameObject {
 			MainGame.sendStatus("rendering delay");
 		}
 	}
+	
+	@Override
+	public String toString() {
+		return "Projectile ( " + (lifetime + this.create_date.getTime() - (new Date()).getTime()) + " ) " + 
+	           ((this.damage_check_type == 0) ? "TO_MONSTER" : "TO_PLAYER") + 
+	           " ( " + this.positionX + " , "  + this.positionY + " )";
+	}
 }

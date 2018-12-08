@@ -19,7 +19,7 @@ public class GameMap {
     public Player player;
 
     public GameMap() {
-    	this.tiles.add(new Tile(0, 0, 1200, 100, new Texture("Tiles/playground_floor.png")));
+    	this.tiles.add(new Tile(Tile.Type.FLOOR, 0, 0, 1200, 100, new Texture("Tiles/playground_floor.png")));
     }
 
     public void setPlayer(Player player) {

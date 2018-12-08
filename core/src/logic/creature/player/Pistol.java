@@ -28,7 +28,7 @@ public class Pistol extends Gun {
         owner.map.add(new Projectile(owner.positionX + PlayerStats.Pistol.RELATIVE_X, owner.positionY + PlayerStats.Pistol.RELATIVE_Y, 
         		                     /*width*/20, /*height*/20, 
         		                     owner.orientation, /*speed*/25, 
-        		                     /*lifetime*/5000, damage, Projectile.TO_MONSTER, "Bullets/pistol_bullet.png"));
+        		                     /*lifetime*/1000, damage, Projectile.TO_MONSTER, "Bullets/pistol_bullet.png"));
         this.ammo -= 1;
     }
 }

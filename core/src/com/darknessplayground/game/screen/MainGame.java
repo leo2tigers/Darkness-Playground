@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.darknessplayground.game.DarknessPlayground;
 
 import logic.*;
+import logic.creature.monster.Monster;
 import logic.creature.monster.OwO;
 import logic.creature.player.*;
 
@@ -28,6 +29,8 @@ public class MainGame implements Screen {
 	private float timeSurvived;
 	private float timeForPassiveXp;
 
+	private static String information;
+
 	public MainGame(DarknessPlayground game) {
 		this.game = game;
 		this.map = new GameMap();
@@ -42,7 +45,7 @@ public class MainGame implements Screen {
 	@Override
 	public void show() {
 		this.map.setPlayer(this.player);
-		this.map.add(new OwO(this.map, "ALPHA TESTER", 100, 100));
+		this.map.add(new OwO(this.map, "ALPHA_TESTER", 100, 100));
 	}
 
 	@Override
@@ -65,7 +68,7 @@ public class MainGame implements Screen {
 		}
 		
 		handleInput();
-		String information = ">> Game Status : " + status +
+		information = ">> Game Status : " + status +
 				             "\n>> " + this.player.toString() + 
 				             "\n    - position = " + this.player.getPosition() + 
 				             "\n    - Attackable = " + this.player.attackable +
@@ -75,11 +78,15 @@ public class MainGame implements Screen {
 		information += ">> Tiles : \n";
 		for (Tile tile : this.map.getTiles()) {
 			information += "    - " + tile.toString();
-		}/*
-		information += "\n>> GameObjects : ";
-		for (GameObject gameObject : this.map.gameObjects) {
-			information += "\n    - " + gameObject.toString();
-		}*/
+		}
+		information += "\n>> Monsters : ";
+		for (Monster monster : this.map.getMonsters()) {
+			information += "\n    - " + monster.toString() + " , Position : " + monster.getPosition();
+		}
+		information += "\n>> Projectiles : ";
+		for (Projectile projectile : this.map.getProjectiles()) {
+			information += "\n    - " + projectile.toString();
+		}
 		GlyphLayout label = new GlyphLayout(this.debugFont, information);
         
         this.map.updateAll();
