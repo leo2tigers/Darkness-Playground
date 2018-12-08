@@ -12,13 +12,13 @@ public abstract class PlayerStats {
 	}
 	
 	abstract public  class HitBox {
-		public static final double WIDTH = 150;
+		public static final double WIDTH = 130;
 		public static final double HEIGHT = 150;
 		public static final double RELATIVE_X = 0;
 		public static final double RELATIVE_Y = 0;
 	}
 	abstract public  class MovementBox {
-		public static final double WIDTH = 150;
+		public static final double WIDTH = 130;
 		public static final double HEIGHT = 10;
 		public static final double RELATIVE_X = 0;
 		public static final double RELATIVE_Y = -5;

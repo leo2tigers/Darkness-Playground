@@ -118,6 +118,12 @@ public abstract class Creature extends GameObject {
         }else {
             jumping = true;
         }
+        
+        if (new_positionX < 0) {
+        	new_positionX = 0;
+        } else  if (new_positionX > 1280 - this.movementBox.width) {
+        	new_positionX = 1280 - this.movementBox.width;
+        }
 		
         movementBox.translate(new_positionX - positionX, new_positionY - positionY);
         hitBox.translate(new_positionX - positionX, new_positionY - positionY);
