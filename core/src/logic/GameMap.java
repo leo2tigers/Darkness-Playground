@@ -75,7 +75,7 @@ public class GameMap {
 	interface GameObjectMethod {
 		abstract void apply(GameObject gameObject);
 	}
-	private static <Type extends GameObject> void for_all(ArrayList<Type> arrayList, GameObjectMethod gameObjectMethod) {
+	private <Type extends GameObject> void for_all(ArrayList<Type> arrayList, GameObjectMethod gameObjectMethod) {
 		for (Type gameObject : arrayList) {
 			gameObjectMethod.apply((GameObject) gameObject);
 		}
