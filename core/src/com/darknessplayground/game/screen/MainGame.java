@@ -118,8 +118,9 @@ public class MainGame implements Screen {
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
-
+		this.debugFont.dispose();
+		this.player.dispose();
+		this.map.dispose();
 	}
 	
 	private void handleInput()

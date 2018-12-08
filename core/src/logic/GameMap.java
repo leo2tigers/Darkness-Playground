@@ -116,5 +116,22 @@ public class GameMap {
 		}
 		this.player.update();
 	}
+	
+	public void dispose()
+	{
+		this.player.dispose();
+		for(Projectile projectile : this.projectiles)
+		{
+			projectile.dispose();
+		}
+		for(Monster monster : this.monsters)
+		{
+			monster.dispose();
+		}
+		for(Tile tile : this.tiles)
+		{
+			tile.dispose();
+		}
+	}
 
 }

@@ -156,4 +156,11 @@ public class Player extends Creature {
 		int multiplier = (this.level - (this.level % 10)) / 10;
 		return lastLevelXp + 200 + (100*multiplier);
 	}
+	
+	@Override
+	public void dispose()
+	{
+		this.img.dispose();
+		this.gun.dispose();
+	}
 }

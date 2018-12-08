@@ -76,4 +76,9 @@ public class Projectile extends GameObject {
 	public void shapeRender(ShapeRenderer shapeRenderer) {
 		damageBox.shapeRender(shapeRenderer);
 	}
+	
+	public void dispose()
+	{
+		this.img.dispose();
+	}
 }

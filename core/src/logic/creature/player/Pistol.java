@@ -1,11 +1,14 @@
 package logic.creature.player;
 
+import com.badlogic.gdx.Gdx;
+
 import logic.Projectile;
 
 public class Pistol extends Gun {
 
 	public Pistol() {
         super("Pistol", 7, 1500, false);
+        this.fireSound = Gdx.audio.newSound(Gdx.files.internal("Sfx/Piston_Fire.mp3"));
         reloadThread = new Thread(() -> {
             reloading = true;
             owner.attackable = false;
@@ -25,6 +28,7 @@ public class Pistol extends Gun {
     @Override
     public void fire_method() {
         int damage = 1;
+        this.fireSound.play();
         owner.map.add(new Projectile(owner.positionX, owner.positionY, 
         		                     /*width*/20, /*height*/20, 
         		                     owner.orientation, /*speed*/25, 

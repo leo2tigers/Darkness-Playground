@@ -142,7 +142,7 @@ public abstract class Creature extends GameObject /*implements IRenderable*/ {
         	speedY = jumping_speed;
         }
     }
-    protected void jump_down() {
+    public void jump_down() {
         jumping = true;
         speedY = -jumping_speed;
         translate(0., speedY);
@@ -210,5 +210,10 @@ public abstract class Creature extends GameObject /*implements IRenderable*/ {
     public void shapeRender(ShapeRenderer shapeRenderer) {
     	this.hitBox.shapeRender(shapeRenderer);
     	this.movementBox.shapeRender(shapeRenderer);
+    }
+    
+    public void dispose()
+    {
+    	this.img.dispose();
     }
 }
