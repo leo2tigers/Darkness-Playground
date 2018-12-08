@@ -43,6 +43,7 @@ public class Player extends Creature {
         this.setMovementBox(PlayerStats.MovementBox.RELATIVE_X, PlayerStats.MovementBox.RELATIVE_Y, 
         		            PlayerStats.MovementBox.WIDTH, PlayerStats.MovementBox.HEIGHT);
         this.setGun(gun);
+        this.screen = screen;
         this.timeOutOfCombat = 0;
         this.timeSinceLastRegen = 0;
         this.xp = 0;
