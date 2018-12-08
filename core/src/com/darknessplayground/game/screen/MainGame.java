@@ -233,6 +233,10 @@ public class MainGame implements Screen {
 			this.player.inCombat();
 			this.player.attack();
 		}
+		if(Gdx.input.isKeyJustPressed(Keys.R))
+		{
+			this.player.gun.reload();
+		}
 		
 		if(Gdx.input.isKeyJustPressed(Keys.F1))
 		{
