@@ -26,6 +26,7 @@ public class Shotgun extends Gun {
     		throw new NoAmmoException();
     	}
     	this.fireSound.play();
+    	this.ammo -= 1;
         int damage = 1;
         firstBox = new URect((owner.orientation < 0) ? owner.getX() - 50 : owner.getX() + owner.hitBox.width, owner.getY() + owner.hitBox.height/2 - 25, 
         		             50, 50, Color.ORANGE);
@@ -68,10 +69,10 @@ public class Shotgun extends Gun {
 	@Override
 	protected void createReloadThread() {
     	reloadThread = new Thread(() -> {
-    		int reload_time_per_ammo = reload_time/ammo;
+    		int reload_time_per_ammo = reload_time/max_ammo;
             reloading = true;
-            owner.attackable = false;
-            for (int i = 0; i < max_ammo - ammo; ++i) {
+            int ammo_left = ammo;
+            for (int i = 0; i < max_ammo - ammo_left; ++i) {
                 try {
                     Thread.sleep(reload_time_per_ammo);
                     ++ammo;
@@ -80,7 +81,6 @@ public class Shotgun extends Gun {
                 }
             }
             reloading =false;
-            owner.attackable = true;
         });
         this.preDelay = 500;
         this.postDelay = 500;

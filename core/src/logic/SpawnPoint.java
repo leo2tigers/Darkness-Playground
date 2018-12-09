@@ -5,7 +5,9 @@ import java.util.Date;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.darknessplayground.game.screen.MainGame;
 
+import logic.creature.monster.Monster;
 import logic.creature.monster.MonsterType;
 
 public class SpawnPoint extends GameObject {
@@ -24,7 +26,9 @@ public class SpawnPoint extends GameObject {
     }
 
     public void spawn() {
-		this.map.add(monsterType.spawnable.spawn(this));
+    	Monster monster = monsterType.spawnable.spawn(this);
+    	MainGame.log("spawn " + monster.name + " from SpawnPoint " + this.positionX + " , " + this.positionY);
+		this.map.add(monster);
 		this.spawnCount += 1;
 		this.spawnable = false;
 		this.lastSpawnDate = new Date();

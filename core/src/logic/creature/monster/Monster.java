@@ -5,6 +5,7 @@ import java.util.Date;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.darknessplayground.game.screen.MainGame;
 
 import logic.GameMap;
 import logic.GameProperties;
@@ -21,6 +22,8 @@ public abstract class Monster extends Creature{
 	protected int random_delay = 2000;
 	private boolean walking = false;
 	private Date last_random_date = new Date();
+
+	protected int xp;
 	
     public Monster(GameMap map, String name, int maxHealth, double positionX, double positionY, Texture img) {
         super(map, name, maxHealth, positionX, positionY, img);
@@ -37,12 +40,16 @@ public abstract class Monster extends Creature{
     
     @Override
     public void getHit(int damage) {
-        setHealth(getHealth() - (damage - armour > 0 ? damage - armour : 0));
-        if(getHealth() <= 0)
-        {
-        	this.grantXp(this.map.player);
-        	this.map.remove(this);
-        }
+    	if (isAlive()) {
+    		MainGame.log("hit " + this.name + " with " + (damage - armour > 0 ? damage - armour : 0) + " damage");
+	        setHealth(getHealth() - (damage - armour > 0 ? damage - armour : 0));
+	        if(getHealth() <= 0)
+	        {
+	        	MainGame.log(this.name + " die -> xp = " + xp);
+	        	this.grantXp(this.map.player);
+	        	this.map.remove(this);
+	        }
+    	}
     }
     
     abstract public void grantXp(Player player);

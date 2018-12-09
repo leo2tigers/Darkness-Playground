@@ -1,5 +1,7 @@
 package com.darknessplayground.game.screen;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Input.Keys;
@@ -48,7 +50,8 @@ public class MainGame implements Screen {
 	private Texture bg;
 
 	private static String information;
-	private static String add_info = "";
+	private static ArrayList<String> game_log = new ArrayList<>();
+	private static int log_height = 80;
 
 	public MainGame(DarknessPlayground game) {
 		this.game = game;
@@ -66,12 +69,17 @@ public class MainGame implements Screen {
 	}
 	
 	private void setupMap() {
+		log("setup map");
+		log("setup tiles");
 		this.map.add(new Tile(Tile.Type.FLOOR, 0, 0, 1280, 100, new Texture("Tiles/floor.png")));
 		this.map.add(new Tile(Tile.Type.PLATFORM, 0, 250, 500, 50, new Texture("Tiles/tile10.png")));
 		this.map.add(new Tile(Tile.Type.PLATFORM, 400, 400, 400, 50, new Texture("Tiles/tile8.png")));
+		log("setup player");
 		this.map.setPlayer(this.player);
+		log("setup monsters");
 		//this.map.add(new OwO_Sniper(this.map, "aplha-tester", 100, 100));
 		//this.map.add(new OwO_Ranger(this.map, "aplha-tester", 100, 100));
+		log("setup spawnpoints");
 		this.map.addSpawnPoint(new SpawnPoint(MonsterType.OwO_NORMAL, 100, 100));
 		this.map.addSpawnPoint(new SpawnPoint(MonsterType.OwO_NORMAL, 600, 500));
 	}
@@ -147,8 +155,8 @@ public class MainGame implements Screen {
 				information += "\n    - " + projectile.toString();
 			}
 		}
-		information += "\n" + add_info;
 		GlyphLayout label = new GlyphLayout(this.debugFont, information);
+		GlyphLayout log = new GlyphLayout(this.debugFont, get_log());
 		GlyphLayout notice = new GlyphLayout(noticeFont, noticeText, Color.RED, 50, Align.left, false);
         // -- information for debugging --
 		
@@ -157,7 +165,10 @@ public class MainGame implements Screen {
 		this.game.batch.begin();
 		this.game.batch.draw(bg, 0, 0, DarknessPlayground.WIDTH, DarknessPlayground.HEIGHT);
 		this.map.render(this.game.batch);
-		if(this.infoDebugActive) this.debugFont.draw(this.game.batch, label, 0, Gdx.graphics.getHeight() - 15);
+		if(this.infoDebugActive) {
+			this.debugFont.draw(this.game.batch, label, 0, Gdx.graphics.getHeight() - 15);
+			this.debugFont.draw(this.game.batch, log, 750, Gdx.graphics.getHeight() - 15);
+		}
 		this.showWeaponUI();
 		this.showHealthUI();
 		this.noticeFont.draw(this.game.batch, notice, Gdx.graphics.getWidth()/2 - notice.width/2, notice.height+10);
@@ -166,6 +177,14 @@ public class MainGame implements Screen {
 		this.game.shapeRenderer.begin(ShapeType.Line);
 		if(this.rectDebugActive) this.map.render(this.game.shapeRenderer);
 		this.game.shapeRenderer.end();
+	}
+
+	private String get_log() {
+		String str = "log :\n";
+		for (int i = game_log.size(); i > 0 && i > game_log.size() - log_height; --i) {
+			str += ">>    " + game_log.get(i - 1) + "\n";
+		}
+		return str;
 	}
 
 	@Override
@@ -357,7 +376,7 @@ public class MainGame implements Screen {
 	}
 	
 	public static void log(String string) {
-		add_info += string + "\n";
+		game_log.add(string);
 	}
 
 }
