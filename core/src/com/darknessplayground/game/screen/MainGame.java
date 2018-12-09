@@ -17,7 +17,6 @@ import logic.Projectile;
 import logic.SpawnPoint;
 import logic.Tile;
 import logic.creature.monster.Monster;
-import logic.creature.monster.MonsterType;
 import logic.creature.monster.OwO_Sniper;
 import logic.creature.player.Pistol;
 import logic.creature.player.Player;
@@ -32,9 +31,12 @@ public class MainGame implements Screen {
 	private Player player;
 	private BitmapFont debugFont;
 	private BitmapFont noticeFont;
+	private BitmapFont hpTextFont;
 	private Texture weaponUINormal;
 	private Texture weaponUINoAmmo;
 	private Texture weaponUIReloading;
+	private Texture hpBar;
+	private Texture remainingHpBar;
 	
 	private boolean infoDebugActive;
 	private boolean rectDebugActive;
@@ -53,10 +55,8 @@ public class MainGame implements Screen {
 		this.map = new GameMap();
 		this.player = new Player(this.map, "player_one", 400, 100, new Pistol(), this);
 		this.debugFont = new BitmapFont();
+		this.hpTextFont = new BitmapFont(Gdx.files.internal("Fonts/Agency_FB_23px.fnt"));
 		this.noticeFont = new BitmapFont(Gdx.files.internal("Fonts/Agency_FB_32px.fnt"));
-		this.weaponUINormal = new Texture("UI/weapon/weapon-ui_normal.png");
-		this.weaponUINoAmmo = new Texture("UI/weapon/weapon-ui_no-ammo.png");
-		this.weaponUIReloading = new Texture("UI/weapon/weapon-ui_reloading.png");
 		this.infoDebugActive = false;
 		this.rectDebugActive = false;
 		this.timeSurvived = 0;
@@ -78,6 +78,11 @@ public class MainGame implements Screen {
 	@Override
 	public void show() {
 		this.bg = new Texture("playground_background.png");
+		this.weaponUINormal = new Texture("UI/weapon/weapon-ui_normal.png");
+		this.weaponUINoAmmo = new Texture("UI/weapon/weapon-ui_no-ammo.png");
+		this.weaponUIReloading = new Texture("UI/weapon/weapon-ui_reloading.png");
+		this.hpBar = new Texture("UI/health/bar.png");
+		this.remainingHpBar = new Texture("UI/health/progress.png");
 		this.setupMap();
 	}
 
@@ -153,6 +158,7 @@ public class MainGame implements Screen {
 		this.map.render(this.game.batch);
 		if(this.infoDebugActive) this.debugFont.draw(this.game.batch, label, 0, Gdx.graphics.getHeight() - 15);
 		this.showWeaponUI();
+		this.showHealthUI();
 		this.noticeFont.draw(this.game.batch, notice, Gdx.graphics.getWidth()/2 - notice.width/2, notice.height+10);
 		this.game.batch.end();
 
@@ -335,6 +341,18 @@ public class MainGame implements Screen {
 			GlyphLayout ammoDisplay = new GlyphLayout(noticeFont, ammo + "/" + maxAmmo, new Color(0.70196f, 0.70196f, 0.70196f, 1), 50, Align.left, false);
 			this.noticeFont.draw(this.game.batch, ammoDisplay, Gdx.graphics.getWidth() - 70 - ammoDisplay.width, 10 + 40);
 		}
+	}
+	
+	private void showHealthUI()
+	{
+		int currentHealth = this.player.getHealth();
+		int maxHealth = this.player.getMaxHealth();
+		GlyphLayout hpText = new GlyphLayout(this.hpTextFont, "HP", new Color(0.70196f, 0.70196f, 0.70196f, 1), 50, Align.left, false);
+		GlyphLayout currentHpText = new GlyphLayout(noticeFont, currentHealth + "/" + maxHealth, new Color(0.70196f, 0.70196f, 0.70196f, 1), 50, Align.left, false);
+		this.game.batch.draw(hpBar, 10, 10);
+		this.hpTextFont.draw(this.game.batch, hpText, 10+30, 10+30);
+		this.noticeFont.draw(this.game.batch, currentHpText, 10+380+10, 10+30);
+		this.game.batch.draw(this.remainingHpBar, 10+70, 10+10, (300*((float)currentHealth/(float)maxHealth)), 10);
 	}
 	
 	public static void log(String string) {
