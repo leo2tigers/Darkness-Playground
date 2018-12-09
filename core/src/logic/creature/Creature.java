@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.darknessplayground.game.screen.MainGame;
 
 public abstract class Creature extends GameObject {
 
@@ -113,7 +114,7 @@ public abstract class Creature extends GameObject {
         URect check_movementBox = new URect(movementBox.getX() + x, movementBox.getY() + y, movementBox.width, movementBox.height, Color.BLUE);
 
         Tile check_tile = overlapTile(check_movementBox);
-        if (check_movementBox.overlap(check_tile)) {
+        if (check_movementBox.overlap(check_tile) && Math.abs(check_tile.getX() +check_tile. width/2 - this.positionX - this.movementBox.width/2) <= check_tile.width/2) {
             new_positionY = check_tile.getY() + check_tile.height;
             jumping = false;
             speedY = 0;
@@ -132,6 +133,8 @@ public abstract class Creature extends GameObject {
 
         positionX = new_positionX;
         positionY = new_positionY;
+        
+        this.current_tile = this.overlapTile(this.movementBox);
 
         return new double[] {positionX, positionY};
     }
@@ -151,7 +154,7 @@ public abstract class Creature extends GameObject {
     }
     public void jump_down() {
         jumping = true;
-        speedY = -jumping_speed;
+        speedY = -jumping_speed*1.3;
         translate(0., speedY);
     }
 
@@ -172,7 +175,6 @@ public abstract class Creature extends GameObject {
      * This method is used to begin an Attack Event if the creature is  alive and attackable.
      */
     public void attack() {
-    	System.out.println("call attack");
         if (isAlive()) {
         	attack_prepare();
             if (attackable) {
