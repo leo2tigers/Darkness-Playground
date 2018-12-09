@@ -17,7 +17,6 @@ import logic.Projectile;
 import logic.SpawnPoint;
 import logic.Tile;
 import logic.creature.monster.Monster;
-import logic.creature.monster.MonsterType;
 import logic.creature.monster.OwO_Sniper;
 import logic.creature.player.Pistol;
 import logic.creature.player.Player;
