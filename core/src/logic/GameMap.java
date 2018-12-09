@@ -4,9 +4,11 @@ import logic.creature.monster.Monster;
 import logic.creature.player.Player;
 
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.darknessplayground.game.screen.MainGame;
 
 public class GameMap {
 
@@ -88,10 +90,14 @@ public class GameMap {
 				gameObject.render(batch);
 			}
 		};
-		for_all(tiles, Rendering);
-		for_all(spawnPoints, Rendering);
-		for_all(monsters, Rendering);
-		for_all(projectiles, Rendering);
+		try {
+			for_all(tiles, Rendering);
+			for_all(spawnPoints, Rendering);
+			for_all(monsters, Rendering);
+			for_all(projectiles, Rendering);
+		} catch (ConcurrentModificationException c) {
+			MainGame.log(c.getMessage());
+		}
 		this.player.render(batch);
 	}
 
