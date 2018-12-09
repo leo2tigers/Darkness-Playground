@@ -25,31 +25,34 @@ public class Pistol extends Gun {
             reloading = false;
             owner.attackable = true;
         });
-        this.preDelay = 300;
+        this.preDelay = 1000;
         this.postDelay = 500;
 	}
 
     @Override
     public void fire_method() throws NoAmmoException {
-    	System.out.println("call fire_method");
     	if(this.ammo <= 0) {
     		throw new NoAmmoException();
     	}
     	this.fireSound.play();
         int damage = 1;
+        int lifetime = 200;
+        double width = 20;
+        double height = 10;
+        double speed = 25;
         if(owner.orientation == -1)
         {
         	owner.map.add(new Projectile(owner.getX() + PlayerStats.Pistol.RELATIVE_X, owner.getY() + PlayerStats.Pistol.RELATIVE_Y, 
-        		                     	 /*width*/20, /*height*/20, 
-        		                     	 owner.orientation, /*speed*/25, 
-        		                     	 /*lifetime*/1000, damage, Projectile.TO_MONSTER, "Bullets/pistol_bullet.png"));
+        		                     	 width, height, 
+        		                     	 owner.orientation, speed, 
+        		                     	 lifetime, damage, Projectile.TO_MONSTER, "Bullets/pistol_bullet.png"));
         }
         else if(owner.orientation == 1)
         {
         	owner.map.add(new Projectile(owner.getX() + 115 - PlayerStats.Pistol.RELATIVE_X, owner.getY() + PlayerStats.Pistol.RELATIVE_Y,
-        								 20, 20,
-        								 owner.orientation, 25,
-        								 1000, damage, Projectile.TO_MONSTER, "Bullets/pistol_bullet.png"));
+        								 width, height,
+        								 owner.orientation, speed,
+        								 lifetime, damage, Projectile.TO_MONSTER, "Bullets/pistol_bullet.png"));
         }
         this.ammo -= 1;
     }

@@ -39,14 +39,17 @@ public class OwO extends Monster {
     }
     
     @Override
-    protected void attack_prepare() {}
+    protected void attack_prepare() {
+    	this.preDelay = 500;
+    	this.postDelay = 500;
+    }
     
     @Override
     protected void attackMethod() {
     	damageBox = new URect(positionX + this.hitBox.width/4 + this.orientation*50, positionY + this.hitBox.height/4, 
     			              50, 50, Color.CYAN);
-    	if (damageBox.overlap(map.player.hitBox)) {
-    		map.player.getHit(1);
+    	if (damageBox.overlap(this.map.player.hitBox) && this.map.player.isAlive()) {
+    		this.map.player.getHit(1);
     	}
     }
 

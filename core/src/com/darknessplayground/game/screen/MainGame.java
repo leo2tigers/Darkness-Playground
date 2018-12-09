@@ -18,6 +18,7 @@ import logic.SpawnPoint;
 import logic.Tile;
 import logic.creature.monster.Monster;
 import logic.creature.monster.MonsterType;
+import logic.creature.monster.OwO_Sniper;
 import logic.creature.player.Pistol;
 import logic.creature.player.Player;
 
@@ -48,6 +49,7 @@ public class MainGame implements Screen {
 	private Texture bg;
 
 	private static String information;
+	private static String add_info = "";
 
 	public MainGame(DarknessPlayground game) {
 		this.game = game;
@@ -63,6 +65,16 @@ public class MainGame implements Screen {
 		this.noticeShowTime = 0;
 		this.noticeText = "";
 	}
+	
+	private void setupMap() {
+		this.map.add(new Tile(Tile.Type.FLOOR, 0, 0, 1280, 100, new Texture("Tiles/floor.png")));
+		this.map.add(new Tile(Tile.Type.PLATFORM, 0, 250, 450, 50, new Texture("Tiles/tile9.png")));
+		this.map.add(new Tile(Tile.Type.PLATFORM, 500, 400, 400, 50, new Texture("Tiles/tile8.png")));
+		this.map.setPlayer(this.player);
+		this.map.add(new OwO_Sniper(this.map, "aplha-tester", 100, 100));
+		//this.map.addSpawnPoint(new SpawnPoint(MonsterType.OwO_NORMAL, 100, 100));
+		//this.map.addSpawnPoint(new SpawnPoint(MonsterType.OwO_NORMAL, 600, 500));
+	}
 
 	@Override
 	public void show() {
@@ -72,9 +84,7 @@ public class MainGame implements Screen {
 		this.weaponUIReloading = new Texture("UI/weapon/weapon-ui_reloading.png");
 		this.hpBar = new Texture("UI/health/bar.png");
 		this.remainingHpBar = new Texture("UI/health/progress.png");
-		this.map.add(new Tile(Tile.Type.FLOOR, 0, 0, 1280, 100, new Texture("Tiles/playground_floor.png")));
-		this.map.setPlayer(this.player);
-		this.map.addSpawnPoint(new SpawnPoint(MonsterType.OwO_NORMAL, 100, 100));
+		this.setupMap();
 	}
 
 	@Override
@@ -107,10 +117,11 @@ public class MainGame implements Screen {
 				             "\n    - Attackable = " + this.player.attackable +
 				             "\n    - Gun = " + this.player.gun +
 				             "\n    - Status = " + this.player.status +
+				             "\n    - Current Tile = " + this.player.current_tile +
 				             "\n";
 		information += ">> Tiles : \n";
 		for (Tile tile : this.map.getTiles()) {
-			information += "    - " + tile.toString();
+			information += "\n    - " + tile.toString();
 		}
 		information += "\n>> SpawnPoints : ";
 		if (this.map.getSpawnPoints().isEmpty()) {
@@ -120,7 +131,7 @@ public class MainGame implements Screen {
 				information += "\n    - " + spawnPoint;
 			}
 		}
-		information += "\n>> Monsters : ";
+		information += "\n>> Monsters " + this.map.getMonsters().size() + " : ";
 		if (this.map.getMonsters().isEmpty()) {
 			information += " NONE";
 		} else {
@@ -136,6 +147,7 @@ public class MainGame implements Screen {
 				information += "\n    - " + projectile.toString();
 			}
 		}
+		information += "\n" + add_info;
 		GlyphLayout label = new GlyphLayout(this.debugFont, information);
 		GlyphLayout notice = new GlyphLayout(noticeFont, noticeText, Color.RED, 50, Align.left, false);
         // -- information for debugging --
@@ -196,7 +208,8 @@ public class MainGame implements Screen {
 		}
 		else if(Gdx.input.isKeyJustPressed(Keys.DOWN))
 		{
-			//
+			if (this.player.current_tile != null)
+				if (this.player.current_tile.type != Tile.Type.FLOOR) this.player.jump_down();
 		}
 		
 		if(!Gdx.input.isKeyPressed(Keys.LEFT) && !Gdx.input.isKeyPressed(Keys.RIGHT) && this.player.getShootingAnimationDelay() <= 0)
@@ -246,7 +259,6 @@ public class MainGame implements Screen {
 		if(Gdx.input.isKeyJustPressed(Keys.SPACE))
 		{
 			//this.player.attack();
-			System.out.println("key pressed");
 			if(this.player.gun.getAmmo() > 0) {
 				this.player.setAnimationState(5);
 				this.player.setShootingAnimationDelay(0.2f);
@@ -342,6 +354,10 @@ public class MainGame implements Screen {
 		this.hpTextFont.draw(this.game.batch, hpText, 10+30, 10+30);
 		this.noticeFont.draw(this.game.batch, currentHpText, 10+380+10, 10+30);
 		this.game.batch.draw(this.remainingHpBar, 10+70, 10+10, (300*((float)currentHealth/(float)maxHealth)), 10);
+	}
+	
+	public static void log(String string) {
+		add_info += string;
 	}
 
 }
