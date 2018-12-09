@@ -54,19 +54,19 @@ public class Player extends Creature {
         
         this.playerAnimation = new Animation[2][7];
         this.playerAnimation[0][0] = new Animation<Texture>(0.2f, new Texture("Player/Pistol/player_w-pistol_stand_still_left.png"));
-        this.playerAnimation[0][1] = new Animation<>(0.2f, new Texture("Player/Pistol/player_w-pistol_run1_left.png"));
-        this.playerAnimation[0][2] = new Animation<>(0.2f, new Texture("Player/Pistol/player_w-pistol_run2_left.png"));
-        this.playerAnimation[0][3] = new Animation<>(0.2f, new Texture("Player/Pistol/player_w-pistol_run3_left.png"));
-        this.playerAnimation[0][4] = new Animation<>(0.2f, new Texture("Player/Pistol/player_w-pistol_run4_left.png"));
-        this.playerAnimation[0][5] = new Animation<>(0.3f, new Texture("Player/Pistol/player_w-pistol_fire_left.png"));
-        this.playerAnimation[0][6] = new Animation<>(0.3f, new Texture("Player/Pistol/player_w-pistol_after_fire_left.png"));
+        this.playerAnimation[0][1] = new Animation<Texture>(0.2f, new Texture("Player/Pistol/player_w-pistol_run1_left.png"));
+        this.playerAnimation[0][2] = new Animation<Texture>(0.2f, new Texture("Player/Pistol/player_w-pistol_run2_left.png"));
+        this.playerAnimation[0][3] = new Animation<Texture>(0.2f, new Texture("Player/Pistol/player_w-pistol_run3_left.png"));
+        this.playerAnimation[0][4] = new Animation<Texture>(0.2f, new Texture("Player/Pistol/player_w-pistol_run4_left.png"));
+        this.playerAnimation[0][5] = new Animation<Texture>(0.3f, new Texture("Player/Pistol/player_w-pistol_fire_left.png"));
+        this.playerAnimation[0][6] = new Animation<Texture>(0.3f, new Texture("Player/Pistol/player_w-pistol_after_fire_left.png"));
         this.playerAnimation[1][0] = new Animation<Texture>(0.2f, new Texture("Player/Pistol/player_w-pistol_stand_still_right.png"));
-        this.playerAnimation[1][1] = new Animation<>(0.2f, new Texture("Player/Pistol/player_w-pistol_run1_right.png"));
-        this.playerAnimation[1][2] = new Animation<>(0.2f, new Texture("Player/Pistol/player_w-pistol_run2_right.png"));
-        this.playerAnimation[1][3] = new Animation<>(0.2f, new Texture("Player/Pistol/player_w-pistol_run3_right.png"));
-        this.playerAnimation[1][4] = new Animation<>(0.2f, new Texture("Player/Pistol/player_w-pistol_run4_right.png"));
-        this.playerAnimation[1][5] = new Animation<>(0.3f, new Texture("Player/Pistol/player_w-pistol_fire_right.png"));
-        this.playerAnimation[1][6] = new Animation<>(0.3f, new Texture("Player/Pistol/player_w-pistol_after_fire_right.png"));
+        this.playerAnimation[1][1] = new Animation<Texture>(0.2f, new Texture("Player/Pistol/player_w-pistol_run1_right.png"));
+        this.playerAnimation[1][2] = new Animation<Texture>(0.2f, new Texture("Player/Pistol/player_w-pistol_run2_right.png"));
+        this.playerAnimation[1][3] = new Animation<Texture>(0.2f, new Texture("Player/Pistol/player_w-pistol_run3_right.png"));
+        this.playerAnimation[1][4] = new Animation<Texture>(0.2f, new Texture("Player/Pistol/player_w-pistol_run4_right.png"));
+        this.playerAnimation[1][5] = new Animation<Texture>(0.3f, new Texture("Player/Pistol/player_w-pistol_fire_right.png"));
+        this.playerAnimation[1][6] = new Animation<Texture>(0.3f, new Texture("Player/Pistol/player_w-pistol_after_fire_right.png"));
         this.timeRunning = 0;
         this.animationState = 0;
         this.stateTime = 0;
@@ -159,7 +159,9 @@ public class Player extends Creature {
 	}
 
 	public void setAnimationState(int animationState) {
-		this.animationState = animationState;
+		if(animationState < 0) this.animationState = 0;
+		else if(animationState > 6) this.animationState = 6;
+		else this.animationState = animationState;
 		
 		// Dynamic HitBox/MovementBox
 		if (this.animationState == 0) {

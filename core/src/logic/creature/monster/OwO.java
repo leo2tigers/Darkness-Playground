@@ -1,5 +1,7 @@
 package logic.creature.monster;
 
+import java.util.Date;
+
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -14,6 +16,9 @@ import logic.creature.player.Player;
 public class OwO extends Monster {
 	
 	private URect damageBox = null;
+	protected int attackState;
+	protected Texture[] atkImg;
+	protected Texture jumpImg;
 	
 	static String img_path_stand = "Monsters/Normal OwO/new_owo.png";
 	static String img_path_jump = "Monsters/Normal OwO/new_owo_jump.png";
@@ -29,12 +34,17 @@ public class OwO extends Monster {
         this.xp = 30;
     }
     
-    public OwO(GameMap map, String name,int maxHealth, double positionX, double positionY, Texture img, Texture atkImg, Texture jumpImg) {
+    public OwO(GameMap map, String name,int maxHealth, double positionX, double positionY,
+    		   Texture img, Texture atkImgLeft, Texture atkImgRight, Texture jumpImg) {
         super(map, "OwO-" + name, maxHealth, positionX, positionY, img);
         this.setHitBox(0, 0, 100, 100);
         this.setMovementBox(0, -5, 100, 10);
         //setImg(img_path_stand);
         this.img = img;
+        this.atkImg = new Texture[2];
+        this.atkImg[0] = atkImgLeft;
+        this.atkImg[1] = atkImgRight;
+        this.jumpImg = jumpImg;
         this.max_sight_range = 500;
         this.attack_range = 50;
         this.movement_speed = 1;
@@ -95,5 +105,51 @@ public class OwO extends Monster {
 				this.movement_speed = this.orientation*this.movement_speed;
 			}
 		}
+	}
+	
+	@Override
+	public void attack() {
+        if (isAlive()) {
+        	attack_prepare();
+            if (attackable) {
+                attackDate = new Date();
+                Thread attackThread = new Thread(() -> {
+                	status = "ATTACKING";
+                    // preAnimation delay
+                    attackable = false;
+                    this.setAttackState(1);
+                    Date newDate = new Date();
+                    while (newDate.getTime() - attackDate.getTime() <= preDelay) {
+                        newDate = new Date();
+                    }
+
+                    // attack!
+                    if (isAlive()) {
+                    	attackMethod();
+                    } else {
+                    	return;
+                    }
+                    this.setAttackState(0);
+
+                    // postAnimation delay
+                    attackDate = new Date();
+                    newDate = new Date();
+                    while (newDate.getTime() - attackDate.getTime() <= postDelay) {
+                        newDate = new Date();
+                    }
+                    attackable = true;
+                    status = "NORMAL";
+                });
+                attackThread.start();
+            }
+        }
+    }
+
+	public int getAttackState() {
+		return attackState;
+	}
+
+	public void setAttackState(int attackState) {
+		this.attackState = attackState;
 	}
 }

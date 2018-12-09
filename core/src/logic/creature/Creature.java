@@ -36,7 +36,7 @@ public abstract class Creature extends GameObject {
     public GameMap map;
     public Tile current_tile;
     public String status = "NORMAL";
-    private Date attackDate;
+    protected Date attackDate;
     
     protected Texture img;
 

@@ -10,7 +10,11 @@ import logic.URect;
 public class OwO_Freeze extends OwO {
 
 	public OwO_Freeze(GameMap map, String name, double positionX, double positionY) {
-		super(map, "Freeze-" + name, 2, positionX, positionY, new Texture("Monsters/Freeze OwO/new_owo_freeze.png"), new Texture("Monsters/Freeze OwO/new_owo_freeze_attack.png"), new Texture("Monsters/Freeze OwO/new_owo_freeze_jump.png"));
+		super(map, "Freeze-" + name, 2, positionX, positionY,
+			  new Texture("Monsters/Freeze OwO/new_owo_freeze.png"),
+			  new Texture("Monsters/Freeze OwO/new_owo_freeze_attack_left.png"),
+			  new Texture("Monsters/Freeze OwO/new_owo_freeze_attack_right.png"),
+			  new Texture("Monsters/Freeze OwO/new_owo_freeze_jump.png"));
 		this.max_sight_range = 750;
 	}
 	
