@@ -156,6 +156,7 @@ public abstract class Creature extends GameObject {
         jumping = true;
         speedY = -jumping_speed*1.3;
         translate(0., speedY);
+        speedY = 0;
     }
 
     @Override

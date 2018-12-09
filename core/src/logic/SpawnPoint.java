@@ -10,7 +10,7 @@ import logic.creature.monster.MonsterType;
 
 public class SpawnPoint extends GameObject {
     private int spawnCount = 0;
-    private int spawnDelay = 2000;
+    private int spawnDelay = 2500;
     private boolean spawnable = false;
     private Date lastSpawnDate = new Date();
     private MonsterType monsterType;
