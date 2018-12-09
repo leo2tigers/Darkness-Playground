@@ -93,10 +93,9 @@ public class MainGame implements Screen {
 		
 		this.handlePassiveXp(dt);
 		this.player.setShootingAnimationDelay(Math.max(0, this.player.getShootingAnimationDelay() - dt));
-		if(this.player.getShootingAnimationDelay() <= 0 && this.player.getAnimationState() == 5)
+		if(this.player.getShootingAnimationDelay() <= 0.15f && this.player.getAnimationState() == 5)
 		{
 			this.player.setAnimationState(6);
-			this.player.setShootingAnimationDelay(0.15f);
 		}
 		
 		handleInput(dt);
@@ -217,7 +216,11 @@ public class MainGame implements Screen {
 		{
 			this.player.moveLeft();
 			this.player.setTimeRunning(this.player.getTimeRunning() + dt);
-			if(this.player.jumping)
+			if(this.player.getShootingAnimationDelay() > 0)
+			{
+				
+			}
+			else if(this.player.jumping)
 			{
 				this.player.setAnimationState(2);
 			}
@@ -230,7 +233,11 @@ public class MainGame implements Screen {
 		{
 			this.player.moveRight();
 			this.player.setTimeRunning(this.player.getTimeRunning() + dt);
-			if(this.player.jumping)
+			if(this.player.getShootingAnimationDelay() > 0)
+			{
+				
+			}
+			else if(this.player.jumping)
 			{
 				this.player.setAnimationState(2);
 			}
@@ -244,7 +251,7 @@ public class MainGame implements Screen {
 			//this.player.attack();
 			if(this.player.gun.getAmmo() > 0) {
 				this.player.setAnimationState(5);
-				this.player.setShootingAnimationDelay(0.05f);
+				this.player.setShootingAnimationDelay(0.2f);
 			}
 			this.player.inCombat();
 			this.player.attack();
