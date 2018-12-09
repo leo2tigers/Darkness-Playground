@@ -58,6 +58,18 @@ abstract public class Gun {
 		}
 	}
 	
+	public int getAmmo() {
+		return ammo;
+	}
+	
+	public int getMaxAmmo() {
+		return this.max_ammo;
+	}
+	
+	public boolean isReloading() {
+		return this.reloading;
+	}
+	
 	public void dispose()
 	{
 		this.reloadSound.dispose();
