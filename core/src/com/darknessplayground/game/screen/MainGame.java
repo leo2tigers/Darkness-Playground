@@ -16,9 +16,7 @@ import logic.GameMap;
 import logic.Projectile;
 import logic.SpawnPoint;
 import logic.Tile;
-import logic.creature.monster.Monster;
-import logic.creature.monster.MonsterType;
-import logic.creature.monster.OwO_Sniper;
+import logic.creature.monster.*;
 import logic.creature.player.Pistol;
 import logic.creature.player.Player;
 
@@ -72,6 +70,7 @@ public class MainGame implements Screen {
 		this.map.add(new Tile(Tile.Type.PLATFORM, 400, 400, 400, 50, new Texture("Tiles/tile8.png")));
 		this.map.setPlayer(this.player);
 		this.map.add(new OwO_Sniper(this.map, "aplha-tester", 100, 100));
+		this.map.add(new OwO_Ranger(this.map, "aplha-tester", 100, 100));
 		this.map.addSpawnPoint(new SpawnPoint(MonsterType.OwO_NORMAL, 100, 100));
 		this.map.addSpawnPoint(new SpawnPoint(MonsterType.OwO_NORMAL, 600, 500));
 	}

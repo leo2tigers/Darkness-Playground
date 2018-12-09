@@ -31,7 +31,7 @@ public class OwO_Sniper extends OwO {
 		int damage = 10;
 		map.add(new Projectile(positionX, positionY + this.hitBox.height/3,
 				               /*width*/75, /*height*/25, 
-				               orientation, /*speed*/5, 
+				               orientation, /*speed*/10, 
 				               /*lifetime*/5000, damage, Projectile.TO_PLAYER, 
 				               "Monsters/Sniper OwO/sniper_projectile.png",
 				               "Monsters/Sniper OwO/sniper_projectile_hit.png"));
