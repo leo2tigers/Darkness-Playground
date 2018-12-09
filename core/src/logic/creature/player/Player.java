@@ -209,6 +209,17 @@ public class Player extends Creature {
 
 	public void setAnimationState(int animationState) {
 		this.animationState = animationState;
+		if (this.animationState == 0) {
+			this.setHitBox(PlayerStats.HitBox.RELATIVE_X, PlayerStats.HitBox.RELATIVE_Y, 
+     		               PlayerStats.HitBox.WIDTH/2, PlayerStats.HitBox.HEIGHT);
+			this.setMovementBox(PlayerStats.MovementBox.RELATIVE_X, PlayerStats.MovementBox.RELATIVE_Y, 
+     		                    PlayerStats.MovementBox.WIDTH/2, PlayerStats.MovementBox.HEIGHT);
+		} else {
+			this.setHitBox(PlayerStats.HitBox.RELATIVE_X, PlayerStats.HitBox.RELATIVE_Y, 
+     		               PlayerStats.HitBox.WIDTH, PlayerStats.HitBox.HEIGHT);
+			this.setMovementBox(PlayerStats.MovementBox.RELATIVE_X, PlayerStats.MovementBox.RELATIVE_Y, 
+     		                    PlayerStats.MovementBox.WIDTH, PlayerStats.MovementBox.HEIGHT);
+		}
 	}
 	
 	public void calculateAnimationState()
