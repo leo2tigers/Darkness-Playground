@@ -116,7 +116,7 @@ public class MainMenu implements Screen {
 			if(this.isOnPlayBtn())
 			{
 				this.dispose();
-				this.game.toGame();
+				this.game.toLoadingScreen();
 			}
 			if(this.isOnExitBtn())
 			{
