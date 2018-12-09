@@ -40,7 +40,7 @@ public abstract class Monster extends Creature{
         setHealth(getHealth() - (damage - armour > 0 ? damage - armour : 0));
         if(getHealth() <= 0)
         {
-        	grantXp(this.map.player);
+        	this.grantXp(this.map.player);
         	this.map.remove(this);
         }
     }

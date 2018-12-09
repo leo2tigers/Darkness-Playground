@@ -118,7 +118,7 @@ public class Player extends Creature {
 	
 	@Override
 	public String toString() {
-		return super.toString() + " , " + (gun != null ? gun : "unarmed");
+		return super.toString() + " , " + (gun != null ? gun : "unarmed") + " , XP = " + this.xp + " / " + this.xpToNextLevel;
 	}
 	
 	@Override
