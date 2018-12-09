@@ -19,11 +19,12 @@ public class Projectile extends GameObject {
     private final Date create_date = new Date();
     private final int lifetime;
 	private int damage_check_type;
+	private int hit = 0;
     public static final int TO_MONSTER = 0;
 	public static final int TO_PLAYER = 1;
 	
-	private Texture img;
-	private String img_path;
+	private Texture img = null, hit_img = null;
+	private String img_path = null, hit_path = null;
 
     public Projectile(double positionX, double positionY, 
     		          double width, double height, 
@@ -40,11 +41,32 @@ public class Projectile extends GameObject {
         this.img_path = img_path;
         setTexture();
     }
+    public Projectile(double positionX, double positionY, 
+			          double width, double height, 
+			          double orientation, double speed, 
+				      int lifetime, int damage, int damage_check_type, 
+				      String img_path, String hit_path) {
+		this.positionX = positionX;
+		this.positionY = positionY;
+		this.orientation = orientation;
+		this.speed = speed;
+		this.lifetime = lifetime;
+		this.damage = damage;
+		this.damage_check_type = damage_check_type;
+		this.damageBox = new URect(positionX, positionY, width, height, Color.CORAL);
+		this.img_path = img_path;
+		this.hit_path = hit_path;
+		setTexture();
+	}
     
-    public void setTexture()  {
+
+	public void setTexture()  {
     	Gdx.app.postRunnable(new Runnable(){
             public void run(){
             	img = new Texture(img_path);
+            	if (hit_path != null) {
+            		hit_img = new Texture(hit_path);
+            	}
             }
         });
     }
@@ -77,13 +99,17 @@ public class Projectile extends GameObject {
         }
         if (nearest != null) {
             nearest.getHit(damage);
+            hit += 1;
             map.remove(this);
         }
     }
     
     private void damage_to_player() {
-    	if (damageBox.overlap(map.player.hitBox)) {
-    		map.player.getHit(damage);
+    	if (this.damageBox.overlap(this.map.player.hitBox)) {
+    		this.map.player.getHit(damage);
+    		this.hit += 1;
+    		this.img = this.hit_img;
+    		this.speed = 0;
     	}
     }
 
