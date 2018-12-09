@@ -70,40 +70,9 @@ public class Player extends Creature {
         this.animationState = 0;
         this.stateTime = 0;
         this.shootingAnimationDelay = 0;
-        
-    }
-    
-    @Override
-    public void update() {
-        if (jumping) {
-            speedY -= GameProperties.Constant.GRAVITY;
-        }
-        move();
-        this.speedX = 0;
-        this.regenHP(Gdx.graphics.getDeltaTime());
     }
 
-    @Override
-    protected void attack_prepare() {}
-
-    @Override
-    protected void attackMethod() {
-    	try {
-    		gun.fire_method();
-    	}
-    	catch(NoAmmoException e)
-    	{
-    		this.screen.showNotice("No Ammo");
-    	}
-    }
-    
-    @Override
-    public void getHit(int damage) {
-        setHealth(getHealth() - (damage - armour > 0 ? damage - armour : 0));
-        this.inCombat();
-    }
-
-	public void setGun(Gun gun) {
+	private void setGun(Gun gun) {
 		this.gun = gun;
 		if (this.gun != null) {
 			this.gun.owner = this;
@@ -115,27 +84,13 @@ public class Player extends Creature {
 			this.attackable = false;
 		}
 	}
-	
-	@Override
-	public String toString() {
-		return super.toString() + " , " + (gun != null ? gun : "unarmed");
-	}
-	
-	@Override
-	public void render(SpriteBatch batch)
-	{
-		int orientation = -1;
-		if(this.orientation == 1)
-		{
-			orientation = 1;
-		}
-		else if(this.orientation == -1)
-		{
-			orientation = 0;
-		}
-		batch.draw(this.playerAnimation[orientation][this.animationState].getKeyFrame(stateTime, true), (float)positionX, (float)positionY);
-	}
 
+	private int calculateXpToNextLevel(int lastLevelXp)
+	{
+		int multiplier = (this.level - (this.level % 10)) / 10;
+		return lastLevelXp + 200 + (100*multiplier);
+	}
+	
 	public void moveLeft() {
 		this.speedX = -PlayerStats.MOVEMENT_SPEED;
 		this.orientation = -1;
@@ -188,12 +143,7 @@ public class Player extends Creature {
 			this.xpToNextLevel = this.calculateXpToNextLevel(this.xpToCurrentLevel);
 		}
 	}
-	
-	private int calculateXpToNextLevel(int lastLevelXp)
-	{
-		int multiplier = (this.level - (this.level % 10)) / 10;
-		return lastLevelXp + 200 + (100*multiplier);
-	}
+
 	
 	public float getTimeRunning() {
 		return timeRunning;
@@ -209,6 +159,8 @@ public class Player extends Creature {
 
 	public void setAnimationState(int animationState) {
 		this.animationState = animationState;
+		
+		// Dynamic HitBox/MovementBox
 		if (this.animationState == 0) {
 			this.setHitBox(PlayerStats.HitBox.RELATIVE_X, PlayerStats.HitBox.RELATIVE_Y, 
      		               PlayerStats.HitBox.WIDTH/2, PlayerStats.HitBox.HEIGHT);
@@ -233,6 +185,56 @@ public class Player extends Creature {
 
 	public void setShootingAnimationDelay(float shootingAnimationDelay) {
 		this.shootingAnimationDelay = shootingAnimationDelay;
+	}
+
+    @Override
+    public void update() {
+        if (jumping) {
+            speedY -= GameProperties.Constant.GRAVITY;
+        }
+        move();
+        this.speedX = 0;
+        this.regenHP(Gdx.graphics.getDeltaTime());
+    }
+
+    @Override
+    protected void attack_prepare() {}
+
+    @Override
+    protected void attackMethod() {
+    	try {
+    		gun.fire_method();
+    	}
+    	catch(NoAmmoException e)
+    	{
+    		this.screen.showNotice("No Ammo");
+    	}
+    }
+    
+    @Override
+    public void getHit(int damage) {
+        setHealth(getHealth() - (damage - armour > 0 ? damage - armour : 0));
+        this.inCombat();
+    }
+
+	@Override
+	public String toString() {
+		return super.toString() + " , " + (gun != null ? gun : "unarmed") + " , XP = " + this.xp + " / " + this.xpToNextLevel;
+	}
+	
+	@Override
+	public void render(SpriteBatch batch)
+	{
+		int orientation = -1;
+		if(this.orientation == 1)
+		{
+			orientation = 1;
+		}
+		else if(this.orientation == -1)
+		{
+			orientation = 0;
+		}
+		batch.draw(this.playerAnimation[orientation][this.animationState].getKeyFrame(stateTime, true), (float)positionX, (float)positionY);
 	}
 
 	@Override

@@ -32,7 +32,8 @@ public class OwO extends Monster {
         super(map, "OwO-" + name, maxHealth, positionX, positionY, img);
         this.setHitBox(0, 0, 100, 100);
         this.setMovementBox(0, -5, 100, 10);
-        setImg(img_path_stand);
+        //setImg(img_path_stand);
+        this.img = img;
         this.max_sight_range = 500;
         this.attack_range = 50;
         this.movement_speed = 1;

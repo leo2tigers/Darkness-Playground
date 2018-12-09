@@ -190,7 +190,11 @@ public abstract class Creature extends GameObject {
                     }
 
                     // attack!
-                    attackMethod();
+                    if (isAlive()) {
+                    	attackMethod();
+                    } else {
+                    	return;
+                    }
 
                     // postAnimation delay
                     attackDate = new Date();

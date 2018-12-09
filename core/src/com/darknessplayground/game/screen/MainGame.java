@@ -17,6 +17,7 @@ import logic.Projectile;
 import logic.SpawnPoint;
 import logic.Tile;
 import logic.creature.monster.Monster;
+import logic.creature.monster.MonsterType;
 import logic.creature.monster.OwO_Sniper;
 import logic.creature.player.Pistol;
 import logic.creature.player.Player;
@@ -67,12 +68,12 @@ public class MainGame implements Screen {
 	
 	private void setupMap() {
 		this.map.add(new Tile(Tile.Type.FLOOR, 0, 0, 1280, 100, new Texture("Tiles/floor.png")));
-		this.map.add(new Tile(Tile.Type.PLATFORM, 0, 250, 450, 50, new Texture("Tiles/tile9.png")));
-		this.map.add(new Tile(Tile.Type.PLATFORM, 500, 400, 400, 50, new Texture("Tiles/tile8.png")));
+		this.map.add(new Tile(Tile.Type.PLATFORM, 0, 250, 500, 50, new Texture("Tiles/tile10.png")));
+		this.map.add(new Tile(Tile.Type.PLATFORM, 400, 400, 400, 50, new Texture("Tiles/tile8.png")));
 		this.map.setPlayer(this.player);
 		this.map.add(new OwO_Sniper(this.map, "aplha-tester", 100, 100));
-		//this.map.addSpawnPoint(new SpawnPoint(MonsterType.OwO_NORMAL, 100, 100));
-		//this.map.addSpawnPoint(new SpawnPoint(MonsterType.OwO_NORMAL, 600, 500));
+		this.map.addSpawnPoint(new SpawnPoint(MonsterType.OwO_NORMAL, 100, 100));
+		this.map.addSpawnPoint(new SpawnPoint(MonsterType.OwO_NORMAL, 600, 500));
 	}
 
 	@Override
@@ -356,7 +357,7 @@ public class MainGame implements Screen {
 	}
 	
 	public static void log(String string) {
-		add_info += string;
+		add_info += string + "\n";
 	}
 
 }
