@@ -37,7 +37,9 @@ public class MainGame implements Screen {
 	private Texture weaponUINoAmmo;
 	private Texture weaponUIReloading;
 	private Texture hpBar;
+	private Texture hpBarLowHp;
 	private Texture remainingHpBar;
+	private Texture remainingHpBarLowHp;
 	
 	private boolean infoDebugActive;
 	private boolean rectDebugActive;
@@ -83,7 +85,9 @@ public class MainGame implements Screen {
 		this.weaponUINoAmmo = new Texture("UI/weapon/weapon-ui_no-ammo.png");
 		this.weaponUIReloading = new Texture("UI/weapon/weapon-ui_reloading.png");
 		this.hpBar = new Texture("UI/health/bar.png");
+		this.hpBarLowHp = new Texture("UI/health/bar_red.png");
 		this.remainingHpBar = new Texture("UI/health/progress.png");
+		this.remainingHpBarLowHp = new Texture("UI/health/progress_red.png");
 		this.setupMap();
 	}
 
@@ -348,12 +352,22 @@ public class MainGame implements Screen {
 	{
 		int currentHealth = this.player.getHealth();
 		int maxHealth = this.player.getMaxHealth();
-		GlyphLayout hpText = new GlyphLayout(this.hpTextFont, "HP", new Color(0.70196f, 0.70196f, 0.70196f, 1), 50, Align.left, false);
-		GlyphLayout currentHpText = new GlyphLayout(noticeFont, currentHealth + "/" + maxHealth, new Color(0.70196f, 0.70196f, 0.70196f, 1), 50, Align.left, false);
-		this.game.batch.draw(hpBar, 10, 10);
+		GlyphLayout hpText;
+		GlyphLayout currentHpText;
+		if ((float)currentHealth/(float)maxHealth <= 0.2f) {
+			hpText = new GlyphLayout(this.hpTextFont, "HP", Color.RED, 50, Align.left, false);
+			currentHpText = new GlyphLayout(this.noticeFont, currentHealth + "/" + maxHealth, Color.RED, 50, Align.left, false);
+			this.game.batch.draw(hpBarLowHp, 10, 10);
+			this.game.batch.draw(this.remainingHpBarLowHp, 10+70, 10+10, (300*((float)currentHealth/(float)maxHealth)), 10);
+		}
+		else {
+			hpText = new GlyphLayout(this.hpTextFont, "HP", new Color(0.70196f, 0.70196f, 0.70196f, 1), 50, Align.left, false);
+			currentHpText = new GlyphLayout(this.noticeFont, currentHealth + "/" + maxHealth, new Color(0.70196f, 0.70196f, 0.70196f, 1), 50, Align.left, false);
+			this.game.batch.draw(hpBar, 10, 10);
+			this.game.batch.draw(this.remainingHpBar, 10+70, 10+10, (300*((float)currentHealth/(float)maxHealth)), 10);
+		}
 		this.hpTextFont.draw(this.game.batch, hpText, 10+30, 10+30);
 		this.noticeFont.draw(this.game.batch, currentHpText, 10+380+10, 10+30);
-		this.game.batch.draw(this.remainingHpBar, 10+70, 10+10, (300*((float)currentHealth/(float)maxHealth)), 10);
 	}
 	
 	public static void log(String string) {
