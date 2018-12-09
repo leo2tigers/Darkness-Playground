@@ -19,7 +19,7 @@ public class OwO extends Monster {
 	static String img_path_jump = "Monsters/Normal OwO/new_owo_jump.png";
 	
     public OwO(GameMap map, String name, double positionX, double positionY) {
-        super(map, "OwO-" + name, 1, positionX, positionY, null);
+        super(map, "OwO-" + name, 3, positionX, positionY, null);
         this.setHitBox(0, 0, 100, 100);
         this.setMovementBox(0, -5, 100, 10);
         setImg(img_path_stand);

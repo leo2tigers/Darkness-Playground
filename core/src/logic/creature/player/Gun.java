@@ -2,6 +2,8 @@ package logic.creature.player;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 import logic.exceptions.NoAmmoException;
 
@@ -74,4 +76,6 @@ abstract public class Gun {
 	{
 		this.reloadSound.dispose();
 	}
+
+	abstract public void render(ShapeRenderer shapeRenderer);
 }

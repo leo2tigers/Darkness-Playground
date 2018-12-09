@@ -3,12 +3,17 @@ package logic.creature.player;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.darknessplayground.game.screen.MainGame;
 
 import logic.*;
 import logic.creature.monster.Monster;
 import logic.exceptions.NoAmmoException;
 
 public class Shotgun extends Gun {
+	URect firstBox, secondBox, thirdBox;
     public Shotgun() {
     	super("Shotgun", 5, 2000, true);
     	this.fireSound = Gdx.audio.newSound(Gdx.files.internal("Sfx/Shotgun_Fire.mp3"));
@@ -22,9 +27,12 @@ public class Shotgun extends Gun {
     	}
     	this.fireSound.play();
         int damage = 1;
-        URect firstBox = new URect(owner.getX() + 50*owner.orientation, owner.getY(), 25, 25);
-        URect secondBox = new URect(owner.getX() + 75*owner.orientation, owner.getY(), 50, 50);
-        URect thirdBox = new URect(owner.getX() + 100*owner.orientation, owner.getY(), 100, 100);
+        firstBox = new URect((owner.orientation < 0) ? owner.getX() - 50 : owner.getX() + owner.hitBox.width, owner.getY() + owner.hitBox.height/2 - 25, 
+        		             50, 50, Color.ORANGE);
+        secondBox = new URect((owner.orientation < 0) ? owner.getX() - 100 : owner.getX() + owner.hitBox.width, owner.getY() + owner.hitBox.height/2 - 50, 
+        		              100, 100, Color.ORANGE);
+        thirdBox = new URect((owner.orientation < 0) ? owner.getX() - 200 : owner.getX() + owner.hitBox.width, owner.getY() + owner.hitBox.height/2 - 100, 
+        		             200, 200, Color.ORANGE);
         ArrayList<Monster> overlapped_monster = new ArrayList<>();
         for (GameObject gameObject : owner.map.getMonsters()) {
         	if (firstBox.overlap(((Monster) gameObject).hitBox)) {
@@ -76,5 +84,15 @@ public class Shotgun extends Gun {
         });
         this.preDelay = 500;
         this.postDelay = 500;
+	}
+
+	@Override
+	public void render(ShapeRenderer shapeRenderer) {
+		try {
+			this.firstBox.shapeRender(shapeRenderer);
+			this.secondBox.shapeRender(shapeRenderer);
+			this.thirdBox.shapeRender(shapeRenderer);
+		} catch (NullPointerException npe) {
+		}
 	}
 }

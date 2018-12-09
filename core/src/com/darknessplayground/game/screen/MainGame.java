@@ -19,6 +19,7 @@ import logic.Tile;
 import logic.creature.monster.*;
 import logic.creature.player.Pistol;
 import logic.creature.player.Player;
+import logic.creature.player.Shotgun;
 
 public class MainGame implements Screen {
 	
@@ -52,7 +53,7 @@ public class MainGame implements Screen {
 	public MainGame(DarknessPlayground game) {
 		this.game = game;
 		this.map = new GameMap();
-		this.player = new Player(this.map, "player_one", 400, 100, new Pistol(), this);
+		this.player = new Player(this.map, "player_one", 400, 100, new Shotgun(), this);
 		this.debugFont = new BitmapFont();
 		this.hpTextFont = new BitmapFont(Gdx.files.internal("Fonts/Agency_FB_23px.fnt"));
 		this.noticeFont = new BitmapFont(Gdx.files.internal("Fonts/Agency_FB_32px.fnt"));
@@ -69,8 +70,8 @@ public class MainGame implements Screen {
 		this.map.add(new Tile(Tile.Type.PLATFORM, 0, 250, 500, 50, new Texture("Tiles/tile10.png")));
 		this.map.add(new Tile(Tile.Type.PLATFORM, 400, 400, 400, 50, new Texture("Tiles/tile8.png")));
 		this.map.setPlayer(this.player);
-		this.map.add(new OwO_Sniper(this.map, "aplha-tester", 100, 100));
-		this.map.add(new OwO_Ranger(this.map, "aplha-tester", 100, 100));
+		//this.map.add(new OwO_Sniper(this.map, "aplha-tester", 100, 100));
+		//this.map.add(new OwO_Ranger(this.map, "aplha-tester", 100, 100));
 		this.map.addSpawnPoint(new SpawnPoint(MonsterType.OwO_NORMAL, 100, 100));
 		this.map.addSpawnPoint(new SpawnPoint(MonsterType.OwO_NORMAL, 600, 500));
 	}

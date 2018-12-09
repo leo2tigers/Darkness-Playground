@@ -11,6 +11,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.darknessplayground.game.screen.MainGame;
 
 import logic.GameMap;
@@ -242,5 +243,11 @@ public class Player extends Creature {
 	{
 		this.img.dispose();
 		this.gun.dispose();
+	}
+	
+	@Override
+	public void shapeRender(ShapeRenderer shapeRenderer) {
+		super.shapeRender(shapeRenderer);
+		this.gun.render(shapeRenderer);
 	}
 }
