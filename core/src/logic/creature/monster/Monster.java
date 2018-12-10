@@ -76,7 +76,7 @@ public abstract class Monster extends Creature{
 		if (this.line_of_sight == null) {
 			this.setLoS();
 		} else {
-			if (this.map.player.hitBox.overlap(line_of_sight)) {
+			if (this.map.player.getHitBox().overlap(line_of_sight)) {
 				inSight();
 			}
 			else {
@@ -84,11 +84,11 @@ public abstract class Monster extends Creature{
 					double rand = Meth.random(0, 3);
 					if (rand >= 2) {
 						this.orientation = -1;
-						this.speedX = this.orientation*this.movement_speed;
+						this.speedX = this.orientation*this.movementSpeed;
 						this.walking = true;
 					} else if (rand >= 1) {
 						this.orientation = 1;
-						this.speedX = this.orientation*this.movement_speed;
+						this.speedX = this.orientation*this.movementSpeed;
 						this.walking = true;
 					} else {
 						this.walking = false;
@@ -96,7 +96,7 @@ public abstract class Monster extends Creature{
 					this.last_random_date = new Date();
 				} else {
 					if (this.walking) {
-						this.speedX = this.orientation*this.movement_speed;
+						this.speedX = this.orientation*this.movementSpeed;
 					}
 				}
 			}

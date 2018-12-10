@@ -24,6 +24,7 @@ import logic.GameMap;
 import logic.Projectile;
 import logic.SpawnPoint;
 import logic.Tile;
+import logic.TileType;
 import logic.creature.monster.*;
 import logic.creature.player.Pistol;
 import logic.creature.player.Player;
@@ -62,7 +63,7 @@ public class MainGame implements Screen {
 	private Texture bg;
 
 	private static String information;
-	private static ArrayList<String> game_log = new ArrayList<>();
+	private static ArrayList<String> game_log = new ArrayList<String>();
 	private static int log_height = 30;
 
 	public MainGame(DarknessPlayground game) {
@@ -83,9 +84,9 @@ public class MainGame implements Screen {
 	private void setupMap() {
 		log("setup map");
 		log("setup tiles");
-		this.map.add(new Tile(Tile.Type.FLOOR, 0, 0, 1280, 100, new Texture("Tiles/floor.png")));
-		this.map.add(new Tile(Tile.Type.PLATFORM, 0, 250, 500, 50, new Texture("Tiles/tile10.png")));
-		this.map.add(new Tile(Tile.Type.PLATFORM, 400, 400, 400, 50, new Texture("Tiles/tile8.png")));
+		this.map.add(new Tile(TileType.FLOOR, 0, 0, 1280, 100, new Texture("Tiles/floor.png")));
+		this.map.add(new Tile(TileType.PLATFORM, 0, 250, 500, 50, new Texture("Tiles/tile10.png")));
+		this.map.add(new Tile(TileType.PLATFORM, 400, 400, 400, 50, new Texture("Tiles/tile8.png")));
 		log("setup player");
 		this.map.setPlayer(this.player);
 		log("setup monsters");
@@ -138,11 +139,11 @@ public class MainGame implements Screen {
 		information = ">> Game Status : " + status +
 				             "\n>> " + this.player.toString() + 
 				             "\n    - position = " + this.player.getPosition() + 
-				             "\n    - Speed = " + this.player.speedX + " , " + this.player.speedY +
-				             "\n    - Attackable = " + this.player.attackable +
+				             "\n    - Speed = " + this.player.getSpeedX() + " , " + this.player.getSpeedY() +
+				             "\n    - Attackable = " + this.player.isAttackable() +
 				             "\n    - Gun = " + this.player.gun +
-				             "\n    - Status = " + this.player.status +
-				             "\n    - Current Tile = " + this.player.current_tile +
+				             "\n    - Status = " + this.player.getStatus() +
+				             "\n    - Current Tile = " + this.player.getCurrentTile() +
 				             "\n";
 		information += ">> Tiles : \n";
 		for (Tile tile : this.map.getTiles()) {
@@ -279,8 +280,8 @@ public class MainGame implements Screen {
 		}
 		else if(Gdx.input.isKeyJustPressed(Keys.DOWN))
 		{
-			if (this.player.current_tile != null)
-				if (this.player.current_tile.type != Tile.Type.FLOOR) this.player.jump_down();
+			if (this.player.getCurrentTile() != null)
+				if (this.player.getCurrentTile().type != TileType.FLOOR) this.player.jump_down();
 		}
 		
 		if(!Gdx.input.isKeyPressed(Keys.LEFT) && !Gdx.input.isKeyPressed(Keys.RIGHT) && this.player.getShootingAnimationDelay() <= 0)
@@ -301,7 +302,7 @@ public class MainGame implements Screen {
 			{
 				
 			}
-			else if(this.player.jumping)
+			else if(this.player.isJumping())
 			{
 				this.player.setAnimationState(2);
 			}
@@ -318,7 +319,7 @@ public class MainGame implements Screen {
 			{
 				
 			}
-			else if(this.player.jumping)
+			else if(this.player.isJumping())
 			{
 				this.player.setAnimationState(2);
 			}

@@ -6,14 +6,17 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import logic.exceptions.NoAmmoException;
 
 abstract public class Gun {
-    Player owner;
-    final String type;
-    boolean enable, reloading;
-    int max_ammo, ammo, reload_time;
+    protected Player owner;
+    protected final String type;
+    protected boolean enable;
+    protected boolean reloading;
+    protected int max_ammo;
+    protected int ammo;
+    protected int reload_time;
     protected Thread reloadThread;
     private final boolean reload_interruptable;
-	public int preDelay;
-	public int postDelay;
+	protected int preDelay;
+	protected int postDelay;
 	
 	protected Sound reloadSound;
 	protected Sound fireSound;
@@ -59,7 +62,7 @@ abstract public class Gun {
 	public void reload_interrupt() {
 		if (reload_interruptable && reloadThread != null) {
 			reloadThread.interrupt();
-			owner.attackable = true;
+			owner.setAttackable(true);
 			this.enable = true;
 		}
 	}

@@ -18,24 +18,24 @@ public abstract class Creature extends GameObject {
 
     public final String name;
     
-    public int health;
-    public int orientation = 1;
-    public int maxHealth;
-    public int armour = 0;
-    public int attackPower;
-    public double movement_speed;
-    public double speedX;
-    public double speedY = 0;
-    public double jumping_speed = 50;
-    public boolean jumping = false;
-    public boolean movable = true;
-    public boolean attackable = true;
-    public int preDelay = 100;
-    public int postDelay = 100;
-    public URect hitBox, movementBox;
-    public GameMap map;
-    public Tile current_tile;
-    public String status = "NORMAL";
+    protected int health;
+    protected int orientation = 1;
+    protected int maxHealth;
+    protected int armour = 0;
+    protected int attackPower;
+    protected double movementSpeed;
+    protected double speedX;
+    protected double speedY = 0;
+    protected double jumpingSpeed = 50;
+    protected boolean jumping = false;
+    protected boolean movable = true;
+    protected boolean attackable = true;
+    protected int preDelay = 100;
+    protected int postDelay = 100;
+    protected URect hitBox;
+    protected URect movementBox;
+    protected Tile currentTile;
+    protected String status = "NORMAL";
     protected Date attackDate;
 	private boolean alive;
     
@@ -43,12 +43,10 @@ public abstract class Creature extends GameObject {
 
 
     public Creature(GameMap map, String name, int maxHealth, double positionX, double positionY, Texture img) {
-    	this.map = map;
+    	super(positionX, positionY, map);
         this.name = name;
         this.maxHealth = maxHealth;
         this.health = maxHealth;
-        this.positionX = positionX;
-        this.positionY = positionY;
         this.img = img;
         this.alive();
     }
@@ -59,7 +57,7 @@ public abstract class Creature extends GameObject {
 
     public void setMovementBox(double relativeX, double relativeY, double width, double height) {
         this.movementBox = new URect(positionX + relativeX, positionY + relativeY, width, height, Color.BLUE);
-        this.current_tile = overlapTile(movementBox);
+        this.currentTile = overlapTile(movementBox);
     }
 
     /**
@@ -121,11 +119,11 @@ public abstract class Creature extends GameObject {
         double new_positionX = positionX + x;
         double new_positionY = positionY + y;
         
-        URect check_movementBox = new URect(movementBox.getX() + x, movementBox.getY() + y, movementBox.width, movementBox.height, Color.BLUE);
+        URect check_movementBox = new URect(movementBox.getX() + x, movementBox.getY() + y, movementBox.getWidth(), movementBox.getHeight(), Color.BLUE);
 
         Tile check_tile = overlapTile(check_movementBox);
-        if (check_movementBox.overlap(check_tile) && Math.abs(check_tile.getX() +check_tile. width/2 - this.positionX - this.movementBox.width/2) <= check_tile.width/2) {
-            new_positionY = check_tile.getY() + check_tile.height;
+        if (check_movementBox.overlap(check_tile) && Math.abs(check_tile.getX() +check_tile.getWidth()/2 - this.positionX - this.movementBox.getWidth()/2) <= check_tile.getWidth()/2) {
+            new_positionY = check_tile.getY() + check_tile.getHeight();
             jumping = false;
             speedY = 0;
         }else {
@@ -134,8 +132,8 @@ public abstract class Creature extends GameObject {
         
         if (new_positionX < 0) {
         	new_positionX = 0;
-        } else  if (new_positionX > 1280 - this.movementBox.width) {
-        	new_positionX = 1280 - this.movementBox.width;
+        } else  if (new_positionX > 1280 - this.movementBox.getWidth()) {
+        	new_positionX = 1280 - this.movementBox.getWidth();
         }
 		
         movementBox.translate(new_positionX - positionX, new_positionY - positionY);
@@ -144,7 +142,7 @@ public abstract class Creature extends GameObject {
         positionX = new_positionX;
         positionY = new_positionY;
         
-        this.current_tile = this.overlapTile(this.movementBox);
+        this.currentTile = this.overlapTile(this.movementBox);
 
         return new double[] {positionX, positionY};
     }
@@ -159,12 +157,12 @@ public abstract class Creature extends GameObject {
     public void jump() {
         if (!jumping) {
         	jumping = true;
-        	speedY = jumping_speed;
+        	speedY = jumpingSpeed;
         }
     }
     public void jump_down() {
         jumping = true;
-        speedY = -jumping_speed*1.3;
+        speedY = -jumpingSpeed*1.3;
         translate(0., speedY);
         speedY = 0;
     }
@@ -191,30 +189,33 @@ public abstract class Creature extends GameObject {
         	attack_prepare();
             if (attackable) {
                 attackDate = new Date();
-                Thread attackThread = new Thread(() -> {
-                	status = "ATTACKING";
-                    // preAnimation delay
-                    attackable = false;
-                    Date newDate = new Date();
-                    while (newDate.getTime() - attackDate.getTime() <= preDelay) {
-                        newDate = new Date();
-                    }
-
-                    // attack!
-                    if (isAlive()) {
-                    	attackMethod();
-                    } else {
-                    	return;
-                    }
-
-                    // postAnimation delay
-                    attackDate = new Date();
-                    newDate = new Date();
-                    while (newDate.getTime() - attackDate.getTime() <= postDelay) {
-                        newDate = new Date();
-                    }
-                    attackable = true;
-                    status = "NORMAL";
+                Thread attackThread = new Thread(new Runnable() {
+                	@Override
+                	public void run() {
+	                	status = "ATTACKING";
+	                    // preAnimation delay
+	                    attackable = false;
+	                    Date newDate = new Date();
+	                    while (newDate.getTime() - attackDate.getTime() <= preDelay) {
+	                        newDate = new Date();
+	                    }
+	
+	                    // attack!
+	                    if (isAlive()) {
+	                    	attackMethod();
+	                    } else {
+	                    	return;
+	                    }
+	
+	                    // postAnimation delay
+	                    attackDate = new Date();
+	                    newDate = new Date();
+	                    while (newDate.getTime() - attackDate.getTime() <= postDelay) {
+	                        newDate = new Date();
+	                    }
+	                    attackable = true;
+	                    status = "NORMAL";
+                	}
                 });
                 attackThread.start();
             }
@@ -245,4 +246,148 @@ public abstract class Creature extends GameObject {
     {
     	this.img.dispose();
     }
+
+	public int getOrientation() {
+		return orientation;
+	}
+
+	public void setOrientation(int orientation) {
+		this.orientation = orientation;
+	}
+
+	public int getArmour() {
+		return armour;
+	}
+
+	public void setArmour(int armour) {
+		this.armour = armour;
+	}
+
+	public int getAttackPower() {
+		return attackPower;
+	}
+
+	public void setAttackPower(int attackPower) {
+		this.attackPower = attackPower;
+	}
+
+	public double getMovementSpeed() {
+		return movementSpeed;
+	}
+
+	public void setMovementSpeed(double movementSpeed) {
+		this.movementSpeed = movementSpeed;
+	}
+
+	public double getSpeedX() {
+		return speedX;
+	}
+
+	public void setSpeedX(double speedX) {
+		this.speedX = speedX;
+	}
+
+	public double getSpeedY() {
+		return speedY;
+	}
+
+	public void setSpeedY(double speedY) {
+		this.speedY = speedY;
+	}
+
+	public double getJumpingSpeed() {
+		return jumpingSpeed;
+	}
+
+	public void setJumpingSpeed(double jumpingSpeed) {
+		this.jumpingSpeed = jumpingSpeed;
+	}
+
+	public boolean isJumping() {
+		return jumping;
+	}
+
+	public void setJumping(boolean jumping) {
+		this.jumping = jumping;
+	}
+
+	public boolean isMovable() {
+		return movable;
+	}
+
+	public void setMovable(boolean movable) {
+		this.movable = movable;
+	}
+
+	public boolean isAttackable() {
+		return attackable;
+	}
+
+	public void setAttackable(boolean attackable) {
+		this.attackable = attackable;
+	}
+
+	public int getPreDelay() {
+		return preDelay;
+	}
+
+	public void setPreDelay(int preDelay) {
+		this.preDelay = preDelay;
+	}
+
+	public int getPostDelay() {
+		return postDelay;
+	}
+
+	public void setPostDelay(int postDelay) {
+		this.postDelay = postDelay;
+	}
+
+	public URect getHitBox() {
+		return hitBox;
+	}
+
+	public void setHitBox(URect hitBox) {
+		this.hitBox = hitBox;
+	}
+
+	public URect getMovementBox() {
+		return movementBox;
+	}
+
+	public void setMovementBox(URect movementBox) {
+		this.movementBox = movementBox;
+	}
+
+	public Tile getCurrentTile() {
+		return currentTile;
+	}
+
+	public void setCurrentTile(Tile currentTile) {
+		this.currentTile = currentTile;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public Date getAttackDate() {
+		return attackDate;
+	}
+
+	public void setAttackDate(Date attackDate) {
+		this.attackDate = attackDate;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setAlive(boolean alive) {
+		this.alive = alive;
+	}
 }

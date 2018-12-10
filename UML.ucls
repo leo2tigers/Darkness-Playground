@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.2.2" icons="true" automaticImage="PNG" always-add-relationships="false" generalizations="true" 
+  realizations="true" associations="false" dependencies="false" nesting-relationships="true" router="FAN">  
+  <class id="1" language="java" name="com.darknessplayground.game.DarknessPlayground" project="Darkness Playground-core" 
+    file="/Darkness Playground-core/src/com/darknessplayground/game/DarknessPlayground.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="211" y="137"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="2" language="java" name="com.darknessplayground.game.screen.GameOver" project="Darkness Playground-core" 
+    file="/Darkness Playground-core/src/com/darknessplayground/game/screen/GameOver.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="448" width="287" x="369" y="-104"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="com.darknessplayground.game.screen.LoadingScreen" 
+    project="Darkness Playground-core" 
+    file="/Darkness Playground-core/src/com/darknessplayground/game/screen/LoadingScreen.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="286" width="240" x="684" y="80"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="com.darknessplayground.game.screen.MainGame" project="Darkness Playground-core" 
+    file="/Darkness Playground-core/src/com/darknessplayground/game/screen/MainGame.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="201" y="814"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="com.darknessplayground.game.screen.MainMenu" project="Darkness Playground-core" 
+    file="/Darkness Playground-core/src/com/darknessplayground/game/screen/MainMenu.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="503" y="711"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="com.darknessplayground.game.ui.HpBar" project="Darkness Playground-core" 
+    file="/Darkness Playground-core/src/com/darknessplayground/game/ui/HpBar.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="-59" y="673"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="com.darknessplayground.game.ui.WeaponUI" project="Darkness Playground-core" 
+    file="/Darkness Playground-core/src/com/darknessplayground/game/ui/WeaponUI.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="-69" y="430"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="8" language="java" name="logic.GameMap" project="Darkness Playground-core" 
+    file="/Darkness Playground-core/src/logic/GameMap.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="209" y="1564"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="9" language="java" name="logic.GameObject" project="Darkness Playground-core" 
+    file="/Darkness Playground-core/src/logic/GameObject.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1314" y="1444"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="10" language="java" name="logic.GameObjectMethod" project="Darkness Playground-core" 
+    file="/Darkness Playground-core/src/logic/GameObjectMethod.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="489" y="1231"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="11" language="java" name="logic.Meth" project="Darkness Playground-core" 
+    file="/Darkness Playground-core/src/logic/Meth.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="492" y="1104"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="12" language="java" name="logic.Projectile" project="Darkness Playground-core" 
+    file="/Darkness Playground-core/src/logic/Projectile.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="662" y="1989"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="13" language="java" name="logic.SpawnPoint" project="Darkness Playground-core" 
+    file="/Darkness Playground-core/src/logic/SpawnPoint.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1230" y="2118"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="14" language="java" name="logic.URect" project="Darkness Playground-core" 
+    file="/Darkness Playground-core/src/logic/URect.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="936" y="1070"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="15" language="java" name="logic.Tile" project="Darkness Playground-core" 
+    file="/Darkness Playground-core/src/logic/Tile.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="678" y="1461"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <enumeration id="16" language="java" name="logic.TileType" project="Darkness Playground-core" 
+    file="/Darkness Playground-core/src/logic/TileType.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="923" y="1369"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </enumeration>  
+  <class id="17" language="java" name="logic.GameProperties.Constant" project="Darkness Playground-core" 
+    file="/Darkness Playground-core/src/logic/GameProperties.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="298" y="2017"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="18" language="java" name="logic.GameProperties" project="Darkness Playground-core" 
+    file="/Darkness Playground-core/src/logic/GameProperties.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="304" y="1881"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="19" language="java" name="logic.creature.Creature" project="Darkness Playground-core" 
+    file="/Darkness Playground-core/src/logic/creature/Creature.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="2007" y="905"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="20" language="java" name="logic.creature.IRenderable" project="Darkness Playground-core" 
+    file="/Darkness Playground-core/src/logic/creature/IRenderable.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1060" y="764"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="21" language="java" name="logic.creature.monster.Monster" project="Darkness Playground-core" 
+    file="/Darkness Playground-core/src/logic/creature/monster/Monster.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1740" y="2096"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="22" language="java" name="logic.creature.player.Player" project="Darkness Playground-core" 
+    file="/Darkness Playground-core/src/logic/creature/player/Player.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1548" y="296"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="23" language="java" name="logic.creature.player.Gun" project="Darkness Playground-core" 
+    file="/Darkness Playground-core/src/logic/creature/player/Gun.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1172" y="84"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="24" language="java" name="logic.creature.player.Pistol" project="Darkness Playground-core" 
+    file="/Darkness Playground-core/src/logic/creature/player/Pistol.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1168" y="492"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="25" language="java" name="logic.creature.player.PlayerStats.HitBox" project="Darkness Playground-core" 
+    file="/Darkness Playground-core/src/logic/creature/player/PlayerStats.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1285" y="987"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="26" language="java" name="logic.creature.player.PlayerStats.Pistol" project="Darkness Playground-core" 
+    file="/Darkness Playground-core/src/logic/creature/player/PlayerStats.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1473" y="969"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="27" language="java" name="logic.creature.player.PlayerStats.MovementBox" project="Darkness Playground-core" 
+    file="/Darkness Playground-core/src/logic/creature/player/PlayerStats.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1661" y="987"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="28" language="java" name="logic.creature.player.PlayerStats" project="Darkness Playground-core" 
+    file="/Darkness Playground-core/src/logic/creature/player/PlayerStats.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1498" y="788"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <enumeration id="29" language="java" name="logic.creature.monster.MonsterType" project="Darkness Playground-core" 
+    file="/Darkness Playground-core/src/logic/creature/monster/MonsterType.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1632" y="1736"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </enumeration>  
+  <class id="30" language="java" name="logic.creature.monster.OwO_Ranger" project="Darkness Playground-core" 
+    file="/Darkness Playground-core/src/logic/creature/monster/OwO_Ranger.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="768" y="2512"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="31" language="java" name="logic.creature.monster.OwO" project="Darkness Playground-core" 
+    file="/Darkness Playground-core/src/logic/creature/monster/OwO.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1368" y="2628"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="32" language="java" name="logic.creature.monster.OwO_Sniper" project="Darkness Playground-core" 
+    file="/Darkness Playground-core/src/logic/creature/monster/OwO_Sniper.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1876" y="2576"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="33" language="java" name="com.darknessplayground.game.desktop.DesktopLauncher" 
+    project="Darkness Playground-desktop" 
+    file="/Darkness Playground-desktop/src/com/darknessplayground/game/desktop/DesktopLauncher.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="-46" y="70"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <nesting id="34">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="17"/>  
+  </nesting>  
+  <generalization id="35">    
+    <end type="SOURCE" refId="30"/>    
+    <end type="TARGET" refId="31"/>  
+  </generalization>  
+  <generalization id="36">    
+    <end type="SOURCE" refId="32"/>    
+    <end type="TARGET" refId="31"/>  
+  </generalization>  
+  <generalization id="37">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="9"/>  
+  </generalization>  
+  <realization id="38">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="20"/>  
+  </realization>  
+  <generalization id="39">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="9"/>  
+  </generalization>  
+  <generalization id="40">    
+    <end type="SOURCE" refId="24"/>    
+    <end type="TARGET" refId="23"/>  
+  </generalization>  
+  <generalization id="41">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="14"/>  
+  </generalization>  
+  <generalization id="42">    
+    <end type="SOURCE" refId="21"/>    
+    <end type="TARGET" refId="19"/>  
+  </generalization>  
+  <nesting id="43">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="25"/>  
+  </nesting>  
+  <generalization id="44">    
+    <end type="SOURCE" refId="22"/>    
+    <end type="TARGET" refId="19"/>  
+  </generalization>  
+  <generalization id="45">    
+    <end type="SOURCE" refId="31"/>    
+    <end type="TARGET" refId="21"/>  
+  </generalization>  
+  <generalization id="46">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="9"/>  
+  </generalization>  
+  <nesting id="47">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="26"/>  
+  </nesting>  
+  <nesting id="48">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="27"/>  
+  </nesting>  
+  <generalization id="49">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="9"/>  
+  </generalization>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

@@ -28,7 +28,7 @@ public class OwO_Ranger extends OwO {
 	@Override
 	protected void attackMethod() {
 		int damage = 1;
-		map.add(new Projectile(positionX, positionY + this.hitBox.width/3, 
+		map.add(new Projectile(positionX, positionY + this.hitBox.getWidth()/3, 
 				               /*width*/20, /*height*/20, 
 				               orientation, /*speed*/5, 
 				               /*lifetime*/1000, damage, Projectile.TO_PLAYER, 
@@ -38,7 +38,7 @@ public class OwO_Ranger extends OwO {
 	public static Spawnable spawnable = new Spawnable() {
 		@Override
 		public Monster spawn(SpawnPoint spawnPoint) {
-			return new OwO_Ranger(spawnPoint.map, "", Meth.center_random(spawnPoint.getX(), spawnPoint.spawnWidth), spawnPoint.getY());
+			return new OwO_Ranger(spawnPoint.getMap(), "", Meth.center_random(spawnPoint.getX(), spawnPoint.getSpawnWidth()), spawnPoint.getY());
 		}
 	};
 }

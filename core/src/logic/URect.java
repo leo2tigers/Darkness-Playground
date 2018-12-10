@@ -5,19 +5,18 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class URect extends GameObject {
-    public double width, height;
-    public Color color = null;
+    protected double width;
+    protected double height;
+    private Color color = null;
     
     public URect(double positionX, double positionY, double width, double height) {
-        this.positionX = positionX;
-        this.positionY = positionY;
+        super(positionX, positionY);
         this.width = width;
         this.height = height;
     }
 
     public URect(double positionX, double positionY, double width, double height, Color color) {
-        this.positionX = positionX;
-        this.positionY = positionY;
+        super(positionX, positionY);
         this.width = width;
         this.height = height;
         this.color = color;
@@ -60,4 +59,20 @@ public class URect extends GameObject {
 	
 	@Override
 	public void render(SpriteBatch batch) {}
+
+	public double getWidth() {
+		return width;
+	}
+
+	public void setWidth(double width) {
+		this.width = width;
+	}
+
+	public double getHeight() {
+		return height;
+	}
+
+	public void setHeight(double height) {
+		this.height = height;
+	}
 }
