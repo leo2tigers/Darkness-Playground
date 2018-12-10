@@ -144,36 +144,39 @@ public class OwO extends Monster {
         	attack_prepare();
             if (attackable) {
                 attackDate = new Date();
-                Thread attackThread = new Thread(() -> {
-                	MainGame.log(this.name + " attack");
-                	status = "ATTACKING";
-                    // preAnimation delay
-                    attackable = false;
-                    movable = false;
-                    this.setAttackState(1);
-                    Date newDate = new Date();
-                    while (newDate.getTime() - attackDate.getTime() <= preDelay) {
-                        newDate = new Date();
-                    }
-
-                    // attack!
-                    if (isAlive()) {
-                    	attackMethod();
-                    } else {
-                    	return;
-                    }
-                    this.setAttackState(2);
-
-                    // postAnimation delay
-                    attackDate = new Date();
-                    newDate = new Date();
-                    while (newDate.getTime() - attackDate.getTime() <= postDelay) {
-                        newDate = new Date();
-                    }
-                    this.setAttackState(0);
-                    attackable = true;
-                    movable = true;
-                    status = "NORMAL";
+                Thread attackThread = new Thread(new Runnable() {
+                	@Override
+                	public void run() {
+	                	MainGame.log(name + " attack");
+	                	status = "ATTACKING";
+	                    // preAnimation delay
+	                    attackable = false;
+	                    movable = false;
+	                    setAttackState(1);
+	                    Date newDate = new Date();
+	                    while (newDate.getTime() - attackDate.getTime() <= preDelay) {
+	                        newDate = new Date();
+	                    }
+	
+	                    // attack!
+	                    if (isAlive()) {
+	                    	attackMethod();
+	                    } else {
+	                    	return;
+	                    }
+	                    setAttackState(2);
+	
+	                    // postAnimation delay
+	                    attackDate = new Date();
+	                    newDate = new Date();
+	                    while (newDate.getTime() - attackDate.getTime() <= postDelay) {
+	                        newDate = new Date();
+	                    }
+	                    setAttackState(0);
+	                    attackable = true;
+	                    movable = true;
+	                    status = "NORMAL";
+                	}
                 });
                 attackThread.start();
             }

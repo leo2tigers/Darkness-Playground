@@ -63,7 +63,7 @@ public class MainGame implements Screen {
 	private Texture bg;
 
 	private static String information;
-	private static ArrayList<String> game_log = new ArrayList<>();
+	private static ArrayList<String> game_log = new ArrayList<String>();
 	private static int log_height = 30;
 
 	public MainGame(DarknessPlayground game) {

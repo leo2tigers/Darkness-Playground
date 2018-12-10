@@ -25,7 +25,7 @@ public class GameMap {
     	tiles = new ArrayList<Tile>();
     	projectiles = new ArrayList<Projectile>();
     	monsters = new ArrayList<Monster>();
-    	toBeRemoved = new ArrayList<>();
+    	toBeRemoved = new ArrayList<GameObject>();
     }
 
     public void setPlayer(Player player) {

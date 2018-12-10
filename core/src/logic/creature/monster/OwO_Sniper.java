@@ -72,41 +72,44 @@ public class OwO_Sniper extends OwO {
             	MainGame.log(this.name + " attack");
                 attackDate = new Date();
                 attackThread = null;
-                attackThread = new Thread(() -> {
-                	MainGame.log(this.name + "'s attack thread start!");
-                	status = "ATTACKING";
-                    // preAnimation delay
-                	attackable = false;
-                	movable = false;
-                    this.setAttackState(1);
-                    try {
-						Thread.sleep(preDelay);
-					} catch (InterruptedException e) {
-						MainGame.log(e.getMessage());
-						return;
-					}
-
-                    // attack!
-                    if (isAlive()) {
-                    	this.fireSound.play();
-                    	attackMethod();
-                    } else {
-                    	return;
-                    }
-                    attacking = true;
-                    this.setAttackState(0);
-
-                    // postAnimation delay
-                    attackDate = new Date();
-                    try {
-						Thread.sleep(postDelay);
-					} catch (InterruptedException e) {
-						MainGame.log(e.getMessage());
-						return;
-					}
-                    attackable = true;
-                    movable = true;
-                    status = "NORMAL";
+                attackThread = new Thread(new Runnable() {
+                	@Override
+                	public void run() {
+	                	MainGame.log(name + "'s attack thread start!");
+	                	status = "ATTACKING";
+	                    // preAnimation delay
+	                	attackable = false;
+	                	movable = false;
+	                    setAttackState(1);
+	                    try {
+							Thread.sleep(preDelay);
+						} catch (InterruptedException e) {
+							MainGame.log(e.getMessage());
+							return;
+						}
+	
+	                    // attack!
+	                    if (isAlive()) {
+	                    	fireSound.play();
+	                    	attackMethod();
+	                    } else {
+	                    	return;
+	                    }
+	                    attacking = true;
+	                    setAttackState(0);
+	
+	                    // postAnimation delay
+	                    attackDate = new Date();
+	                    try {
+							Thread.sleep(postDelay);
+						} catch (InterruptedException e) {
+							MainGame.log(e.getMessage());
+							return;
+						}
+	                    attackable = true;
+	                    movable = true;
+	                    status = "NORMAL";
+                	}
                 });
                 if(attackable) attackThread.start();
             }

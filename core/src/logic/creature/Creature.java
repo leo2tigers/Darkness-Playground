@@ -189,30 +189,33 @@ public abstract class Creature extends GameObject {
         	attack_prepare();
             if (attackable) {
                 attackDate = new Date();
-                Thread attackThread = new Thread(() -> {
-                	status = "ATTACKING";
-                    // preAnimation delay
-                    attackable = false;
-                    Date newDate = new Date();
-                    while (newDate.getTime() - attackDate.getTime() <= preDelay) {
-                        newDate = new Date();
-                    }
-
-                    // attack!
-                    if (isAlive()) {
-                    	attackMethod();
-                    } else {
-                    	return;
-                    }
-
-                    // postAnimation delay
-                    attackDate = new Date();
-                    newDate = new Date();
-                    while (newDate.getTime() - attackDate.getTime() <= postDelay) {
-                        newDate = new Date();
-                    }
-                    attackable = true;
-                    status = "NORMAL";
+                Thread attackThread = new Thread(new Runnable() {
+                	@Override
+                	public void run() {
+	                	status = "ATTACKING";
+	                    // preAnimation delay
+	                    attackable = false;
+	                    Date newDate = new Date();
+	                    while (newDate.getTime() - attackDate.getTime() <= preDelay) {
+	                        newDate = new Date();
+	                    }
+	
+	                    // attack!
+	                    if (isAlive()) {
+	                    	attackMethod();
+	                    } else {
+	                    	return;
+	                    }
+	
+	                    // postAnimation delay
+	                    attackDate = new Date();
+	                    newDate = new Date();
+	                    while (newDate.getTime() - attackDate.getTime() <= postDelay) {
+	                        newDate = new Date();
+	                    }
+	                    attackable = true;
+	                    status = "NORMAL";
+                	}
                 });
                 attackThread.start();
             }

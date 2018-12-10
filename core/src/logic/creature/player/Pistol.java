@@ -14,17 +14,20 @@ public class Pistol extends Gun {
     }
 	
 	protected void createReloadThread() {
-		reloadThread = new Thread(() -> {
-            reloading = true;
-            owner.setAttackable(false);
-            try {
-				Thread.sleep(reload_time);
-				ammo = max_ammo;
-			} catch (InterruptedException e) {
-				e.printStackTrace();
+		reloadThread = new Thread(new Runnable() {
+			@Override
+			public void run() {
+	            reloading = true;
+	            owner.setAttackable(false);
+	            try {
+					Thread.sleep(reload_time);
+					ammo = max_ammo;
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+	            reloading = false;
+	            owner.setAttackable(true);
 			}
-            reloading = false;
-            owner.setAttackable(true);
         });
         this.preDelay = 1000;
         this.postDelay = 500;
