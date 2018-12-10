@@ -4,10 +4,7 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.darknessplayground.game.screen.MainGame;
-
 import logic.*;
 import logic.creature.monster.Monster;
 import logic.exceptions.NoAmmoException;

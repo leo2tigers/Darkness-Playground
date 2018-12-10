@@ -237,7 +237,11 @@ public class Player extends Creature {
 		{
 			orientation = 0;
 		}
-		batch.draw(this.playerAnimation[orientation][this.animationState].getKeyFrame(stateTime, true), (float)positionX, (float)positionY);
+		try {
+			batch.draw(this.playerAnimation[orientation][this.animationState].getKeyFrame(stateTime, true), (float)positionX, (float)positionY);
+		} catch (Exception e) {
+			MainGame.log(e.getMessage());
+		}
 	}
 
 	@Override

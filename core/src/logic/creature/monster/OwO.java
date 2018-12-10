@@ -1,12 +1,11 @@
 package logic.creature.monster;
 
 import java.util.Date;
-import java.util.Random;
-
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.darknessplayground.game.screen.MainGame;
 
 import logic.GameMap;
 import logic.Meth;
@@ -128,7 +127,8 @@ public class OwO extends Monster {
 
 	@Override
 	protected void inSight() {
-		if (getDistance(this, this.map.player) <= attack_range) {
+		if (getDistance(this, this.map.player) <= attack_range && attackable) {
+			MainGame.log(this.name + " encounter " + this.map.player.name);
 			attack();
 		} else {
 			if (this.map.player.getX() - this.positionX >= 0) {
@@ -148,6 +148,7 @@ public class OwO extends Monster {
             if (attackable) {
                 attackDate = new Date();
                 Thread attackThread = new Thread(() -> {
+                	MainGame.log(this.name + " attack");
                 	status = "ATTACKING";
                     // preAnimation delay
                     attackable = false;

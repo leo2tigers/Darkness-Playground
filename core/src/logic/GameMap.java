@@ -12,15 +12,20 @@ import com.darknessplayground.game.screen.MainGame;
 
 public class GameMap {
 
-    private final ArrayList<SpawnPoint> spawnPoints = new ArrayList<SpawnPoint>();
-    private final ArrayList<Tile> tiles = new ArrayList<Tile>();
-    private final ArrayList<Projectile> projectiles = new ArrayList<Projectile>();
-    private final ArrayList<Monster> monsters = new ArrayList<Monster>();
-    public final ArrayList<GameObject> to_be_removed = new ArrayList<>();
+    private final ArrayList<SpawnPoint> spawnPoints;
+    private final ArrayList<Tile>       tiles;
+    private final ArrayList<Projectile> projectiles;
+    private final ArrayList<Monster>    monsters;
+    private final ArrayList<GameObject>  to_be_removed;
 
     public Player player;
 
     public GameMap() {
+    	spawnPoints = new ArrayList<SpawnPoint>();
+    	tiles = new ArrayList<Tile>();
+    	projectiles = new ArrayList<Projectile>();
+    	monsters = new ArrayList<Monster>();
+    	to_be_removed = new ArrayList<>();
     }
 
     public void setPlayer(Player player) {
