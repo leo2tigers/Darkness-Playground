@@ -43,12 +43,10 @@ public abstract class Creature extends GameObject {
 
 
     public Creature(GameMap map, String name, int maxHealth, double positionX, double positionY, Texture img) {
-    	this.map = map;
+    	super(positionX, positionY, map);
         this.name = name;
         this.maxHealth = maxHealth;
         this.health = maxHealth;
-        this.positionX = positionX;
-        this.positionY = positionY;
         this.img = img;
         this.alive();
     }
