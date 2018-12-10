@@ -85,6 +85,12 @@ public class Projectile extends GameObject {
         if ((new Date()).getTime() - create_date.getTime() >= lifetime) {
         	map.remove(this);
         }
+        
+        //check out of border
+        if(this.positionX < 100 || this.positionX > Gdx.graphics.getWidth() + 100)
+        {
+        	map.remove(this);
+        }
     }
     
     private void damage_to_monster() {
@@ -107,6 +113,7 @@ public class Projectile extends GameObject {
     private void damage_to_player() {
     	if (this.damageBox.overlap(this.map.player.hitBox)) {
     		this.map.player.getHit(damage);
+    		this.damage = 0;
     		this.hit += 1;
     		this.img = this.hit_img;
     		this.speed = 0;

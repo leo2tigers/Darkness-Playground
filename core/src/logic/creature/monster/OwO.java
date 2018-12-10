@@ -1,6 +1,7 @@
 package logic.creature.monster;
 
 import java.util.Date;
+import java.util.Random;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -12,6 +13,7 @@ import logic.Meth;
 import logic.SpawnPoint;
 import logic.URect;
 import logic.creature.player.Player;
+import logic.utilities.Randomizer;
 
 public class OwO extends Monster {
 	
@@ -68,7 +70,7 @@ public class OwO extends Monster {
     	damageBox = new URect(positionX + this.hitBox.width/4 + this.orientation*50, positionY + this.hitBox.height/4, 
     			              50, 50, Color.CYAN);
     	if (damageBox.overlap(this.map.player.hitBox) && this.map.player.isAlive()) {
-    		this.map.player.getHit(1);
+    		this.map.player.getHit(Randomizer.getDamageValue(5, 15));
     	}
     }
 
@@ -93,7 +95,7 @@ public class OwO extends Monster {
 		}
 		else if(this.attackState == 2) {
 			if(this.orientation == -1) {
-				batch.draw(this.afterAtkImg[0], (float) getX() + 40, (float) getY());
+				batch.draw(this.afterAtkImg[0], (float) getX() - 40, (float) getY());
 			}
 			else if(this.orientation == 1) {
 				batch.draw(this.afterAtkImg[1], (float) getX(), (float) getY());

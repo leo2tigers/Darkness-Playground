@@ -1,7 +1,7 @@
 package logic.creature.player;
 
 public abstract class PlayerStats {
-	public static final int MAX_HEALTH = 5;
+	public static final int MAX_HEALTH = 100;
 	public static final int ARMOUR = 0;
 	public static final double MOVEMENT_SPEED = 5;
 	public static final double JUMPING_SPEED = 20;

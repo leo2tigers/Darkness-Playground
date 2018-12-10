@@ -11,6 +11,7 @@ import logic.GameMap;
 import logic.Meth;
 import logic.Projectile;
 import logic.SpawnPoint;
+import logic.utilities.Randomizer;
 
 public class OwO_Sniper extends OwO {
 	
@@ -38,7 +39,7 @@ public class OwO_Sniper extends OwO {
 	
 	@Override
 	protected void attackMethod() {
-		int damage = 10;
+		int damage = Randomizer.getDamageValue(20, 45);
 		if(this.orientation == -1) {
 			map.add(new Projectile(positionX, positionY + this.hitBox.height/3,
 				               	   /*width*/75, /*height*/25, 
