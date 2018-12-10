@@ -87,7 +87,7 @@ public class Projectile extends GameObject {
         }
         
         //check out of border
-        if(this.positionX < 100 || this.positionX > Gdx.graphics.getWidth() + 100)
+        if(this.positionX < -50 || this.positionX > Gdx.graphics.getWidth() + 100)
         {
         	map.remove(this);
         }
