@@ -51,6 +51,6 @@ public class Debugging extends DarknessPlayground{
 	}
 	
 	public static void send_log(String string) {
-		debug_log.add(string);
+		if (debug_log != null) debug_log.add(string);
 	}
 }

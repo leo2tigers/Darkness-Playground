@@ -27,7 +27,6 @@ import logic.Tile;
 import logic.creature.monster.*;
 import logic.creature.player.Pistol;
 import logic.creature.player.Player;
-import logic.creature.player.Shotgun;
 
 public class MainGame implements Screen {
 	
@@ -36,7 +35,7 @@ public class MainGame implements Screen {
 	
 	private static String status = "normal";
 
-	private static DarknessPlayground game;
+	private DarknessPlayground game;
 	
 	private GameMap map;
 	private Player player;
@@ -58,7 +57,7 @@ public class MainGame implements Screen {
 	private float timeForPassiveXp;
 	private String noticeText;
 	private float noticeShowTime;
-	private boolean isPausing;
+	private boolean isPausing = false;
 
 	private Texture bg;
 
@@ -67,7 +66,7 @@ public class MainGame implements Screen {
 	private static int log_height = 30;
 
 	public MainGame(DarknessPlayground game) {
-		MainGame.game = game;
+		this.game = game;
 		this.map = new GameMap();
 		this.player = new Player(this.map, "player_one", 400, 100, new Pistol(), this);
 		this.debugFont = new BitmapFont();
@@ -193,15 +192,15 @@ public class MainGame implements Screen {
         
 		this.game.batch.begin();
 		this.game.batch.draw(bg, 0, 0, DarknessPlayground.WIDTH, DarknessPlayground.HEIGHT);
-		this.map.render(this.game.batch);
-		this.weaponUI.render(this.player, this.game.batch);
-		this.hpBar.render(this.player, this.game.batch);
-		this.noticeFont.draw(this.game.batch, score, 10, Gdx.graphics.getHeight() - 10);
-		this.noticeFont.draw(this.game.batch, notice, Gdx.graphics.getWidth()/2 - notice.width/2, notice.height+10);
+		this.map.render(game.batch);
+		this.weaponUI.render(this.player, game.batch);
+		this.hpBar.render(this.player, game.batch);
+		this.noticeFont.draw(game.batch, score, 10, Gdx.graphics.getHeight() - 10);
+		this.noticeFont.draw(game.batch, notice, Gdx.graphics.getWidth()/2 - notice.width/2, notice.height+10);
 		if(this.infoDebugActive) {
 			try {
-				this.debugFont.draw(MainGame.game.batch, log, 750, Gdx.graphics.getHeight() - 15);
-				this.debugFont.draw(MainGame.game.batch, label, 0, Gdx.graphics.getHeight() - 15);
+				this.debugFont.draw(game.batch, log, 750, Gdx.graphics.getHeight() - 15);
+				this.debugFont.draw(game.batch, label, 0, Gdx.graphics.getHeight() - 15);
 			} catch (NullPointerException npe) {
 				MainGame.log("log's Spritebatch error");
 			}
@@ -222,9 +221,9 @@ public class MainGame implements Screen {
 		    this.game.batch.end();
 		}
 
-		MainGame.game.shapeRenderer.begin(ShapeType.Line);
-		if(this.rectDebugActive) this.map.render(MainGame.game.shapeRenderer);
-		MainGame.game.shapeRenderer.end();
+		game.shapeRenderer.begin(ShapeType.Line);
+		if(this.rectDebugActive) this.map.render(game.shapeRenderer);
+		game.shapeRenderer.end();
 	}
 	
 	@Override

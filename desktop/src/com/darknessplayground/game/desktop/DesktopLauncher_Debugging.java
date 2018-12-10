@@ -13,6 +13,6 @@ public class DesktopLauncher_Debugging {
 		config.width = DarknessPlayground.WIDTH;
 		config.height = DarknessPlayground.HEIGHT;
 		config.resizable = false;
-		new LwjglApplication(new Debugging(null), config);
+		new LwjglApplication(new DarknessPlayground(), config);
 	}
 }
