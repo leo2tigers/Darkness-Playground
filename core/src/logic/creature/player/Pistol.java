@@ -16,7 +16,7 @@ public class Pistol extends Gun {
 	protected void createReloadThread() {
 		reloadThread = new Thread(() -> {
             reloading = true;
-            owner.attackable = false;
+            owner.setAttackable(false);
             try {
 				Thread.sleep(reload_time);
 				ammo = max_ammo;
@@ -24,7 +24,7 @@ public class Pistol extends Gun {
 				e.printStackTrace();
 			}
             reloading = false;
-            owner.attackable = true;
+            owner.setAttackable(true);
         });
         this.preDelay = 1000;
         this.postDelay = 500;
@@ -41,18 +41,18 @@ public class Pistol extends Gun {
         double width = 20;
         double height = 10;
         double speed = 25;
-        if(owner.orientation == -1)
+        if(owner.getOrientation() == -1)
         {
-        	owner.map.add(new Projectile(owner.getX() + PlayerStats.Pistol.RELATIVE_X, owner.getY() + PlayerStats.Pistol.RELATIVE_Y, 
+        	owner.getMap().add(new Projectile(owner.getX() + PlayerStats.Pistol.RELATIVE_X, owner.getY() + PlayerStats.Pistol.RELATIVE_Y, 
         		                     	 width, height, 
-        		                     	 owner.orientation, speed, 
+        		                     	 owner.getOrientation(), speed, 
         		                     	 lifetime, damage, Projectile.TO_MONSTER, "Bullets/pistol_bullet.png"));
         }
-        else if(owner.orientation == 1)
+        else if(owner.getOrientation() == 1)
         {
-        	owner.map.add(new Projectile(owner.getX() + 115 - PlayerStats.Pistol.RELATIVE_X, owner.getY() + PlayerStats.Pistol.RELATIVE_Y,
+        	owner.getMap().add(new Projectile(owner.getX() + 115 - PlayerStats.Pistol.RELATIVE_X, owner.getY() + PlayerStats.Pistol.RELATIVE_Y,
         								 width, height,
-        								 owner.orientation, speed,
+        								 owner.getOrientation(), speed,
         								 lifetime, damage, Projectile.TO_MONSTER, "Bullets/pistol_bullet.png"));
         }
         this.ammo -= 1;

@@ -6,7 +6,7 @@ import logic.creature.IRenderable;
 public abstract class GameObject implements IRenderable {
     protected double positionX;
     protected double positionY;
-    public GameMap map;
+    protected GameMap map;
     
     public GameObject(double positionX, double positionY)
     {

@@ -38,7 +38,7 @@ public class Player extends Creature {
         super(map, name, PlayerStats.MAX_HEALTH, positionX, positionY, new Texture("player_w-pistol_run2.png"));
         this.armour = PlayerStats.ARMOUR;
         this.speedX = 0;
-        this.jumping_speed = PlayerStats.JUMPING_SPEED;
+        this.jumpingSpeed = PlayerStats.JUMPING_SPEED;
         this.setHitBox(PlayerStats.HitBox.RELATIVE_X, PlayerStats.HitBox.RELATIVE_Y, 
         		       PlayerStats.HitBox.WIDTH, PlayerStats.HitBox.HEIGHT);
         this.setMovementBox(PlayerStats.MovementBox.RELATIVE_X, PlayerStats.MovementBox.RELATIVE_Y, 
