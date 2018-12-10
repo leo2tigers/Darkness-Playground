@@ -53,7 +53,7 @@ public class MainGame implements Screen {
 
 	private static String information;
 	private static ArrayList<String> game_log = new ArrayList<>();
-	private static int log_height = 80;
+	private static int log_height = 30;
 
 	public MainGame(DarknessPlayground game) {
 		MainGame.game = game;
@@ -82,10 +82,10 @@ public class MainGame implements Screen {
 		//this.map.add(new OwO_Ranger(this.map, "aplha-tester", 100, 100));
 		log("setup spawnpoints");
 		this.map.addSpawnPoint(new SpawnPoint(MonsterType.OwO_NORMAL, 100, 100, 0.5));
-		this.map.addSpawnPoint(new SpawnPoint(MonsterType.OwO_NORMAL, 100, 500, 0.5));
-		this.map.addSpawnPoint(new SpawnPoint(MonsterType.OwO_RANGER, 1000, 100, 0.5));
-		this.map.addSpawnPoint(new SpawnPoint(MonsterType.OwO_RANGER, 600, 500, 0.5));
-		this.map.addSpawnPoint(new SpawnPoint(MonsterType.OwO_SNIPER, 1000, 500, 0.5, 5000));
+		//this.map.addSpawnPoint(new SpawnPoint(MonsterType.OwO_NORMAL, 100, 500, 0.5));
+		//this.map.addSpawnPoint(new SpawnPoint(MonsterType.OwO_RANGER, 1000, 100, 0.5));
+		//this.map.addSpawnPoint(new SpawnPoint(MonsterType.OwO_RANGER, 600, 500, 0.5));
+		//this.map.addSpawnPoint(new SpawnPoint(MonsterType.OwO_SNIPER, 1000, 500, 0.5, 5000));
 	}
 
 	@Override
@@ -189,15 +189,7 @@ public class MainGame implements Screen {
 		if(this.rectDebugActive) this.map.render(MainGame.game.shapeRenderer);
 		MainGame.game.shapeRenderer.end();
 	}
-
-	private String get_log() {
-		String str = "log :\n";
-		for (int i = game_log.size(); i > 0 && i > game_log.size() - log_height; --i) {
-			str += i + " >>    " + game_log.get(i - 1) + "\n";
-		}
-		return str;
-	}
-
+	
 	@Override
 	public void resize(int width, int height) {/*Game Window cannot be resized, so left this blank.*/}
 
@@ -353,4 +345,11 @@ public class MainGame implements Screen {
 		Debugging.send_log(string);
 	}
 
+	private String get_log() {
+		String str = "log :\n";
+		for (int i = game_log.size(); i > 0 && i > game_log.size() - log_height; --i) {
+			str += i + " >>    " + game_log.get(i - 1) + "\n";
+		}
+		return str;
+	}
 }

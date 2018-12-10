@@ -116,12 +116,6 @@ public class OwO extends Monster {
 		}
 	}
 	
-	@Override
-	public void grantXp(Player player)
-	{
-		player.addXp(this.xp);
-	}
-	
 	public static Spawnable spawnable = new Spawnable() {
 		@Override
 		public Monster spawn(SpawnPoint spawnPoint) {

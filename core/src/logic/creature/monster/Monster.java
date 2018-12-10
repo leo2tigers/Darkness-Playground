@@ -53,7 +53,9 @@ public abstract class Monster extends Creature{
     	}
     }
     
-    abstract public void grantXp(Player player);
+    public void grantXp(Player player) {
+		player.addXp(this.xp);
+    }
     
     public static Spawnable spawnable;
     

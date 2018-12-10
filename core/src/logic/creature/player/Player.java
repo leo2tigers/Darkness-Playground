@@ -105,7 +105,7 @@ public class Player extends Creature {
 	public void regenHP(float dt)
 	{
 		this.timeOutOfCombat += dt;
-		if(this.timeOutOfCombat >= 5)
+		if(this.timeOutOfCombat >= 5 && this.isAlive())
 		{
 			this.timeSinceLastRegen += dt;
 			if(this.timeSinceLastRegen >= 1)
@@ -125,7 +125,7 @@ public class Player extends Creature {
 	
 	public void xpFromTime(int xp)
 	{
-		this.addXp(xp);
+		if (this.isAlive()) this.addXp(xp);
 	}
 	
 	public void inCombat()
@@ -136,13 +136,13 @@ public class Player extends Creature {
 	
 	public void addXp(int xp)
 	{
-		this.xp += xp;
+		this.xp += xp;/*
 		if(this.xp >= this.xpToNextLevel)
 		{
 			this.level++;
 			this.xpToCurrentLevel = this.xpToNextLevel;
 			this.xpToNextLevel = this.calculateXpToNextLevel(this.xpToCurrentLevel);
-		}
+		}*/
 	}
 
 	
@@ -217,6 +217,9 @@ public class Player extends Creature {
     @Override
     public void getHit(int damage) {
         setHealth(getHealth() - (damage - armour > 0 ? damage - armour : 0));
+        if (this.health <= 0) {
+        	this.die();
+        }
         this.inCombat();
     }
 
