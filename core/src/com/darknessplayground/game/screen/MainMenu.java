@@ -3,6 +3,7 @@ package com.darknessplayground.game.screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.darknessplayground.game.DarknessPlayground;
@@ -27,6 +28,7 @@ public class MainMenu implements Screen {
 	private Texture playButtonInActive;
 	private Texture exitButtonActive;
 	private Texture exitButtonInActive;
+	private Music bgm;
 	
 	private float stateTime;
 
@@ -43,6 +45,9 @@ public class MainMenu implements Screen {
 		this.playButtonInActive = new Texture("Menu/PlayBtnNew.png");
 		this.exitButtonActive = new Texture("Menu/ExitBtnNewActive.png");
 		this.exitButtonInActive = new Texture("Menu/ExitBtnNew.png");
+		this.bgm = Gdx.audio.newMusic(Gdx.files.internal("BGM/MainMenu.mp3"));
+		this.bgm.setLooping(true);
+		this.bgm.play();
 	}
 
 	@Override
@@ -113,6 +118,7 @@ public class MainMenu implements Screen {
 		this.playButtonInActive.dispose();
 		this.exitButtonActive.dispose();
 		this.exitButtonInActive.dispose();
+		this.bgm.dispose();
 	}
 	
 	private void buttonInputHandler()
@@ -121,11 +127,13 @@ public class MainMenu implements Screen {
 		{
 			if(this.isOnPlayBtn())
 			{
+				this.bgm.stop();
 				this.dispose();
 				this.game.toLoadingScreen();
 			}
 			if(this.isOnExitBtn())
 			{
+				this.bgm.stop();
 				this.dispose();
 				Gdx.app.exit();
 			}
