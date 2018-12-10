@@ -1,6 +1,7 @@
 package logic.creature.player;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 import logic.Projectile;
 import logic.exceptions.NoAmmoException;
@@ -56,4 +57,7 @@ public class Pistol extends Gun {
         }
         this.ammo -= 1;
     }
+
+	@Override
+	public void render(ShapeRenderer shapeRenderer) {}
 }

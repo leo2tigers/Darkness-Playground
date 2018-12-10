@@ -2,7 +2,7 @@ package logic.creature.player;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
-
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import logic.exceptions.NoAmmoException;
 
 abstract public class Gun {
@@ -31,15 +31,20 @@ abstract public class Gun {
 	}
     
 	public void reload() {
-		this.reloadSound.play();
-		createReloadThread();
-		reloadThread.start();
+		if (!reloading) {
+			this.reloadSound.play();
+			createReloadThread();
+			reloadThread.start();
+		} else {
+			reload_interrupt();
+		}
 	}
 	
 	abstract protected void createReloadThread();
 	
     public void fire() throws NoAmmoException {
-    	if (ammo!= 0) {
+    	if (ammo!= 0 && (!reloading || reload_interruptable)) {
+    		reload_interrupt();
     		fire_method();
     	}
     }
@@ -52,9 +57,10 @@ abstract public class Gun {
     }
 
 	public void reload_interrupt() {
-		if (reload_interruptable) {
+		if (reload_interruptable && reloadThread != null) {
 			reloadThread.interrupt();
 			owner.attackable = true;
+			this.enable = true;
 		}
 	}
 	
@@ -74,4 +80,6 @@ abstract public class Gun {
 	{
 		this.reloadSound.dispose();
 	}
+
+	abstract public void render(ShapeRenderer shapeRenderer);
 }

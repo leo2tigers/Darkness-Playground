@@ -16,26 +16,29 @@ public class OwO_Ranger extends OwO {
 			  new Texture("Monsters/Ranged OwO/new_ranged_owo_attack_right.png"),
 			  new Texture("Monsters/Ranged OwO/new_ranged_owo_jump.png"));
 		this.max_sight_range = 750;
+		this.attack_range = 400;
 	}
 
 	@Override
 	protected void attack_prepare() {
+		this.preDelay = 500;
+		this.postDelay = 500;
 	}
 	
 	@Override
 	protected void attackMethod() {
 		int damage = 1;
-		map.add(new Projectile(positionX, positionY, 
-				               /*width*/10, /*height*/10, 
-				               orientation, /*speed*/25, 
-				               /*lifetime*/50, damage, Projectile.TO_PLAYER, 
+		map.add(new Projectile(positionX, positionY + this.hitBox.width/3, 
+				               /*width*/20, /*height*/20, 
+				               orientation, /*speed*/5, 
+				               /*lifetime*/1000, damage, Projectile.TO_PLAYER, 
 				               "Monsters/Ranged OwO/normal_projectile.png"));
 	}
 	
 	public static Spawnable spawnable = new Spawnable() {
 		@Override
 		public Monster spawn(SpawnPoint spawnPoint) {
-			return new OwO_Ranger(spawnPoint.map, "from_spawn_point_01", Meth.center_random(spawnPoint.getX(), spawnPoint.spawnWidth), spawnPoint.getY());
+			return new OwO_Ranger(spawnPoint.map, "", Meth.center_random(spawnPoint.getX(), spawnPoint.spawnWidth), spawnPoint.getY());
 		}
 	};
 }

@@ -12,15 +12,20 @@ import com.darknessplayground.game.screen.MainGame;
 
 public class GameMap {
 
-    private final ArrayList<SpawnPoint> spawnPoints = new ArrayList<SpawnPoint>();
-    private final ArrayList<Tile> tiles = new ArrayList<Tile>();
-    private final ArrayList<Projectile> projectiles = new ArrayList<Projectile>();
-    private final ArrayList<Monster> monsters = new ArrayList<Monster>();
-    public final ArrayList<GameObject> to_be_removed = new ArrayList<>();
+    private final ArrayList<SpawnPoint> spawnPoints;
+    private final ArrayList<Tile>       tiles;
+    private final ArrayList<Projectile> projectiles;
+    private final ArrayList<Monster>    monsters;
+    private final ArrayList<GameObject>  to_be_removed;
 
     public Player player;
 
     public GameMap() {
+    	spawnPoints = new ArrayList<SpawnPoint>();
+    	tiles = new ArrayList<Tile>();
+    	projectiles = new ArrayList<Projectile>();
+    	monsters = new ArrayList<Monster>();
+    	to_be_removed = new ArrayList<>();
     }
 
     public void setPlayer(Player player) {
@@ -39,8 +44,12 @@ public class GameMap {
 	}
     
     public void add(Projectile projectile) {
-        projectiles.add(projectile);
-        projectile.map = this;
+    	if (projectile != null) {
+	        projectiles.add(projectile);
+	        projectile.map = this;
+    	} else {
+    		throw new NullPointerException();
+    	}
     }
     
     public void addSpawnPoint(SpawnPoint spawnPoint) {
@@ -78,8 +87,10 @@ public class GameMap {
 		abstract void apply(GameObject gameObject);
 	}
 	private <Type extends GameObject> void for_all(ArrayList<Type> arrayList, GameObjectMethod gameObjectMethod) {
-		for (Type gameObject : arrayList) {
-			gameObjectMethod.apply((GameObject) gameObject);
+		if (!arrayList.isEmpty()) {
+			for (Type gameObject : arrayList) {
+				gameObjectMethod.apply((GameObject) gameObject);
+			}
 		}
 	}
 
@@ -87,7 +98,7 @@ public class GameMap {
 		GameObjectMethod Rendering = new GameObjectMethod() {
 			@Override
 			public void apply(GameObject gameObject) {
-				gameObject.render(batch);
+				if (gameObject != null) gameObject.render(batch);
 			}
 		};
 		try {
@@ -105,7 +116,9 @@ public class GameMap {
 		GameObjectMethod shapeRendering = new GameObjectMethod() {
 			@Override
 			public void apply(GameObject gameObject) {
-				gameObject.shapeRender(shapeRenderer);
+				if (gameObject != null) {
+					gameObject.shapeRender(shapeRenderer);
+				}
 			}
 		};
 		for_all(tiles, shapeRendering);
@@ -118,7 +131,7 @@ public class GameMap {
 	private final static GameObjectMethod updating = new GameObjectMethod() {
 		@Override
 		public void apply(GameObject gameObject) {
-			gameObject.update();
+			if (gameObject != null) gameObject.update();
 		}
 	};
 	public void updateAll() {

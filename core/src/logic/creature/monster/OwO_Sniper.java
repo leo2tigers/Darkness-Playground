@@ -6,6 +6,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.darknessplayground.game.screen.MainGame;
 
 import logic.GameMap;
 import logic.Meth;
@@ -15,8 +16,11 @@ import logic.creature.player.Player;
 import logic.utilities.Randomizer;
 
 public class OwO_Sniper extends OwO {
+	Thread attackThread;
 	
 	private Sound fireSound;
+
+	private boolean attacking;
 
 	public OwO_Sniper(GameMap map, String name, double positionX, double positionY) {
 		super(map, "Sniper-" + name, 5, 
@@ -34,12 +38,13 @@ public class OwO_Sniper extends OwO {
 
 	@Override
 	protected void attack_prepare() {
-    	this.preDelay = 2500;
+    	this.preDelay = 500;
     	this.postDelay = 2000;
 	}
 	
 	@Override
 	protected void attackMethod() {
+		MainGame.log(this.name + " call attack method");
 		int damage = Randomizer.getDamageValue(20, 45);
 		if(this.orientation == -1) {
 			map.add(new Projectile(positionX, positionY + this.hitBox.height/3,
@@ -64,16 +69,22 @@ public class OwO_Sniper extends OwO {
         if (isAlive()) {
         	attack_prepare();
             if (attackable) {
+            	MainGame.log(this.name + " attack");
                 attackDate = new Date();
-                Thread attackThread = new Thread(() -> {
+                attackThread = null;
+                attackThread = new Thread(() -> {
+                	MainGame.log(this.name + "'s attack thread start!");
                 	status = "ATTACKING";
                     // preAnimation delay
-                    attackable = false;
+                	attackable = false;
+                	movable = false;
                     this.setAttackState(1);
-                    Date newDate = new Date();
-                    while (newDate.getTime() - attackDate.getTime() <= preDelay) {
-                        newDate = new Date();
-                    }
+                    try {
+						Thread.sleep(preDelay);
+					} catch (InterruptedException e) {
+						MainGame.log(e.getMessage());
+						return;
+					}
 
                     // attack!
                     if (isAlive()) {
@@ -82,18 +93,22 @@ public class OwO_Sniper extends OwO {
                     } else {
                     	return;
                     }
+                    attacking = true;
                     this.setAttackState(0);
 
                     // postAnimation delay
                     attackDate = new Date();
-                    newDate = new Date();
-                    while (newDate.getTime() - attackDate.getTime() <= postDelay) {
-                        newDate = new Date();
-                    }
+                    try {
+						Thread.sleep(postDelay);
+					} catch (InterruptedException e) {
+						MainGame.log(e.getMessage());
+						return;
+					}
                     attackable = true;
+                    movable = true;
                     status = "NORMAL";
                 });
-                attackThread.start();
+                if(attackable) attackThread.start();
             }
         }
     }
@@ -129,7 +144,7 @@ public class OwO_Sniper extends OwO {
 	public static Spawnable spawnable = new Spawnable() {
 		@Override
 		public Monster spawn(SpawnPoint spawnPoint) {
-			return new OwO_Sniper(spawnPoint.map, "from_spawn_point", Meth.center_random(spawnPoint.getX(), spawnPoint.spawnWidth), spawnPoint.getY());
+			return new OwO_Sniper(spawnPoint.map, "", Meth.center_random(spawnPoint.getX(), spawnPoint.spawnWidth), spawnPoint.getY());
 		}
 	};
 }

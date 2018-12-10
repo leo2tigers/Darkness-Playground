@@ -1,12 +1,11 @@
 package logic.creature.monster;
 
 import java.util.Date;
-import java.util.Random;
-
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.darknessplayground.game.screen.MainGame;
 
 import logic.GameMap;
 import logic.Meth;
@@ -41,6 +40,7 @@ public class OwO extends Monster {
         this.max_sight_range = 500;
         this.attack_range = 50;
         this.movement_speed = 1;
+        this.xp = 30;
     }
     
     public OwO(GameMap map, String name,int maxHealth, double positionX, double positionY,
@@ -57,6 +57,7 @@ public class OwO extends Monster {
         this.max_sight_range = 500;
         this.attack_range = 50;
         this.movement_speed = 1;
+        this.xp = 30;
     }
     
     @Override
@@ -94,11 +95,15 @@ public class OwO extends Monster {
 			}
 		}
 		else if(this.attackState == 2) {
-			if(this.orientation == -1) {
-				batch.draw(this.afterAtkImg[0], (float) getX() - 40, (float) getY());
-			}
-			else if(this.orientation == 1) {
-				batch.draw(this.afterAtkImg[1], (float) getX(), (float) getY());
+			try {
+				if(this.orientation == -1) {
+					batch.draw(this.afterAtkImg[0], (float) getX() - 40, (float) getY());
+				}
+				else if(this.orientation == 1) {
+					batch.draw(this.afterAtkImg[1], (float) getX(), (float) getY());
+				}
+			} catch (NullPointerException npe) {
+				// do nothing
 			}
 		}
 	}
@@ -111,22 +116,16 @@ public class OwO extends Monster {
 		}
 	}
 	
-	@Override
-	public void grantXp(Player player)
-	{
-		player.addXp(30);
-	}
-	
 	public static Spawnable spawnable = new Spawnable() {
 		@Override
 		public Monster spawn(SpawnPoint spawnPoint) {
-			return new OwO(spawnPoint.map, "from_spawn_point_01", Meth.center_random(spawnPoint.getX(), spawnPoint.spawnWidth), spawnPoint.getY());
+			return new OwO(spawnPoint.map, "", Meth.center_random(spawnPoint.getX(), spawnPoint.spawnWidth), spawnPoint.getY());
 		}
 	};
 
 	@Override
 	protected void inSight() {
-		if (getDistance(this, this.map.player) <= attack_range) {
+		if (getDistance(this, this.map.player) <= attack_range && attackable) {
 			attack();
 		} else {
 			if (this.map.player.getX() - this.positionX >= 0) {
@@ -146,9 +145,11 @@ public class OwO extends Monster {
             if (attackable) {
                 attackDate = new Date();
                 Thread attackThread = new Thread(() -> {
+                	MainGame.log(this.name + " attack");
                 	status = "ATTACKING";
                     // preAnimation delay
                     attackable = false;
+                    movable = false;
                     this.setAttackState(1);
                     Date newDate = new Date();
                     while (newDate.getTime() - attackDate.getTime() <= preDelay) {
@@ -171,6 +172,7 @@ public class OwO extends Monster {
                     }
                     this.setAttackState(0);
                     attackable = true;
+                    movable = true;
                     status = "NORMAL";
                 });
                 attackThread.start();

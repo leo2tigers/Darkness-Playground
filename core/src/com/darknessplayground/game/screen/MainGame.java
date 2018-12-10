@@ -1,5 +1,8 @@
 package com.darknessplayground.game.screen;
 
+import java.util.ArrayList;
+import java.util.Date;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
@@ -13,6 +16,7 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.utils.Align;
 import com.darknessplayground.game.DarknessPlayground;
+//import com.darknessplayground.game.Debugging;
 import com.darknessplayground.game.ui.HpBar;
 import com.darknessplayground.game.ui.WeaponUI;
 
@@ -20,9 +24,7 @@ import logic.GameMap;
 import logic.Projectile;
 import logic.SpawnPoint;
 import logic.Tile;
-import logic.creature.monster.Monster;
-import logic.creature.monster.MonsterType;
-import logic.creature.monster.OwO_Sniper;
+import logic.creature.monster.*;
 import logic.creature.player.Pistol;
 import logic.creature.player.Player;
 
@@ -55,12 +57,13 @@ public class MainGame implements Screen {
 	private float timeForPassiveXp;
 	private String noticeText;
 	private float noticeShowTime;
-	private boolean isPausing;
+	private boolean isPausing = false;
 
 	private Texture bg;
 
 	private static String information;
-	private static String add_info = "";
+	private static ArrayList<String> game_log = new ArrayList<>();
+	private static int log_height = 30;
 
 	public MainGame(DarknessPlayground game) {
 		this.game = game;
@@ -78,13 +81,22 @@ public class MainGame implements Screen {
 	}
 	
 	private void setupMap() {
+		log("setup map");
+		log("setup tiles");
 		this.map.add(new Tile(Tile.Type.FLOOR, 0, 0, 1280, 100, new Texture("Tiles/floor.png")));
 		this.map.add(new Tile(Tile.Type.PLATFORM, 0, 250, 500, 50, new Texture("Tiles/tile10.png")));
 		this.map.add(new Tile(Tile.Type.PLATFORM, 400, 400, 400, 50, new Texture("Tiles/tile8.png")));
+		log("setup player");
 		this.map.setPlayer(this.player);
-		this.map.add(new OwO_Sniper(this.map, "aplha-tester", 100, 100));
-		this.map.addSpawnPoint(new SpawnPoint(MonsterType.OwO_NORMAL, 100, 100));
-		this.map.addSpawnPoint(new SpawnPoint(MonsterType.OwO_NORMAL, 600, 500));
+		log("setup monsters");
+		//this.map.add(new OwO_Sniper(this.map, "aplha-tester", 100, 100));
+		//this.map.add(new OwO_Ranger(this.map, "aplha-tester", 100, 100));
+		log("setup spawnpoints");
+		this.map.addSpawnPoint(new SpawnPoint(MonsterType.OwO_NORMAL, 100, 100, 0.5));
+		//this.map.addSpawnPoint(new SpawnPoint(MonsterType.OwO_NORMAL, 100, 500, 0.5));
+		//this.map.addSpawnPoint(new SpawnPoint(MonsterType.OwO_RANGER, 1000, 100, 0.5));
+		//this.map.addSpawnPoint(new SpawnPoint(MonsterType.OwO_RANGER, 600, 500, 0.5));
+		//this.map.addSpawnPoint(new SpawnPoint(MonsterType.OwO_SNIPER, 1000, 500, 0.5, 5000));
 	}
 
 	@Override
@@ -157,11 +169,12 @@ public class MainGame implements Screen {
 			information += " NONE";
 		} else {
 			for (Projectile projectile : this.map.getProjectiles()) {
-				information += "\n    - " + projectile.toString();
+				if (projectile != null) information += "\n    - " + projectile.toString();
 			}
 		}
-		information += "\n" + add_info;
 		GlyphLayout label = new GlyphLayout(this.debugFont, information);
+		GlyphLayout log = new GlyphLayout(this.debugFont, "");
+		log = new GlyphLayout(this.debugFont, "" + get_log());
 		GlyphLayout notice = new GlyphLayout(noticeFont, noticeText, Color.RED, 50, Align.left, false);
 		GlyphLayout score = new GlyphLayout(noticeFont, "Score : " + this.player.getXp());
         // -- information for debugging --
@@ -179,15 +192,21 @@ public class MainGame implements Screen {
         
 		this.game.batch.begin();
 		this.game.batch.draw(bg, 0, 0, DarknessPlayground.WIDTH, DarknessPlayground.HEIGHT);
-		this.map.render(this.game.batch);
-		if(this.infoDebugActive) this.debugFont.draw(this.game.batch, label, 0, Gdx.graphics.getHeight() - 15);
-		this.weaponUI.render(this.player, this.game.batch);
-		this.hpBar.render(this.player, this.game.batch);
-		this.noticeFont.draw(this.game.batch, score, 10, Gdx.graphics.getHeight() - 10);
-		this.noticeFont.draw(this.game.batch, notice, Gdx.graphics.getWidth()/2 - notice.width/2, notice.height+10);
+		this.map.render(game.batch);
+		this.weaponUI.render(this.player, game.batch);
+		this.hpBar.render(this.player, game.batch);
+		this.noticeFont.draw(game.batch, score, 10, Gdx.graphics.getHeight() - 10);
+		this.noticeFont.draw(game.batch, notice, Gdx.graphics.getWidth()/2 - notice.width/2, notice.height+10);
+		if(this.infoDebugActive) {
+			try {
+				this.debugFont.draw(this.game.batch, log, 750, Gdx.graphics.getHeight() - 15);
+				this.debugFont.draw(this.game.batch, label, 0, Gdx.graphics.getHeight() - 15);
+			} catch (NullPointerException npe) {
+				MainGame.log("log's Spritebatch error");
+			}
+		}
 		this.game.batch.end();
-		
-		if(this.isPausing)
+		if(this.isPausing)			
 		{	
 			Gdx.gl.glEnable(GL20.GL_BLEND);
 		    Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
@@ -195,8 +214,8 @@ public class MainGame implements Screen {
 		    this.game.shapeRenderer.setColor(new Color(0, 0, 0, 0.5f));
 		    this.game.shapeRenderer.rect(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		    this.game.shapeRenderer.end();
-		    Gdx.gl.glDisable(GL20.GL_BLEND);
 		    
+		    Gdx.gl.glDisable(GL20.GL_BLEND);
 		    this.game.batch.begin();
 		    this.renderPausedScreen(Gdx.graphics.getDeltaTime());
 		    this.game.batch.end();
@@ -206,7 +225,7 @@ public class MainGame implements Screen {
 		if(this.rectDebugActive) this.map.render(this.game.shapeRenderer);
 		this.game.shapeRenderer.end();
 	}
-
+	
 	@Override
 	public void resize(int width, int height) {/*Game Window cannot be resized, so left this blank.*/}
 
@@ -420,7 +439,15 @@ public class MainGame implements Screen {
 	}
 	
 	public static void log(String string) {
-		add_info += string + "\n";
+		game_log.add(string);
+		//Debugging.send_log(string);
 	}
 
+	private String get_log() {
+		String str = "log :\n";
+		for (int i = game_log.size(); i > 0 && i > game_log.size() - log_height; --i) {
+			str += i + " >>    " + game_log.get(i - 1) + "\n";
+		}
+		return str;
+	}
 }

@@ -11,6 +11,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.darknessplayground.game.screen.MainGame;
 
 import logic.GameMap;
@@ -104,7 +105,7 @@ public class Player extends Creature {
 	public void regenHP(float dt)
 	{
 		this.timeOutOfCombat += dt;
-		if(this.timeOutOfCombat >= 5)
+		if(this.timeOutOfCombat >= 5 && this.isAlive())
 		{
 			this.timeSinceLastRegen += dt;
 			if(this.timeSinceLastRegen >= 1)
@@ -124,7 +125,7 @@ public class Player extends Creature {
 	
 	public void xpFromTime(int xp)
 	{
-		this.addXp(xp);
+		if (this.isAlive()) this.addXp(xp);
 	}
 	
 	public void inCombat()
@@ -139,13 +140,13 @@ public class Player extends Creature {
 
 	public void addXp(int xp)
 	{
-		this.xp += xp;
+		this.xp += xp;/*
 		if(this.xp >= this.xpToNextLevel)
 		{
 			this.level++;
 			this.xpToCurrentLevel = this.xpToNextLevel;
 			this.xpToNextLevel = this.calculateXpToNextLevel(this.xpToCurrentLevel);
-		}
+		}*/
 	}
 
 	
@@ -220,6 +221,9 @@ public class Player extends Creature {
     @Override
     public void getHit(int damage) {
         setHealth(getHealth() - (damage - armour > 0 ? damage - armour : 0));
+        if (this.health <= 0) {
+        	this.die();
+        }
         this.inCombat();
     }
 
@@ -240,7 +244,11 @@ public class Player extends Creature {
 		{
 			orientation = 0;
 		}
-		batch.draw(this.playerAnimation[orientation][this.animationState].getKeyFrame(stateTime, true), (float)positionX, (float)positionY);
+		try {
+			batch.draw(this.playerAnimation[orientation][this.animationState].getKeyFrame(stateTime, true), (float)positionX, (float)positionY);
+		} catch (Exception e) {
+			MainGame.log(e.getMessage());
+		}
 	}
 
 	@Override
@@ -248,5 +256,11 @@ public class Player extends Creature {
 	{
 		this.img.dispose();
 		this.gun.dispose();
+	}
+	
+	@Override
+	public void shapeRender(ShapeRenderer shapeRenderer) {
+		super.shapeRender(shapeRenderer);
+		this.gun.render(shapeRenderer);
 	}
 }
