@@ -18,7 +18,6 @@ public class GameOver implements Screen {
 	
 	private DarknessPlayground game;
 	
-	private Texture backgroundImage;
 	private Texture gameOverText;
 	private Texture backToMenuBtn;
 	private Texture backToMenuBtnActive;
@@ -29,7 +28,6 @@ public class GameOver implements Screen {
 	
 	public GameOver(DarknessPlayground game, int score) {
 		this.game = game;
-		this.backgroundImage = new Texture("playground_background.png");
 		this.gameOverText = new Texture("GameOverScreen/GameOverText.png");
 		this.backToMenuBtn = new Texture("GameOverScreen/BacktoMenuBtn.png");
 		this.backToMenuBtnActive = new Texture("GameOverScreen/BacktoMenuBtnActive.png");
@@ -97,7 +95,6 @@ public class GameOver implements Screen {
 	@Override
 	public void dispose() {
 		// TODO Auto-generated method stub
-		this.backgroundImage.dispose();
 		this.backToMenuBtn.dispose();
 		this.backToMenuBtnActive.dispose();
 		this.gameOverText.dispose();

@@ -14,9 +14,9 @@ public class GameMap {
 
     private final ArrayList<SpawnPoint> spawnPoints;
     private final ArrayList<Tile>       tiles;
-    private final ArrayList<Projectile> projectiles;
-    private final ArrayList<Monster>    monsters;
-    private final ArrayList<GameObject>  to_be_removed;
+    private ArrayList<Projectile> projectiles;
+    private ArrayList<Monster>    monsters;
+    private ArrayList<GameObject>  toBeRemoved;
 
     public Player player;
 
@@ -25,7 +25,7 @@ public class GameMap {
     	tiles = new ArrayList<Tile>();
     	projectiles = new ArrayList<Projectile>();
     	monsters = new ArrayList<Monster>();
-    	to_be_removed = new ArrayList<>();
+    	toBeRemoved = new ArrayList<>();
     }
 
     public void setPlayer(Player player) {
@@ -63,7 +63,7 @@ public class GameMap {
     }
 
 	public void remove(GameObject gameObject) {
-		this.to_be_removed.add(gameObject);
+		this.toBeRemoved.add(gameObject);
 	}
 
 	public ArrayList<Tile> getTiles() {
@@ -138,7 +138,7 @@ public class GameMap {
 		for_all(tiles, updating);
 		for_all(monsters, updating);
 		for_all(projectiles, updating);
-		for (GameObject gameObject : this.to_be_removed) {
+		for (GameObject gameObject : this.toBeRemoved) {
 			if (gameObject instanceof Monster) {
 				monsters.remove(gameObject);
 			} else if (gameObject instanceof Projectile) {
