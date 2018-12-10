@@ -355,7 +355,7 @@ public class MainGame implements Screen {
 	private void renderPausedScreen(float dt)
 	{
 		this.game.batch.draw(pauseScreen, Gdx.graphics.getWidth()/2 - this.pauseScreen.getWidth()/2, Gdx.graphics.getHeight()/2 - this.pauseScreen.getHeight()/2);
-		handlePausedInput(dt);
+		handlePausedInput();
 		if(this.isOnPausedResumeButton()) {
 			this.game.batch.draw(pauseScreenResumeBtnActive, Gdx.graphics.getWidth()/2 - this.pauseScreenResumeBtnActive.getWidth()/2, PAUSED_RESUME_BUTTON_Y);
 		}
@@ -370,7 +370,7 @@ public class MainGame implements Screen {
 		}
 	}
 	
-	private void handlePausedInput(float dt)
+	private void handlePausedInput()
 	{
 		if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
 			if(isOnPausedResumeButton()) {
