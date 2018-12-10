@@ -163,6 +163,7 @@ public class MainGame implements Screen {
 		information += "\n" + add_info;
 		GlyphLayout label = new GlyphLayout(this.debugFont, information);
 		GlyphLayout notice = new GlyphLayout(noticeFont, noticeText, Color.RED, 50, Align.left, false);
+		GlyphLayout score = new GlyphLayout(noticeFont, "Score : " + this.player.getXp());
         // -- information for debugging --
 		
 		if(!this.isPausing) {
@@ -182,6 +183,7 @@ public class MainGame implements Screen {
 		if(this.infoDebugActive) this.debugFont.draw(this.game.batch, label, 0, Gdx.graphics.getHeight() - 15);
 		this.weaponUI.render(this.player, this.game.batch);
 		this.hpBar.render(this.player, this.game.batch);
+		this.noticeFont.draw(this.game.batch, score, 10, Gdx.graphics.getHeight() - 10);
 		this.noticeFont.draw(this.game.batch, notice, Gdx.graphics.getWidth()/2 - notice.width/2, notice.height+10);
 		this.game.batch.end();
 		
