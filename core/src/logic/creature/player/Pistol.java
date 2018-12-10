@@ -1,14 +1,20 @@
 package logic.creature.player;
 
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 import logic.Projectile;
+import logic.exceptions.NoAmmoException;
 
 public class Pistol extends Gun {
 
 	public Pistol() {
         super("Pistol", 7, 1500, false);
-        reloadThread = new Thread(() -> {
+        this.fireSound = Gdx.audio.newSound(Gdx.files.internal("Sfx/Pistol_Fire.mp3"));
+    }
+	
+	protected void createReloadThread() {
+		reloadThread = new Thread(() -> {
             reloading = true;
             owner.attackable = false;
             try {
@@ -20,16 +26,38 @@ public class Pistol extends Gun {
             reloading = false;
             owner.attackable = true;
         });
-        this.preDelay = 500;
+        this.preDelay = 1000;
         this.postDelay = 500;
-    }
+	}
 
     @Override
-    public void fire() {
+    public void fire_method() throws NoAmmoException {
+    	if(this.ammo <= 0) {
+    		throw new NoAmmoException();
+    	}
+    	this.fireSound.play();
         int damage = 1;
-        owner.map.add(new Projectile(owner.positionX, owner.positionY, 
-        		                     /*width*/10, /*height*/10, 
-        		                     owner.orientation, /*speed*/25, 
-        		                     /*lifetime*/50, damage, Projectile.TO_MONSTER, new Texture("Bullets/pistol_bullet.png")));
+        int lifetime = 200;
+        double width = 20;
+        double height = 10;
+        double speed = 25;
+        if(owner.orientation == -1)
+        {
+        	owner.map.add(new Projectile(owner.getX() + PlayerStats.Pistol.RELATIVE_X, owner.getY() + PlayerStats.Pistol.RELATIVE_Y, 
+        		                     	 width, height, 
+        		                     	 owner.orientation, speed, 
+        		                     	 lifetime, damage, Projectile.TO_MONSTER, "Bullets/pistol_bullet.png"));
+        }
+        else if(owner.orientation == 1)
+        {
+        	owner.map.add(new Projectile(owner.getX() + 115 - PlayerStats.Pistol.RELATIVE_X, owner.getY() + PlayerStats.Pistol.RELATIVE_Y,
+        								 width, height,
+        								 owner.orientation, speed,
+        								 lifetime, damage, Projectile.TO_MONSTER, "Bullets/pistol_bullet.png"));
+        }
+        this.ammo -= 1;
     }
+
+	@Override
+	public void render(ShapeRenderer shapeRenderer) {}
 }

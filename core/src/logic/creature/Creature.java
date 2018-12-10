@@ -2,6 +2,7 @@ package logic.creature;
 
 import logic.GameMap;
 import logic.GameObject;
+import logic.GameProperties;
 import logic.Tile;
 import logic.URect;
 
@@ -11,8 +12,9 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.darknessplayground.game.screen.MainGame;
 
-public abstract class Creature extends GameObject implements IRenderable {
+public abstract class Creature extends GameObject {
 
     public final String name;
     
@@ -21,6 +23,7 @@ public abstract class Creature extends GameObject implements IRenderable {
     public int maxHealth;
     public int armour = 0;
     public int attackPower;
+    public double movement_speed;
     public double speedX;
     public double speedY = 0;
     public double jumping_speed = 50;
@@ -32,7 +35,8 @@ public abstract class Creature extends GameObject implements IRenderable {
     public URect hitBox, movementBox;
     public GameMap map;
     public Tile current_tile;
-    private Date attackDate;
+    public String status = "NORMAL";
+    protected Date attackDate;
     
     protected Texture img;
 
@@ -107,16 +111,21 @@ public abstract class Creature extends GameObject implements IRenderable {
         double new_positionX = positionX + x;
         double new_positionY = positionY + y;
         
-        URect check_movementBox = new URect(movementBox.positionX + x, movementBox.positionY + y, movementBox.width, movementBox.height, Color.BLUE);
+        URect check_movementBox = new URect(movementBox.getX() + x, movementBox.getY() + y, movementBox.width, movementBox.height, Color.BLUE);
 
         Tile check_tile = overlapTile(check_movementBox);
-        //System.out.println("\toverlap " + check_movementBox + "\n\t check ---> " + check_tile + "\n\t overlap ? " + check_movementBox.overlap(check_tile));
-        if (check_movementBox.overlap(check_tile)) {
-            new_positionY = check_tile.positionY + check_tile.height/2;
+        if (check_movementBox.overlap(check_tile) && Math.abs(check_tile.getX() +check_tile. width/2 - this.positionX - this.movementBox.width/2) <= check_tile.width/2) {
+            new_positionY = check_tile.getY() + check_tile.height;
             jumping = false;
             speedY = 0;
         }else {
             jumping = true;
+        }
+        
+        if (new_positionX < 0) {
+        	new_positionX = 0;
+        } else  if (new_positionX > 1280 - this.movementBox.width) {
+        	new_positionX = 1280 - this.movementBox.width;
         }
 		
         movementBox.translate(new_positionX - positionX, new_positionY - positionY);
@@ -124,6 +133,8 @@ public abstract class Creature extends GameObject implements IRenderable {
 
         positionX = new_positionX;
         positionY = new_positionY;
+        
+        this.current_tile = this.overlapTile(this.movementBox);
 
         return new double[] {positionX, positionY};
     }
@@ -136,13 +147,16 @@ public abstract class Creature extends GameObject implements IRenderable {
     }
     
     public void jump() {
-        jumping = true;
-        speedY = jumping_speed;
+        if (!jumping) {
+        	jumping = true;
+        	speedY = jumping_speed;
+        }
     }
-    protected void jump_down() {
+    public void jump_down() {
         jumping = true;
-        speedY = -jumping_speed;
+        speedY = -jumping_speed*1.3;
         translate(0., speedY);
+        speedY = 0;
     }
 
     @Override
@@ -152,8 +166,7 @@ public abstract class Creature extends GameObject implements IRenderable {
 
     public void update() {
         if (jumping) {
-            double gravity = 1;
-            speedY -= gravity;
+            speedY -= GameProperties.Constant.GRAVITY;
         }
         move();
         this.speedX = 0;
@@ -163,12 +176,13 @@ public abstract class Creature extends GameObject implements IRenderable {
      * This method is used to begin an Attack Event if the creature is  alive and attackable.
      */
     public void attack() {
+    	MainGame.log(this.name + " attack ");
         if (isAlive()) {
         	attack_prepare();
             if (attackable) {
                 attackDate = new Date();
                 Thread attackThread = new Thread(() -> {
-
+                	status = "ATTACKING";
                     // preAnimation delay
                     attackable = false;
                     Date newDate = new Date();
@@ -177,7 +191,11 @@ public abstract class Creature extends GameObject implements IRenderable {
                     }
 
                     // attack!
-                    attackMethod();
+                    if (isAlive()) {
+                    	attackMethod();
+                    } else {
+                    	return;
+                    }
 
                     // postAnimation delay
                     attackDate = new Date();
@@ -186,6 +204,7 @@ public abstract class Creature extends GameObject implements IRenderable {
                         newDate = new Date();
                     }
                     attackable = true;
+                    status = "NORMAL";
                 });
                 attackThread.start();
             }
@@ -195,6 +214,10 @@ public abstract class Creature extends GameObject implements IRenderable {
     protected abstract void attack_prepare();
 
     protected abstract void attackMethod();
+    
+    public void setImg(String img_path) {
+		this.img = new Texture(img_path);
+	}
     
     public abstract void render(SpriteBatch batch);
 
@@ -206,5 +229,10 @@ public abstract class Creature extends GameObject implements IRenderable {
     public void shapeRender(ShapeRenderer shapeRenderer) {
     	this.hitBox.shapeRender(shapeRenderer);
     	this.movementBox.shapeRender(shapeRenderer);
+    }
+    
+    public void dispose()
+    {
+    	this.img.dispose();
     }
 }

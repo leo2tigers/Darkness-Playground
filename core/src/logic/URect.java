@@ -1,6 +1,7 @@
 package logic;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class URect extends GameObject {
@@ -31,8 +32,8 @@ public class URect extends GameObject {
         if (other == null) {
             return false;
         }
-        double dx = Math.abs(positionX - other.positionX);
-        double dy = Math.abs(positionY - other.positionY);
+        double dx = Math.abs((positionX + width/2) - (other.positionX + other.width/2));
+        double dy = Math.abs((positionY + height/2) - (other.positionY + other.height/2));
         return (dx <= width/2 + other.width/2) && (dy <= height/2 + other.height/2);
     }
 
@@ -53,6 +54,10 @@ public class URect extends GameObject {
 			shapeRenderer.rect((float) positionX, (float) positionY, 
 					           (float) width, (float) height,
 					           color, color, color, color);
+			shapeRenderer.circle((float) (positionX + width/2), (float) (positionY + height/2), 5);
 		}
 	}
+	
+	@Override
+	public void render(SpriteBatch batch) {}
 }
