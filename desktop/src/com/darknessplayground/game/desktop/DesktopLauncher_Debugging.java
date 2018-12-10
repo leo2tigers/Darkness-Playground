@@ -5,6 +5,7 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.darknessplayground.game.*;
 
 public class DesktopLauncher_Debugging {
+	
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.title = "Darkness' Playground";
@@ -12,6 +13,6 @@ public class DesktopLauncher_Debugging {
 		config.width = DarknessPlayground.WIDTH;
 		config.height = DarknessPlayground.HEIGHT;
 		config.resizable = false;
-		new LwjglApplication(new Debugging(), config);
+		new LwjglApplication(new DarknessPlayground(), config);
 	}
 }

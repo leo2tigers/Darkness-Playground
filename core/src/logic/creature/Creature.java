@@ -37,8 +37,10 @@ public abstract class Creature extends GameObject {
     public Tile current_tile;
     public String status = "NORMAL";
     protected Date attackDate;
+	private boolean alive;
     
     protected Texture img;
+
 
     public Creature(GameMap map, String name, int maxHealth, double positionX, double positionY, Texture img) {
     	this.map = map;
@@ -48,6 +50,7 @@ public abstract class Creature extends GameObject {
         this.positionX = positionX;
         this.positionY = positionY;
         this.img = img;
+        this.alive();
     }
 
     public void setHitBox(double relativeX, double relativeY, double width, double height) {
@@ -96,7 +99,14 @@ public abstract class Creature extends GameObject {
     }
 
     public boolean isAlive() {
-    	return health > 0;
+    	return this.alive;
+    }
+    
+    public void alive() {
+    	this.alive = true;
+    }
+    public void die() {
+    	this.alive = false;
     }
 
     /**
