@@ -96,7 +96,7 @@ public class MainGame implements Screen {
 		{
 			this.bgm.stop();
 			this.dispose();
-			this.game.toMainMenu();
+			this.game.gameOver(this.player.getXp());
 		}
 		
 		this.handleNoticeShow(dt);

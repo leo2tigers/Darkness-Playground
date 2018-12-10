@@ -11,6 +11,7 @@ import logic.GameMap;
 import logic.Meth;
 import logic.Projectile;
 import logic.SpawnPoint;
+import logic.creature.player.Player;
 import logic.utilities.Randomizer;
 
 public class OwO_Sniper extends OwO {
@@ -117,6 +118,12 @@ public class OwO_Sniper extends OwO {
 				batch.draw(this.atkImg[1], (float) getX(), (float) getY());
 			}
 		}
+	}
+	
+	@Override
+	public void grantXp(Player player)
+	{
+		player.addXp(80);
 	}
 	
 	public static Spawnable spawnable = new Spawnable() {
