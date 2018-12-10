@@ -16,7 +16,7 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.utils.Align;
 import com.darknessplayground.game.DarknessPlayground;
-import com.darknessplayground.game.Debugging;
+//import com.darknessplayground.game.Debugging;
 import com.darknessplayground.game.ui.HpBar;
 import com.darknessplayground.game.ui.WeaponUI;
 
@@ -199,16 +199,16 @@ public class MainGame implements Screen {
 		this.noticeFont.draw(game.batch, notice, Gdx.graphics.getWidth()/2 - notice.width/2, notice.height+10);
 		if(this.infoDebugActive) {
 			try {
-				this.debugFont.draw(game.batch, log, 750, Gdx.graphics.getHeight() - 15);
-				this.debugFont.draw(game.batch, label, 0, Gdx.graphics.getHeight() - 15);
+				this.debugFont.draw(this.game.batch, log, 750, Gdx.graphics.getHeight() - 15);
+				this.debugFont.draw(this.game.batch, label, 0, Gdx.graphics.getHeight() - 15);
 			} catch (NullPointerException npe) {
 				MainGame.log("log's Spritebatch error");
 			}
 		}
 		this.game.batch.end();
-		if(this.isPausing)
-			Gdx.gl.glEnable(GL20.GL_BLEND);
+		if(this.isPausing)			
 		{	
+			Gdx.gl.glEnable(GL20.GL_BLEND);
 		    Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		    this.game.shapeRenderer.begin(ShapeType.Filled);
 		    this.game.shapeRenderer.setColor(new Color(0, 0, 0, 0.5f));
@@ -221,9 +221,9 @@ public class MainGame implements Screen {
 		    this.game.batch.end();
 		}
 
-		game.shapeRenderer.begin(ShapeType.Line);
-		if(this.rectDebugActive) this.map.render(game.shapeRenderer);
-		game.shapeRenderer.end();
+		this.game.shapeRenderer.begin(ShapeType.Line);
+		if(this.rectDebugActive) this.map.render(this.game.shapeRenderer);
+		this.game.shapeRenderer.end();
 	}
 	
 	@Override
@@ -440,7 +440,7 @@ public class MainGame implements Screen {
 	
 	public static void log(String string) {
 		game_log.add(string);
-		Debugging.send_log(string);
+		//Debugging.send_log(string);
 	}
 
 	private String get_log() {
