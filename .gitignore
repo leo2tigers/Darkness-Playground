@@ -62,3 +62,7 @@ build/
 
 ## OS Specific
 .DS_Store
+
+## UML
+core/UML.png
+core/UML.ucls
