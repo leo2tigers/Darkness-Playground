@@ -140,13 +140,13 @@ public class Player extends Creature {
 
 	public void addXp(int xp)
 	{
-		this.xp += xp;/*
+		this.xp += xp;
 		if(this.xp >= this.xpToNextLevel)
 		{
 			this.level++;
 			this.xpToCurrentLevel = this.xpToNextLevel;
 			this.xpToNextLevel = this.calculateXpToNextLevel(this.xpToCurrentLevel);
-		}*/
+		}
 	}
 
 	

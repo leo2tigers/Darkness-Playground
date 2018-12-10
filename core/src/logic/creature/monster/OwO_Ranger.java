@@ -6,6 +6,7 @@ import logic.GameMap;
 import logic.Meth;
 import logic.Projectile;
 import logic.SpawnPoint;
+import logic.utilities.Randomizer;
 
 public class OwO_Ranger extends OwO {
 
@@ -27,7 +28,7 @@ public class OwO_Ranger extends OwO {
 	
 	@Override
 	protected void attackMethod() {
-		int damage = 1;
+		int damage = Randomizer.getDamageValue(5, 15);
 		map.add(new Projectile(positionX, positionY + this.hitBox.getWidth()/3, 
 				               /*width*/20, /*height*/20, 
 				               orientation, /*speed*/5, 

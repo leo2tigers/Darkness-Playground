@@ -1,8 +1,6 @@
 package com.darknessplayground.game.screen;
 
 import java.util.ArrayList;
-import java.util.Date;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;

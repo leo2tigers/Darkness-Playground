@@ -30,7 +30,7 @@ abstract public class Gun {
 		this.reload_interruptable = reload_interruptable;
 		this.enable = true;
 		this.reloading = false;
-		this.reloadSound = Gdx.audio.newSound(Gdx.files.internal("Sfx/Gun_reload.mp3"));
+		this.reloadSound = Gdx.audio.newSound(Gdx.files.internal("Sfx/Gun_Reload.mp3"));
 	}
     
 	public void reload() {

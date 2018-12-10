@@ -11,7 +11,6 @@ import logic.GameMap;
 import logic.Meth;
 import logic.SpawnPoint;
 import logic.URect;
-import logic.creature.player.Player;
 import logic.utilities.Randomizer;
 
 public class OwO extends Monster {
