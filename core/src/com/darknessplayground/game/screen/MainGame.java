@@ -24,6 +24,7 @@ import logic.GameMap;
 import logic.Projectile;
 import logic.SpawnPoint;
 import logic.Tile;
+import logic.TileType;
 import logic.creature.monster.*;
 import logic.creature.player.Pistol;
 import logic.creature.player.Player;
@@ -83,9 +84,9 @@ public class MainGame implements Screen {
 	private void setupMap() {
 		log("setup map");
 		log("setup tiles");
-		this.map.add(new Tile(Tile.Type.FLOOR, 0, 0, 1280, 100, new Texture("Tiles/floor.png")));
-		this.map.add(new Tile(Tile.Type.PLATFORM, 0, 250, 500, 50, new Texture("Tiles/tile10.png")));
-		this.map.add(new Tile(Tile.Type.PLATFORM, 400, 400, 400, 50, new Texture("Tiles/tile8.png")));
+		this.map.add(new Tile(TileType.FLOOR, 0, 0, 1280, 100, new Texture("Tiles/floor.png")));
+		this.map.add(new Tile(TileType.PLATFORM, 0, 250, 500, 50, new Texture("Tiles/tile10.png")));
+		this.map.add(new Tile(TileType.PLATFORM, 400, 400, 400, 50, new Texture("Tiles/tile8.png")));
 		log("setup player");
 		this.map.setPlayer(this.player);
 		log("setup monsters");
@@ -280,7 +281,7 @@ public class MainGame implements Screen {
 		else if(Gdx.input.isKeyJustPressed(Keys.DOWN))
 		{
 			if (this.player.current_tile != null)
-				if (this.player.current_tile.type != Tile.Type.FLOOR) this.player.jump_down();
+				if (this.player.current_tile.type != TileType.FLOOR) this.player.jump_down();
 		}
 		
 		if(!Gdx.input.isKeyPressed(Keys.LEFT) && !Gdx.input.isKeyPressed(Keys.RIGHT) && this.player.getShootingAnimationDelay() <= 0)
