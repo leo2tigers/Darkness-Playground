@@ -25,11 +25,11 @@ public class Shotgun extends Gun {
     	this.fireSound.play();
     	this.ammo -= 1;
         int damage = 1;
-        firstBox = new URect((owner.orientation < 0) ? owner.getX() - 50 : owner.getX() + owner.hitBox.width, owner.getY() + owner.hitBox.height/2 - 25, 
+        firstBox = new URect((owner.orientation < 0) ? owner.getX() - 50 : owner.getX() + owner.hitBox.getWidth(), owner.getY() + owner.hitBox.getHeight()/2 - 25, 
         		             50, 50, Color.ORANGE);
-        secondBox = new URect((owner.orientation < 0) ? owner.getX() - 100 : owner.getX() + owner.hitBox.width, owner.getY() + owner.hitBox.height/2 - 50, 
+        secondBox = new URect((owner.orientation < 0) ? owner.getX() - 100 : owner.getX() + owner.hitBox.getWidth(), owner.getY() + owner.hitBox.getHeight()/2 - 50, 
         		              100, 100, Color.ORANGE);
-        thirdBox = new URect((owner.orientation < 0) ? owner.getX() - 200 : owner.getX() + owner.hitBox.width, owner.getY() + owner.hitBox.height/2 - 100, 
+        thirdBox = new URect((owner.orientation < 0) ? owner.getX() - 200 : owner.getX() + owner.hitBox.getWidth(), owner.getY() + owner.hitBox.getHeight()/2 - 100, 
         		             200, 200, Color.ORANGE);
         ArrayList<Monster> overlapped_monster = new ArrayList<>();
         for (GameObject gameObject : owner.map.getMonsters()) {

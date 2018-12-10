@@ -47,17 +47,17 @@ public class OwO_Sniper extends OwO {
 		MainGame.log(this.name + " call attack method");
 		int damage = Randomizer.getDamageValue(20, 45);
 		if(this.orientation == -1) {
-			map.add(new Projectile(positionX, positionY + this.hitBox.height/3,
+			map.add(new Projectile(positionX, positionY + this.hitBox.getHeight()/3,
 				               	   /*width*/75, /*height*/25, 
-				               	   orientation, /*speed*/5, 
+				               	   orientation, /*speed*/12, 
 				               	   /*lifetime*/5000, damage, Projectile.TO_PLAYER, 
 				               	   "Monsters/Sniper OwO/sniper_projectile_left.png",
 				               	   "Monsters/Sniper OwO/sniper_projectile_hit_left.png"));
 		}
 		else if(this.orientation == 1) {
-			map.add(new Projectile(positionX + this.img.getWidth(), positionY + this.hitBox.height/3,
+			map.add(new Projectile(positionX + this.img.getWidth(), positionY + this.hitBox.getHeight()/3,
 	               	   			   /*width*/75, /*height*/25, 
-	               	   			   orientation, /*speed*/5, 
+	               	   			   orientation, /*speed*/12, 
 	               	   			   /*lifetime*/5000, damage, Projectile.TO_PLAYER, 
 	               	   			   "Monsters/Sniper OwO/sniper_projectile_right.png",
 	               	   			   "Monsters/Sniper OwO/sniper_projectile_hit_right.png"));
