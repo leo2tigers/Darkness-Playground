@@ -7,6 +7,18 @@ public abstract class GameObject implements IRenderable {
     protected double positionX;
     protected double positionY;
     public GameMap map;
+    
+    public GameObject(double positionX, double positionY)
+    {
+    	this.positionX = positionX;
+    	this.positionY = positionY;
+    }
+    
+    public GameObject(double positionX, double positionY, GameMap map) {
+    	this.positionX = positionX;
+    	this.positionY = positionY;
+    	this.map = map;
+    }
 
     public static double getDistance(GameObject first, GameObject second) {
         return Math.sqrt(
@@ -24,5 +36,18 @@ public abstract class GameObject implements IRenderable {
 	public double getY()
 	{
 		return this.positionY;
+	}
+	
+	public GameMap getMap()
+	{
+		return this.map;
+	}
+
+	public void setX(double positionX) {
+		this.positionX = positionX;
+	}
+
+	public void setY(double positionY) {
+		this.positionY = positionY;
 	}
 }

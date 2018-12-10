@@ -125,16 +125,18 @@ public class GameMap {
 		player.shapeRender(shapeRenderer);
 	}
 
-	private final static GameObjectMethod updating = new GameObjectMethod() {
-		@Override
-		public void apply(GameObject gameObject) {
-			if (gameObject != null) gameObject.update();
-		}
-	};
 	public void updateAll() {
+		GameObjectMethod updating = new GameObjectMethod() {
+			@Override
+			public void apply(GameObject gameObject) {
+				if (gameObject != null) gameObject.update();
+			}
+		};
 		for_all(tiles, updating);
+		for_all(spawnPoints, updating);
 		for_all(monsters, updating);
 		for_all(projectiles, updating);
+		this.player.update();
 		for (GameObject gameObject : this.toBeRemoved) {
 			if (gameObject instanceof Monster) {
 				monsters.remove(gameObject);
@@ -142,11 +144,6 @@ public class GameMap {
 				projectiles.remove(gameObject);
 			}
 		}
-		for_all(tiles, updating);
-		for_all(spawnPoints, updating);
-		for_all(monsters, updating);
-		for_all(projectiles, updating);
-		this.player.update();
 	}
 	
 	public void dispose()

@@ -30,8 +30,7 @@ public class Projectile extends GameObject {
     		          double width, double height, 
     		          double orientation, double speed, 
     		          int lifetime, int damage, int damage_check_type, String img_path) {
-        this.positionX = positionX;
-        this.positionY = positionY;
+        super(positionX, positionY);
         this.orientation = orientation;
         this.speed = speed;
         this.lifetime = lifetime;
@@ -46,8 +45,7 @@ public class Projectile extends GameObject {
 			          double orientation, double speed, 
 				      int lifetime, int damage, int damage_check_type, 
 				      String img_path, String hit_path) {
-		this.positionX = positionX;
-		this.positionY = positionY;
+    	super(positionX, positionY);
 		this.orientation = orientation;
 		this.speed = speed;
 		this.lifetime = lifetime;
