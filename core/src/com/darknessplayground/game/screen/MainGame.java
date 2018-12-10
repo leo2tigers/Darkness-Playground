@@ -169,6 +169,12 @@ public class MainGame implements Screen {
 			handleInput(dt);
 			this.map.updateAll();
 		}
+		
+		if(this.player.getHealth() <= 0) {
+			this.bgm.stop();
+			this.dispose();
+			this.game.gameOver(this.player.getXp());
+		}
         
 		this.game.batch.begin();
 		this.game.batch.draw(bg, 0, 0, DarknessPlayground.WIDTH, DarknessPlayground.HEIGHT);
