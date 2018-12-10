@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.Input.Keys;
@@ -30,6 +31,9 @@ import logic.creature.player.Shotgun;
 
 public class MainGame implements Screen {
 	
+	private static final float PAUSED_RESUME_BUTTON_Y = 345;
+	private static final float PAUSED_EXIT_BUTTON_Y = 218;
+	
 	private static String status = "normal";
 
 	private static DarknessPlayground game;
@@ -42,12 +46,19 @@ public class MainGame implements Screen {
 	private WeaponUI weaponUI;
 	private Music bgm;
 	
+	private Texture pauseScreen;
+	private Texture pauseScreenResumeBtnActive;
+	private Texture pauseScreenResumeBtnInactive;
+	private Texture pauseScreenExitBtnActive;
+	private Texture pauseScreenExitBtnInactive;
+	
 	private boolean infoDebugActive;
 	private boolean rectDebugActive;
 	private float timeSurvived;
 	private float timeForPassiveXp;
 	private String noticeText;
 	private float noticeShowTime;
+	private boolean isPausing;
 
 	private Texture bg;
 
@@ -67,6 +78,7 @@ public class MainGame implements Screen {
 		this.timeForPassiveXp = 0;
 		this.noticeShowTime = 0;
 		this.noticeText = "";
+		this.isPausing = false;
 	}
 	
 	private void setupMap() {
@@ -98,6 +110,11 @@ public class MainGame implements Screen {
 		this.bgm.setLooping(true);
 		this.bgm.setVolume(0.6f);
 		this.bgm.play();
+		this.pauseScreen = new Texture("PauseScreen/Pause Screen.png");
+		this.pauseScreenResumeBtnActive = new Texture("PauseScreen/ResumeBtnActive.png");
+		this.pauseScreenResumeBtnInactive = new Texture("PauseScreen/ResumeBtn.png");
+		this.pauseScreenExitBtnActive = new Texture("PauseScreen/ExitBtnActive.png");
+		this.pauseScreenExitBtnInactive = new Texture("PauseScreen/ExitBtn.png");
 	}
 
 	@Override
@@ -105,11 +122,8 @@ public class MainGame implements Screen {
 		Gdx.gl.glClearColor(0.1f, 0.1f, 0.22f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
-		if(Gdx.input.isKeyJustPressed(Keys.ESCAPE))
-		{
-			this.bgm.stop();
-			this.dispose();
-			MainGame.game.toMainMenu();
+		if(this.isPausing) {
+			dt = 0;
 		}
 		
 		this.handleNoticeShow(dt);
@@ -120,8 +134,6 @@ public class MainGame implements Screen {
 		{
 			this.player.setAnimationState(6);
 		}
-		
-		handleInput(dt);
 		
 		// -- information for debugging --
 		information = ">> Game Status : " + status +
@@ -165,15 +177,27 @@ public class MainGame implements Screen {
 		GlyphLayout log = new GlyphLayout(this.debugFont, "");
 		log = new GlyphLayout(this.debugFont, "" + get_log());
 		GlyphLayout notice = new GlyphLayout(noticeFont, noticeText, Color.RED, 50, Align.left, false);
+		GlyphLayout score = new GlyphLayout(noticeFont, "Score : " + this.player.getXp());
         // -- information for debugging --
 		
-        this.map.updateAll();
+		if(!this.isPausing) {
+			handleInput(dt);
+			this.map.updateAll();
+		}
+		
+		if(this.player.getHealth() <= 0) {
+			this.bgm.stop();
+			this.dispose();
+			this.game.gameOver(this.player.getXp());
+		}
         
-		MainGame.game.batch.begin();
-		MainGame.game.batch.draw(bg, 0, 0, DarknessPlayground.WIDTH, DarknessPlayground.HEIGHT);
-		this.map.render(MainGame.game.batch);
-		this.hpBar.render(this.player, MainGame.game.batch);
-		this.weaponUI.render(this.player, MainGame.game.batch);
+		this.game.batch.begin();
+		this.game.batch.draw(bg, 0, 0, DarknessPlayground.WIDTH, DarknessPlayground.HEIGHT);
+		this.map.render(this.game.batch);
+		this.weaponUI.render(this.player, this.game.batch);
+		this.hpBar.render(this.player, this.game.batch);
+		this.noticeFont.draw(this.game.batch, score, 10, Gdx.graphics.getHeight() - 10);
+		this.noticeFont.draw(this.game.batch, notice, Gdx.graphics.getWidth()/2 - notice.width/2, notice.height+10);
 		if(this.infoDebugActive) {
 			try {
 				this.debugFont.draw(MainGame.game.batch, log, 750, Gdx.graphics.getHeight() - 15);
@@ -182,8 +206,21 @@ public class MainGame implements Screen {
 				MainGame.log("log's Spritebatch error");
 			}
 		}
-		this.noticeFont.draw(MainGame.game.batch, notice, Gdx.graphics.getWidth()/2 - notice.width/2, notice.height+10);
-		MainGame.game.batch.end();
+		this.game.batch.end();
+		if(this.isPausing)
+			Gdx.gl.glEnable(GL20.GL_BLEND);
+		{	
+		    Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+		    this.game.shapeRenderer.begin(ShapeType.Filled);
+		    this.game.shapeRenderer.setColor(new Color(0, 0, 0, 0.5f));
+		    this.game.shapeRenderer.rect(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		    this.game.shapeRenderer.end();
+		    
+		    Gdx.gl.glDisable(GL20.GL_BLEND);
+		    this.game.batch.begin();
+		    this.renderPausedScreen(Gdx.graphics.getDeltaTime());
+		    this.game.batch.end();
+		}
 
 		MainGame.game.shapeRenderer.begin(ShapeType.Line);
 		if(this.rectDebugActive) this.map.render(MainGame.game.shapeRenderer);
@@ -220,10 +257,23 @@ public class MainGame implements Screen {
 		this.hpBar.dispose();
 		this.weaponUI.dispose();
 		this.bgm.dispose();
+		this.pauseScreen.dispose();
+		this.pauseScreenResumeBtnActive.dispose();
+		this.pauseScreenResumeBtnInactive.dispose();
+		this.pauseScreenExitBtnActive.dispose();
+		this.pauseScreenExitBtnInactive.dispose();
 	}
 	
 	private void handleInput(float dt)
 	{
+		if(Gdx.input.isKeyJustPressed(Keys.ESCAPE))
+		{
+			this.bgm.pause();
+			this.isPausing = true;
+			/*this.bgm.stop();
+			this.dispose();
+			this.game.gameOver(this.player.getXp());*/
+		}
 		if(Gdx.input.isKeyJustPressed(Keys.UP))
 		{
 			this.player.jump();
@@ -303,6 +353,55 @@ public class MainGame implements Screen {
 		}
 	}
 
+	private void renderPausedScreen(float dt)
+	{
+		this.game.batch.draw(pauseScreen, Gdx.graphics.getWidth()/2 - this.pauseScreen.getWidth()/2, Gdx.graphics.getHeight()/2 - this.pauseScreen.getHeight()/2);
+		handlePausedInput(dt);
+		if(this.isOnPausedResumeButton()) {
+			this.game.batch.draw(pauseScreenResumeBtnActive, Gdx.graphics.getWidth()/2 - this.pauseScreenResumeBtnActive.getWidth()/2, PAUSED_RESUME_BUTTON_Y);
+		}
+		else {
+			this.game.batch.draw(pauseScreenResumeBtnInactive, Gdx.graphics.getWidth()/2 - this.pauseScreenResumeBtnActive.getWidth()/2, PAUSED_RESUME_BUTTON_Y);
+		}
+		if(this.isOnPausedExitButton()) {
+			this.game.batch.draw(pauseScreenExitBtnActive, Gdx.graphics.getWidth()/2 - this.pauseScreenExitBtnActive.getWidth()/2, PAUSED_EXIT_BUTTON_Y);
+		}
+		else {
+			this.game.batch.draw(pauseScreenExitBtnInactive, Gdx.graphics.getWidth()/2 - this.pauseScreenExitBtnActive.getWidth()/2, PAUSED_EXIT_BUTTON_Y);
+		}
+	}
+	
+	private void handlePausedInput(float dt)
+	{
+		if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
+			if(isOnPausedResumeButton()) {
+				this.isPausing = false;
+				this.bgm.play();
+			}
+			else if(isOnPausedExitButton()) {
+				this.bgm.stop();
+				this.dispose();
+				this.game.gameOver(this.player.getXp());
+			}
+		}
+	}
+	
+	private boolean isOnPausedResumeButton()
+	{
+		return (Gdx.input.getX() >= Gdx.graphics.getWidth()/2 - this.pauseScreenResumeBtnActive.getWidth()/2 &&
+		   Gdx.input.getX() <= Gdx.graphics.getWidth()/2 + this.pauseScreenResumeBtnActive.getWidth()/2 &&
+		   Gdx.input.getY() >= Gdx.graphics.getHeight() - PAUSED_RESUME_BUTTON_Y - this.pauseScreenResumeBtnActive.getHeight() &&
+		   Gdx.input.getY() <= Gdx.graphics.getHeight() - PAUSED_RESUME_BUTTON_Y);
+	}
+	
+	private boolean isOnPausedExitButton()
+	{
+		return (Gdx.input.getX() >= Gdx.graphics.getWidth()/2 - this.pauseScreenExitBtnActive.getWidth()/2 &&
+				Gdx.input.getX() <= Gdx.graphics.getWidth()/2 + this.pauseScreenExitBtnActive.getWidth()/2 &&
+				Gdx.input.getY() >= Gdx.graphics.getHeight() - PAUSED_EXIT_BUTTON_Y - this.pauseScreenExitBtnActive.getHeight() &&
+				Gdx.input.getY() <= Gdx.graphics.getHeight() - PAUSED_EXIT_BUTTON_Y);
+	}
+	
 	public static void sendStatus(String string) {
 		status = string;
 	}
