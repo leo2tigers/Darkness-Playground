@@ -15,8 +15,8 @@ public class OwO_Ranger extends OwO {
 			  new Texture("Monsters/Ranged OwO/new_ranged_owo_attack_left.png"),
 			  new Texture("Monsters/Ranged OwO/new_ranged_owo_attack_right.png"),
 			  new Texture("Monsters/Ranged OwO/new_ranged_owo_jump.png"));
-		this.max_sight_range = 750;
-		this.attack_range = 400;
+		this.max_sight_range = 1000;
+		this.attack_range = 500;
 	}
 
 	@Override
