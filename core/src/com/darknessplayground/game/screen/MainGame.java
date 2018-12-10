@@ -58,7 +58,7 @@ public class MainGame implements Screen {
 	public MainGame(DarknessPlayground game) {
 		MainGame.game = game;
 		this.map = new GameMap();
-		this.player = new Player(this.map, "player_one", 400, 100, new Shotgun(), this);
+		this.player = new Player(this.map, "player_one", 400, 100, new Pistol(), this);
 		this.debugFont = new BitmapFont();
 		this.noticeFont = new BitmapFont(Gdx.files.internal("Fonts/Agency_FB_32px.fnt"));
 		this.infoDebugActive = false;
@@ -78,11 +78,12 @@ public class MainGame implements Screen {
 		log("setup player");
 		this.map.setPlayer(this.player);
 		log("setup monsters");
-		this.map.add(new OwO_Sniper(this.map, "aplha-tester", 100, 100));
+		//this.map.add(new OwO_Sniper(this.map, "aplha-tester", 100, 100));
 		//this.map.add(new OwO_Ranger(this.map, "aplha-tester", 100, 100));
 		log("setup spawnpoints");
-		//this.map.addSpawnPoint(new SpawnPoint(MonsterType.OwO_SNIPER, 100, 100));
-		//this.map.addSpawnPoint(new SpawnPoint(MonsterType.OwO_NORMAL, 600, 500));
+		this.map.addSpawnPoint(new SpawnPoint(MonsterType.OwO_NORMAL, 100, 100, 1));
+		this.map.addSpawnPoint(new SpawnPoint(MonsterType.OwO_RANGER, 1000, 100, 1));
+		this.map.addSpawnPoint(new SpawnPoint(MonsterType.OwO_SNIPER, 1000, 500, 1, 5000));
 	}
 
 	@Override
@@ -155,7 +156,7 @@ public class MainGame implements Screen {
 			information += " NONE";
 		} else {
 			for (Projectile projectile : this.map.getProjectiles()) {
-				information += "\n    - " + projectile.toString();
+				if (projectile != null) information += "\n    - " + projectile.toString();
 			}
 		}
 		GlyphLayout label = new GlyphLayout(this.debugFont, information);

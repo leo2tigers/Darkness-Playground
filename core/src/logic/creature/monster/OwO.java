@@ -95,11 +95,15 @@ public class OwO extends Monster {
 			}
 		}
 		else if(this.attackState == 2) {
-			if(this.orientation == -1) {
-				batch.draw(this.afterAtkImg[0], (float) getX() - 40, (float) getY());
-			}
-			else if(this.orientation == 1) {
-				batch.draw(this.afterAtkImg[1], (float) getX(), (float) getY());
+			try {
+				if(this.orientation == -1) {
+					batch.draw(this.afterAtkImg[0], (float) getX() - 40, (float) getY());
+				}
+				else if(this.orientation == 1) {
+					batch.draw(this.afterAtkImg[1], (float) getX(), (float) getY());
+				}
+			} catch (NullPointerException npe) {
+				// do nothing
 			}
 		}
 	}
@@ -152,6 +156,7 @@ public class OwO extends Monster {
                 	status = "ATTACKING";
                     // preAnimation delay
                     attackable = false;
+                    movable = false;
                     this.setAttackState(1);
                     Date newDate = new Date();
                     while (newDate.getTime() - attackDate.getTime() <= preDelay) {
@@ -174,6 +179,7 @@ public class OwO extends Monster {
                     }
                     this.setAttackState(0);
                     attackable = true;
+                    movable = true;
                     status = "NORMAL";
                 });
                 attackThread.start();

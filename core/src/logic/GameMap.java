@@ -44,8 +44,12 @@ public class GameMap {
 	}
     
     public void add(Projectile projectile) {
-        projectiles.add(projectile);
-        projectile.map = this;
+    	if (projectile != null) {
+	        projectiles.add(projectile);
+	        projectile.map = this;
+    	} else {
+    		throw new NullPointerException();
+    	}
     }
     
     public void addSpawnPoint(SpawnPoint spawnPoint) {
@@ -83,8 +87,10 @@ public class GameMap {
 		abstract void apply(GameObject gameObject);
 	}
 	private <Type extends GameObject> void for_all(ArrayList<Type> arrayList, GameObjectMethod gameObjectMethod) {
-		for (Type gameObject : arrayList) {
-			gameObjectMethod.apply((GameObject) gameObject);
+		if (!arrayList.isEmpty()) {
+			for (Type gameObject : arrayList) {
+				gameObjectMethod.apply((GameObject) gameObject);
+			}
 		}
 	}
 
@@ -92,7 +98,7 @@ public class GameMap {
 		GameObjectMethod Rendering = new GameObjectMethod() {
 			@Override
 			public void apply(GameObject gameObject) {
-				gameObject.render(batch);
+				if (gameObject != null) gameObject.render(batch);
 			}
 		};
 		try {
@@ -110,7 +116,9 @@ public class GameMap {
 		GameObjectMethod shapeRendering = new GameObjectMethod() {
 			@Override
 			public void apply(GameObject gameObject) {
-				gameObject.shapeRender(shapeRenderer);
+				if (gameObject != null) {
+					gameObject.shapeRender(shapeRenderer);
+				}
 			}
 		};
 		for_all(tiles, shapeRendering);
@@ -123,7 +131,7 @@ public class GameMap {
 	private final static GameObjectMethod updating = new GameObjectMethod() {
 		@Override
 		public void apply(GameObject gameObject) {
-			gameObject.update();
+			if (gameObject != null) gameObject.update();
 		}
 	};
 	public void updateAll() {
