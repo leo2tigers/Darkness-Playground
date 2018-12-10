@@ -19,7 +19,7 @@ public class SpawnPoint extends GameObject {
     private Date lastSpawnDate = new Date();
     private MonsterType monsterType;
      
-    public  double spawnWidth = 100;
+    private double spawnWidth = 100;
 
     public SpawnPoint(MonsterType monsterType, int positionX, int positionY, double spawnRate) {
     	super(positionX, positionY);
@@ -74,5 +74,9 @@ public class SpawnPoint extends GameObject {
 	@Override
 	public String toString() {
 		return "SpawnPoint<" + monsterType.TypeName + "> delay = " + spawnDelay + " ms SpawnCount = " + spawnCount + " Position = ( " + positionX + " , " + positionY + " )";
+	}
+
+	public double getSpawnWidth() {
+		return spawnWidth;
 	}
 }
