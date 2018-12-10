@@ -31,7 +31,7 @@ public class OwO_Sniper extends OwO {
 		      new Texture("Monsters/Sniper OwO/new_sniper_owo_jump.png"));
 		this.max_sight_range = 3000;
 		this.attack_range = 2000;
-		this.movement_speed = 0.5;
+		this.movementSpeed = 0.5;
 		this.attackState = 0;
 		this.fireSound = Gdx.audio.newSound(Gdx.files.internal("Sfx/Sniper_OwO_Attack.mp3"));
 	}
@@ -72,41 +72,44 @@ public class OwO_Sniper extends OwO {
             	MainGame.log(this.name + " attack");
                 attackDate = new Date();
                 attackThread = null;
-                attackThread = new Thread(() -> {
-                	MainGame.log(this.name + "'s attack thread start!");
-                	status = "ATTACKING";
-                    // preAnimation delay
-                	attackable = false;
-                	movable = false;
-                    this.setAttackState(1);
-                    try {
-						Thread.sleep(preDelay);
-					} catch (InterruptedException e) {
-						MainGame.log(e.getMessage());
-						return;
-					}
-
-                    // attack!
-                    if (isAlive()) {
-                    	this.fireSound.play();
-                    	attackMethod();
-                    } else {
-                    	return;
-                    }
-                    attacking = true;
-                    this.setAttackState(0);
-
-                    // postAnimation delay
-                    attackDate = new Date();
-                    try {
-						Thread.sleep(postDelay);
-					} catch (InterruptedException e) {
-						MainGame.log(e.getMessage());
-						return;
-					}
-                    attackable = true;
-                    movable = true;
-                    status = "NORMAL";
+                attackThread = new Thread(new Runnable() {
+                	@Override
+                	public void run() {
+	                	MainGame.log(name + "'s attack thread start!");
+	                	status = "ATTACKING";
+	                    // preAnimation delay
+	                	attackable = false;
+	                	movable = false;
+	                    setAttackState(1);
+	                    try {
+							Thread.sleep(preDelay);
+						} catch (InterruptedException e) {
+							MainGame.log(e.getMessage());
+							return;
+						}
+	
+	                    // attack!
+	                    if (isAlive()) {
+	                    	fireSound.play();
+	                    	attackMethod();
+	                    } else {
+	                    	return;
+	                    }
+	                    attacking = true;
+	                    setAttackState(0);
+	
+	                    // postAnimation delay
+	                    attackDate = new Date();
+	                    try {
+							Thread.sleep(postDelay);
+						} catch (InterruptedException e) {
+							MainGame.log(e.getMessage());
+							return;
+						}
+	                    attackable = true;
+	                    movable = true;
+	                    status = "NORMAL";
+                	}
                 });
                 if(attackable) attackThread.start();
             }
@@ -144,7 +147,7 @@ public class OwO_Sniper extends OwO {
 	public static Spawnable spawnable = new Spawnable() {
 		@Override
 		public Monster spawn(SpawnPoint spawnPoint) {
-			return new OwO_Sniper(spawnPoint.map, "", Meth.center_random(spawnPoint.getX(), spawnPoint.getSpawnWidth()), spawnPoint.getY());
+			return new OwO_Sniper(spawnPoint.getMap(), "", Meth.center_random(spawnPoint.getX(), spawnPoint.getSpawnWidth()), spawnPoint.getY());
 		}
 	};
 }

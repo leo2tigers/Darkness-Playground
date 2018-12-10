@@ -25,7 +25,7 @@ public class GameMap {
     	tiles = new ArrayList<Tile>();
     	projectiles = new ArrayList<Projectile>();
     	monsters = new ArrayList<Monster>();
-    	toBeRemoved = new ArrayList<>();
+    	toBeRemoved = new ArrayList<GameObject>();
     }
 
     public void setPlayer(Player player) {
@@ -91,7 +91,7 @@ public class GameMap {
 		}
 	}
 
-	public void render(SpriteBatch batch) {
+	public void render(final SpriteBatch batch) {
 		GameObjectMethod Rendering = new GameObjectMethod() {
 			@Override
 			public void apply(GameObject gameObject) {
@@ -109,7 +109,7 @@ public class GameMap {
 		this.player.render(batch);
 	}
 
-	public void render(ShapeRenderer shapeRenderer) {
+	public void render(final ShapeRenderer shapeRenderer) {
 		GameObjectMethod shapeRendering = new GameObjectMethod() {
 			@Override
 			public void apply(GameObject gameObject) {

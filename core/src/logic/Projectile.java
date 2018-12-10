@@ -101,7 +101,7 @@ public class Projectile extends GameObject {
     	Monster nearest = null;
         double distance = 720.0;
         for (Monster monster : map.getMonsters()) {
-            if (damageBox.overlap(((Monster) monster).hitBox)) {
+            if (damageBox.overlap(((Monster) monster).getHitBox())) {
                 if (getDistance(this, monster) <= distance) {
                     nearest = (Monster) monster;
                 }
@@ -115,7 +115,7 @@ public class Projectile extends GameObject {
     }
     
     private void damageToPlayer() {
-    	if (this.damageBox.overlap(this.map.player.hitBox)) {
+    	if (this.damageBox.overlap(this.map.player.getHitBox())) {
     		this.map.player.getHit(damage);
     		this.damage = 0;
     		this.hit += 1;
