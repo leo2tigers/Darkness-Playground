@@ -16,7 +16,7 @@ public class Projectile extends GameObject {
     private double speed;
     private int damage;
     private URect damageBox;
-    private final Date create_date = new Date();
+    private final Date create_date;
     private final int lifetime;
 	private int damage_check_type;
 	private int hit = 0;
@@ -38,6 +38,8 @@ public class Projectile extends GameObject {
         this.damage_check_type = damage_check_type;
         this.damageBox = new URect(positionX, positionY, width, height, Color.CORAL);
         this.img_path = img_path;
+        this.hit = 0;
+        this.create_date = new Date();
         setTexture();
     }
     public Projectile(double positionX, double positionY, 
@@ -54,6 +56,8 @@ public class Projectile extends GameObject {
 		this.damageBox = new URect(positionX, positionY, width, height, Color.CORAL);
 		this.img_path = img_path;
 		this.hit_path = hit_path;
+		this.hit = 0;
+		this.create_date = new Date();
 		setTexture();
 	}
     
@@ -126,7 +130,7 @@ public class Projectile extends GameObject {
 	@Override
 	public void render(SpriteBatch batch) {
 		try {
-			batch.draw(img, (float) positionX, (float) positionY, (float) damageBox.width, (float) damageBox.height);
+			batch.draw(img, (float) positionX, (float) positionY, (float) damageBox.getWidth(), (float) damageBox.getHeight());
 		} catch (NullPointerException npe) {
 			MainGame.sendStatus("rendering delay");
 		}

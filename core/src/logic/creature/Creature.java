@@ -119,11 +119,11 @@ public abstract class Creature extends GameObject {
         double new_positionX = positionX + x;
         double new_positionY = positionY + y;
         
-        URect check_movementBox = new URect(movementBox.getX() + x, movementBox.getY() + y, movementBox.width, movementBox.height, Color.BLUE);
+        URect check_movementBox = new URect(movementBox.getX() + x, movementBox.getY() + y, movementBox.getWidth(), movementBox.getHeight(), Color.BLUE);
 
         Tile check_tile = overlapTile(check_movementBox);
-        if (check_movementBox.overlap(check_tile) && Math.abs(check_tile.getX() +check_tile. width/2 - this.positionX - this.movementBox.width/2) <= check_tile.width/2) {
-            new_positionY = check_tile.getY() + check_tile.height;
+        if (check_movementBox.overlap(check_tile) && Math.abs(check_tile.getX() +check_tile.getWidth()/2 - this.positionX - this.movementBox.getWidth()/2) <= check_tile.getWidth()/2) {
+            new_positionY = check_tile.getY() + check_tile.getHeight();
             jumping = false;
             speedY = 0;
         }else {
@@ -132,8 +132,8 @@ public abstract class Creature extends GameObject {
         
         if (new_positionX < 0) {
         	new_positionX = 0;
-        } else  if (new_positionX > 1280 - this.movementBox.width) {
-        	new_positionX = 1280 - this.movementBox.width;
+        } else  if (new_positionX > 1280 - this.movementBox.getWidth()) {
+        	new_positionX = 1280 - this.movementBox.getWidth();
         }
 		
         movementBox.translate(new_positionX - positionX, new_positionY - positionY);

@@ -68,7 +68,7 @@ public class OwO extends Monster {
     
     @Override
     protected void attackMethod() {
-    	damageBox = new URect(positionX + this.hitBox.width/4 + this.orientation*50, positionY + this.hitBox.height/4, 
+    	damageBox = new URect(positionX + this.hitBox.getWidth()/4 + this.orientation*50, positionY + this.hitBox.getHeight()/4, 
     			              50, 50, Color.CYAN);
     	if (damageBox.overlap(this.map.player.hitBox) && this.map.player.isAlive()) {
     		this.map.player.getHit(Randomizer.getDamageValue(5, 15));
