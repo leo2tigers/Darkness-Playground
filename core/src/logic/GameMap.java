@@ -83,9 +83,6 @@ public class GameMap {
 		return monsters;
 	}
 	
-	interface GameObjectMethod {
-		abstract void apply(GameObject gameObject);
-	}
 	private <Type extends GameObject> void for_all(ArrayList<Type> arrayList, GameObjectMethod gameObjectMethod) {
 		if (!arrayList.isEmpty()) {
 			for (Type gameObject : arrayList) {
