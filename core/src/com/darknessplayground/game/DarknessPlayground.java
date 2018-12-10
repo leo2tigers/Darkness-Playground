@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.darknessplayground.game.screen.MainGame;
 import com.darknessplayground.game.screen.MainMenu;
 import com.darknessplayground.game.screen.GameOver;
+import com.darknessplayground.game.screen.LoadingScreen;
 
 public class DarknessPlayground extends Game {
 	public static final int WIDTH = 1280;
@@ -43,8 +44,13 @@ public class DarknessPlayground extends Game {
 		this.setScreen(new MainGame(this));
 	}
 	
-	public void GameOver(int finalScore)
+	public void gameOver(int finalScore)
 	{
 		this.setScreen(new GameOver(this, finalScore));
+	}
+	
+	public void toLoadingScreen()
+	{
+		this.setScreen(new LoadingScreen(this));
 	}
 }

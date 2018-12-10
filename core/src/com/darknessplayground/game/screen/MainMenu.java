@@ -3,6 +3,7 @@ package com.darknessplayground.game.screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.darknessplayground.game.DarknessPlayground;
@@ -27,6 +28,9 @@ public class MainMenu implements Screen {
 	private Texture playButtonInActive;
 	private Texture exitButtonActive;
 	private Texture exitButtonInActive;
+	private Music bgm;
+	
+	private float stateTime;
 
 	public MainMenu(DarknessPlayground game) {
 		this.game = game;
@@ -41,36 +45,43 @@ public class MainMenu implements Screen {
 		this.playButtonInActive = new Texture("Menu/PlayBtnNew.png");
 		this.exitButtonActive = new Texture("Menu/ExitBtnNewActive.png");
 		this.exitButtonInActive = new Texture("Menu/ExitBtnNew.png");
+		this.bgm = Gdx.audio.newMusic(Gdx.files.internal("BGM/MainMenu.mp3"));
+		this.bgm.setLooping(true);
+		this.bgm.play();
 	}
 
 	@Override
-	public void render(float delta) {
+	public void render(float dt) {
+		this.stateTime += dt;
+		
 		Gdx.gl.glClearColor(0.1f, 0.1f, 0.22f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		this.game.batch.begin();
 		this.game.batch.draw(bg, 0, 0, DarknessPlayground.WIDTH, DarknessPlayground.HEIGHT);
 		this.game.batch.draw(this.gameTitle, 190, 450, GAME_TITLE_DISPLAY_WIDTH, GAME_TITLE_DISPLAY_HEIGHT); // change from x845 = x190
-		if(this.isOnPlayBtn())
-		{
-			this.game.batch.draw(playButtonActive, BUTTON_POSITION_X, PLAY_BUTTON_POSITION_Y, PLAY_BUTTON_DISPLAY_WIDTH, PLAY_BUTTON_DISPLAY_HEIGHT);
-		}
-		else
-		{
-			this.game.batch.draw(playButtonInActive, BUTTON_POSITION_X, PLAY_BUTTON_POSITION_Y, PLAY_BUTTON_DISPLAY_WIDTH, PLAY_BUTTON_DISPLAY_HEIGHT);
-		}
-		
-		if(this.isOnExitBtn())
-		{
-			this.game.batch.draw(exitButtonActive, BUTTON_POSITION_X, EXIT_BUTTON_POSITION_Y, EXIT_BUTTON_DISPLAY_WIDTH, EXIT_BUTTON_DISPLAY_HEIGHT);
-		}
-		else
-		{
-			this.game.batch.draw(exitButtonInActive, BUTTON_POSITION_X, EXIT_BUTTON_POSITION_Y, EXIT_BUTTON_DISPLAY_WIDTH, EXIT_BUTTON_DISPLAY_HEIGHT);
+		if(this.stateTime >= 1) {
+			if(this.isOnPlayBtn())
+			{
+				this.game.batch.draw(playButtonActive, BUTTON_POSITION_X, PLAY_BUTTON_POSITION_Y, PLAY_BUTTON_DISPLAY_WIDTH, PLAY_BUTTON_DISPLAY_HEIGHT);
+			}
+			else
+			{
+				this.game.batch.draw(playButtonInActive, BUTTON_POSITION_X, PLAY_BUTTON_POSITION_Y, PLAY_BUTTON_DISPLAY_WIDTH, PLAY_BUTTON_DISPLAY_HEIGHT);
+			}
+			
+			if(this.isOnExitBtn())
+			{
+				this.game.batch.draw(exitButtonActive, BUTTON_POSITION_X, EXIT_BUTTON_POSITION_Y, EXIT_BUTTON_DISPLAY_WIDTH, EXIT_BUTTON_DISPLAY_HEIGHT);
+			}
+			else
+			{
+				this.game.batch.draw(exitButtonInActive, BUTTON_POSITION_X, EXIT_BUTTON_POSITION_Y, EXIT_BUTTON_DISPLAY_WIDTH, EXIT_BUTTON_DISPLAY_HEIGHT);
+			}
+			
+			this.buttonInputHandler();
 		}
 		this.game.batch.end();
-		
-		this.buttonInputHandler();
 
 	}
 
@@ -107,6 +118,7 @@ public class MainMenu implements Screen {
 		this.playButtonInActive.dispose();
 		this.exitButtonActive.dispose();
 		this.exitButtonInActive.dispose();
+		this.bgm.dispose();
 	}
 	
 	private void buttonInputHandler()
@@ -115,11 +127,13 @@ public class MainMenu implements Screen {
 		{
 			if(this.isOnPlayBtn())
 			{
+				this.bgm.stop();
 				this.dispose();
-				this.game.toGame();
+				this.game.toLoadingScreen();
 			}
 			if(this.isOnExitBtn())
 			{
+				this.bgm.stop();
 				this.dispose();
 				Gdx.app.exit();
 			}

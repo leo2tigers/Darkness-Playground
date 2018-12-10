@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -13,6 +14,8 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.utils.Align;
 import com.darknessplayground.game.DarknessPlayground;
+import com.darknessplayground.game.ui.HpBar;
+import com.darknessplayground.game.ui.WeaponUI;
 
 import logic.GameMap;
 import logic.Projectile;
@@ -33,14 +36,9 @@ public class MainGame implements Screen {
 	private Player player;
 	private BitmapFont debugFont;
 	private BitmapFont noticeFont;
-	private BitmapFont hpTextFont;
-	private Texture weaponUINormal;
-	private Texture weaponUINoAmmo;
-	private Texture weaponUIReloading;
-	private Texture hpBar;
-	private Texture hpBarLowHp;
-	private Texture remainingHpBar;
-	private Texture remainingHpBarLowHp;
+	private HpBar hpBar;
+	private WeaponUI weaponUI;
+	private Music bgm;
 	
 	private boolean infoDebugActive;
 	private boolean rectDebugActive;
@@ -60,7 +58,6 @@ public class MainGame implements Screen {
 		this.map = new GameMap();
 		this.player = new Player(this.map, "player_one", 400, 100, new Shotgun(), this);
 		this.debugFont = new BitmapFont();
-		this.hpTextFont = new BitmapFont(Gdx.files.internal("Fonts/Agency_FB_23px.fnt"));
 		this.noticeFont = new BitmapFont(Gdx.files.internal("Fonts/Agency_FB_32px.fnt"));
 		this.infoDebugActive = false;
 		this.rectDebugActive = false;
@@ -89,14 +86,13 @@ public class MainGame implements Screen {
 	@Override
 	public void show() {
 		this.bg = new Texture("playground_background.png");
-		this.weaponUINormal = new Texture("UI/weapon/weapon-ui_normal.png");
-		this.weaponUINoAmmo = new Texture("UI/weapon/weapon-ui_no-ammo.png");
-		this.weaponUIReloading = new Texture("UI/weapon/weapon-ui_reloading.png");
-		this.hpBar = new Texture("UI/health/bar.png");
-		this.hpBarLowHp = new Texture("UI/health/bar_red.png");
-		this.remainingHpBar = new Texture("UI/health/progress.png");
-		this.remainingHpBarLowHp = new Texture("UI/health/progress_red.png");
+		this.weaponUI = new WeaponUI();
+		this.hpBar = new HpBar();
 		this.setupMap();
+		this.bgm = Gdx.audio.newMusic(Gdx.files.internal("BGM/Game.mp3"));
+		this.bgm.setLooping(true);
+		this.bgm.setVolume(0.6f);
+		this.bgm.play();
 	}
 
 	@Override
@@ -106,6 +102,7 @@ public class MainGame implements Screen {
 		
 		if(Gdx.input.isKeyJustPressed(Keys.ESCAPE))
 		{
+			this.bgm.stop();
 			this.dispose();
 			this.game.toMainMenu();
 		}
@@ -169,12 +166,12 @@ public class MainGame implements Screen {
 		this.game.batch.begin();
 		this.game.batch.draw(bg, 0, 0, DarknessPlayground.WIDTH, DarknessPlayground.HEIGHT);
 		this.map.render(this.game.batch);
+		this.hpBar.render(this.player, this.game.batch);
+		this.weaponUI.render(this.player, this.game.batch);
 		if(this.infoDebugActive) {
-			this.debugFont.draw(this.game.batch, label, 0, Gdx.graphics.getHeight() - 15);
 			this.debugFont.draw(this.game.batch, log, 750, Gdx.graphics.getHeight() - 15);
+			this.debugFont.draw(this.game.batch, label, 0, Gdx.graphics.getHeight() - 15);
 		}
-		this.showWeaponUI();
-		this.showHealthUI();
 		this.noticeFont.draw(this.game.batch, notice, Gdx.graphics.getWidth()/2 - notice.width/2, notice.height+10);
 		this.game.batch.end();
 
@@ -218,9 +215,9 @@ public class MainGame implements Screen {
 		this.noticeFont.dispose();
 		this.player.dispose();
 		this.map.dispose();
-		this.weaponUINormal.dispose();
-		this.weaponUINoAmmo.dispose();
-		this.weaponUIReloading.dispose();
+		this.hpBar.dispose();
+		this.weaponUI.dispose();
+		this.bgm.dispose();
 	}
 	
 	private void handleInput(float dt)
@@ -339,54 +336,6 @@ public class MainGame implements Screen {
 	{
 		this.noticeShowTime = 2;
 		this.noticeText = notice;
-	}
-	
-	private void showWeaponUI()
-	{
-		int ammo = this.player.gun.getAmmo();
-		int maxAmmo = this.player.gun.getMaxAmmo();
-		int positionX = Gdx.graphics.getWidth() - this.weaponUINormal.getWidth() - 10;
-		int positionY = 10;
-		if(this.player.gun.isReloading())
-		{
-			this.game.batch.draw(weaponUIReloading, positionX, positionY);
-			GlyphLayout ammoDisplay = new GlyphLayout(noticeFont, ammo + "/" + maxAmmo, new Color(0, 1, 1, 1), 50, Align.left, false);
-			this.noticeFont.draw(this.game.batch, ammoDisplay, Gdx.graphics.getWidth() - 70 - ammoDisplay.width, 10 + 40);
-		}
-		else if(ammo <= 0)
-		{
-			this.game.batch.draw(weaponUINoAmmo, positionX, positionY);
-			GlyphLayout ammoDisplay = new GlyphLayout(noticeFont, ammo + "/" + maxAmmo, Color.RED, 50, Align.left, false);
-			this.noticeFont.draw(this.game.batch, ammoDisplay, Gdx.graphics.getWidth() - 70 - ammoDisplay.width, 10 + 40); 
-		}
-		else
-		{
-			this.game.batch.draw(weaponUINormal, positionX, positionY);
-			GlyphLayout ammoDisplay = new GlyphLayout(noticeFont, ammo + "/" + maxAmmo, new Color(0.70196f, 0.70196f, 0.70196f, 1), 50, Align.left, false);
-			this.noticeFont.draw(this.game.batch, ammoDisplay, Gdx.graphics.getWidth() - 70 - ammoDisplay.width, 10 + 40);
-		}
-	}
-	
-	private void showHealthUI()
-	{
-		int currentHealth = this.player.getHealth();
-		int maxHealth = this.player.getMaxHealth();
-		GlyphLayout hpText;
-		GlyphLayout currentHpText;
-		if ((float)currentHealth/(float)maxHealth <= 0.2f) {
-			hpText = new GlyphLayout(this.hpTextFont, "HP", Color.RED, 50, Align.left, false);
-			currentHpText = new GlyphLayout(this.noticeFont, currentHealth + "/" + maxHealth, Color.RED, 50, Align.left, false);
-			this.game.batch.draw(hpBarLowHp, 10, 10);
-			this.game.batch.draw(this.remainingHpBarLowHp, 10+70, 10+10, (300*((float)currentHealth/(float)maxHealth)), 10);
-		}
-		else {
-			hpText = new GlyphLayout(this.hpTextFont, "HP", new Color(0.70196f, 0.70196f, 0.70196f, 1), 50, Align.left, false);
-			currentHpText = new GlyphLayout(this.noticeFont, currentHealth + "/" + maxHealth, new Color(0.70196f, 0.70196f, 0.70196f, 1), 50, Align.left, false);
-			this.game.batch.draw(hpBar, 10, 10);
-			this.game.batch.draw(this.remainingHpBar, 10+70, 10+10, (300*((float)currentHealth/(float)maxHealth)), 10);
-		}
-		this.hpTextFont.draw(this.game.batch, hpText, 10+30, 10+30);
-		this.noticeFont.draw(this.game.batch, currentHpText, 10+380+10, 10+30);
 	}
 	
 	public static void log(String string) {

@@ -1,6 +1,7 @@
 package logic.creature.monster;
 
 import java.util.Date;
+import java.util.Random;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -12,12 +13,14 @@ import logic.Meth;
 import logic.SpawnPoint;
 import logic.URect;
 import logic.creature.player.Player;
+import logic.utilities.Randomizer;
 
 public class OwO extends Monster {
 	
 	private URect damageBox = null;
 	protected int attackState;
 	protected Texture[] atkImg;
+	private Texture[] afterAtkImg;
 	protected Texture jumpImg;
 	
 	static String img_path_stand = "Monsters/Normal OwO/new_owo.png";
@@ -28,6 +31,13 @@ public class OwO extends Monster {
         this.setHitBox(0, 0, 100, 100);
         this.setMovementBox(0, -5, 100, 10);
         setImg(img_path_stand);
+        this.jumpImg = new Texture(img_path_jump);
+        this.atkImg = new Texture[2];
+        this.atkImg[0] = new Texture("Monsters/Normal OwO/new_owo_attack_left.png");
+        this.atkImg[1] = new Texture("Monsters/Normal OwO/new_owo_attack_right.png");
+        this.afterAtkImg = new Texture[2];
+        this.afterAtkImg[0] = new Texture("Monsters/Normal OwO/new_owo_after_attack_left.png");
+        this.afterAtkImg[1] = new Texture("Monsters/Normal OwO/new_owo_after_attack_right.png");
         this.max_sight_range = 500;
         this.attack_range = 50;
         this.movement_speed = 1;
@@ -62,13 +72,37 @@ public class OwO extends Monster {
     	damageBox = new URect(positionX + this.hitBox.width/4 + this.orientation*50, positionY + this.hitBox.height/4, 
     			              50, 50, Color.CYAN);
     	if (damageBox.overlap(this.map.player.hitBox) && this.map.player.isAlive()) {
-    		this.map.player.getHit(1);
+    		this.map.player.getHit(Randomizer.getDamageValue(5, 15));
     	}
     }
 
 	@Override
 	public void render(SpriteBatch batch) {
-		batch.draw(this.img, (float) positionX, (float)positionY);
+		if(this.attackable) {
+			this.attackState = 0;
+		}
+		if(this.jumping) {
+			batch.draw(jumpImg, (float) getX(), (float)getY());
+		}
+		if(this.attackState == 0) {
+			batch.draw(this.img, (float) getX(), (float) getY());
+		}
+		else if(this.attackState == 1) {
+			if(this.orientation == -1) {
+				batch.draw(this.atkImg[0], (float) getX(), (float) getY());
+			}
+			else if(this.orientation == 1) {
+				batch.draw(this.atkImg[1], (float) getX(), (float) getY());
+			}
+		}
+		else if(this.attackState == 2) {
+			if(this.orientation == -1) {
+				batch.draw(this.afterAtkImg[0], (float) getX() - 40, (float) getY());
+			}
+			else if(this.orientation == 1) {
+				batch.draw(this.afterAtkImg[1], (float) getX(), (float) getY());
+			}
+		}
 	}
 	
 	@Override
@@ -129,7 +163,7 @@ public class OwO extends Monster {
                     } else {
                     	return;
                     }
-                    this.setAttackState(0);
+                    this.setAttackState(2);
 
                     // postAnimation delay
                     attackDate = new Date();
@@ -137,6 +171,7 @@ public class OwO extends Monster {
                     while (newDate.getTime() - attackDate.getTime() <= postDelay) {
                         newDate = new Date();
                     }
+                    this.setAttackState(0);
                     attackable = true;
                     status = "NORMAL";
                 });
