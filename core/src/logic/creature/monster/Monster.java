@@ -46,8 +46,9 @@ public abstract class Monster extends Creature{
 	        if(getHealth() <= 0)
 	        {
 	        	MainGame.log(this.name + " die -> xp = " + xp);
-	        	this.grantXp(this.map.player);
+	        	if (isAlive()) this.grantXp(this.map.player);
 	        	this.map.remove(this);
+	        	this.die();
 	        }
     	}
     }

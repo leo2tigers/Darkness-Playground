@@ -12,7 +12,7 @@ import logic.creature.monster.MonsterType;
 
 public class SpawnPoint extends GameObject {
     private int spawnCount = 0;
-	private int spawnRate = 1;
+	private double spawnRate = 1;
     private int spawnDelay = 2500;
     private boolean spawnable = false;
     private Date startSpawnDate = new Date();
@@ -21,14 +21,14 @@ public class SpawnPoint extends GameObject {
      
     public  double spawnWidth = 100;
 
-    public SpawnPoint(MonsterType monsterType, int positionX, int positionY, int spawnRate) {
+    public SpawnPoint(MonsterType monsterType, int positionX, int positionY, double spawnRate) {
         this.positionX = positionX;
         this.positionY = positionY;
         this.monsterType = monsterType;
         this.spawnRate = spawnRate;
     }
 
-    public SpawnPoint(MonsterType monsterType, int positionX, int positionY, int spawnRate, int spawnDelay) {
+    public SpawnPoint(MonsterType monsterType, int positionX, int positionY, double spawnRate, int spawnDelay) {
         this.positionX = positionX;
         this.positionY = positionY;
         this.monsterType = monsterType;
@@ -38,7 +38,7 @@ public class SpawnPoint extends GameObject {
 	}
 
 	public void spawn() {
-    	for (int i = 0; i < (lastSpawnDate.getTime() - startSpawnDate.getTime())/this.spawnDelay*this.spawnRate; i++) {
+    	for (int i = 0; i < (int) ((lastSpawnDate.getTime() - startSpawnDate.getTime())/this.spawnDelay*this.spawnRate); i++) {
 	    	Monster monster = monsterType.spawnable.spawn(this);
 	    	MainGame.log("spawn " + monster.name + " from SpawnPoint " + this.positionX + " , " + this.positionY);
 			this.map.add(monster);

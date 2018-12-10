@@ -81,11 +81,11 @@ public class MainGame implements Screen {
 		//this.map.add(new OwO_Sniper(this.map, "aplha-tester", 100, 100));
 		//this.map.add(new OwO_Ranger(this.map, "aplha-tester", 100, 100));
 		log("setup spawnpoints");
-		this.map.addSpawnPoint(new SpawnPoint(MonsterType.OwO_NORMAL, 100, 100, 1));
-		this.map.addSpawnPoint(new SpawnPoint(MonsterType.OwO_NORMAL, 100, 500, 1));
-		this.map.addSpawnPoint(new SpawnPoint(MonsterType.OwO_RANGER, 1000, 100, 1));
-		this.map.addSpawnPoint(new SpawnPoint(MonsterType.OwO_RANGER, 600, 500, 1));
-		this.map.addSpawnPoint(new SpawnPoint(MonsterType.OwO_SNIPER, 1000, 500, 1, 5000));
+		this.map.addSpawnPoint(new SpawnPoint(MonsterType.OwO_NORMAL, 100, 100, 0.5));
+		this.map.addSpawnPoint(new SpawnPoint(MonsterType.OwO_NORMAL, 100, 500, 0.5));
+		this.map.addSpawnPoint(new SpawnPoint(MonsterType.OwO_RANGER, 1000, 100, 0.5));
+		this.map.addSpawnPoint(new SpawnPoint(MonsterType.OwO_RANGER, 600, 500, 0.5));
+		this.map.addSpawnPoint(new SpawnPoint(MonsterType.OwO_SNIPER, 1000, 500, 0.5, 5000));
 	}
 
 	@Override

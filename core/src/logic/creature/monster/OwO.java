@@ -132,7 +132,6 @@ public class OwO extends Monster {
 	@Override
 	protected void inSight() {
 		if (getDistance(this, this.map.player) <= attack_range && attackable) {
-			MainGame.log(this.name + " encounter " + this.map.player.name);
 			attack();
 		} else {
 			if (this.map.player.getX() - this.positionX >= 0) {
