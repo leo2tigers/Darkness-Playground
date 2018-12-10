@@ -16,48 +16,50 @@ public class Projectile extends GameObject {
     private double speed;
     private int damage;
     private URect damageBox;
-    private final Date create_date;
+    private final Date createDate;
     private final int lifetime;
-	private int damage_check_type;
+	private int damageCheckType;
 	private int hit = 0;
     public static final int TO_MONSTER = 0;
 	public static final int TO_PLAYER = 1;
 	
-	private Texture img = null, hit_img = null;
-	private String img_path = null, hit_path = null;
+	private Texture img = null;
+	private Texture hitImg = null;
+	private String imgPath = null;
+	private String hitPath = null;
 
     public Projectile(double positionX, double positionY, 
     		          double width, double height, 
     		          double orientation, double speed, 
-    		          int lifetime, int damage, int damage_check_type, String img_path) {
+    		          int lifetime, int damage, int damageCheckType, String img_path) {
         super(positionX, positionY);
         this.orientation = orientation;
         this.speed = speed;
         this.lifetime = lifetime;
         this.damage = damage;
-        this.damage_check_type = damage_check_type;
+        this.damageCheckType = damageCheckType;
         this.damageBox = new URect(positionX, positionY, width, height, Color.CORAL);
-        this.img_path = img_path;
+        this.imgPath = img_path;
         this.hit = 0;
-        this.create_date = new Date();
+        this.createDate = new Date();
         setTexture();
     }
     public Projectile(double positionX, double positionY, 
 			          double width, double height, 
 			          double orientation, double speed, 
 				      int lifetime, int damage, int damage_check_type, 
-				      String img_path, String hit_path) {
+				      String imgPath, String hitPath) {
     	super(positionX, positionY);
 		this.orientation = orientation;
 		this.speed = speed;
 		this.lifetime = lifetime;
 		this.damage = damage;
-		this.damage_check_type = damage_check_type;
+		this.damageCheckType = damage_check_type;
 		this.damageBox = new URect(positionX, positionY, width, height, Color.CORAL);
-		this.img_path = img_path;
-		this.hit_path = hit_path;
+		this.imgPath = imgPath;
+		this.hitPath = hitPath;
 		this.hit = 0;
-		this.create_date = new Date();
+		this.createDate = new Date();
 		setTexture();
 	}
     
@@ -65,9 +67,9 @@ public class Projectile extends GameObject {
 	public void setTexture()  {
     	Gdx.app.postRunnable(new Runnable(){
             public void run(){
-            	img = new Texture(img_path);
-            	if (hit_path != null) {
-            		hit_img = new Texture(hit_path);
+            	img = new Texture(imgPath);
+            	if (hitPath != null) {
+            		hitImg = new Texture(hitPath);
             	}
             }
         });
@@ -77,14 +79,14 @@ public class Projectile extends GameObject {
     public void update() {
         positionX += speed*orientation;
         damageBox.translate(speed*orientation, 0.0);
-        if (damage_check_type == TO_PLAYER) {
-        	damage_to_player();
-        } else if (damage_check_type == TO_MONSTER) {
-        	damage_to_monster();
+        if (damageCheckType == TO_PLAYER) {
+        	damageToPlayer();
+        } else if (damageCheckType == TO_MONSTER) {
+        	damageToMonster();
         }
         
         // check lifetime
-        if ((new Date()).getTime() - create_date.getTime() >= lifetime) {
+        if ((new Date()).getTime() - createDate.getTime() >= lifetime) {
         	map.remove(this);
         }
         
@@ -95,7 +97,7 @@ public class Projectile extends GameObject {
         }
     }
     
-    private void damage_to_monster() {
+    private void damageToMonster() {
     	Monster nearest = null;
         double distance = 720.0;
         for (Monster monster : map.getMonsters()) {
@@ -112,12 +114,12 @@ public class Projectile extends GameObject {
         }
     }
     
-    private void damage_to_player() {
+    private void damageToPlayer() {
     	if (this.damageBox.overlap(this.map.player.hitBox)) {
     		this.map.player.getHit(damage);
     		this.damage = 0;
     		this.hit += 1;
-    		this.img = this.hit_img;
+    		this.img = this.hitImg;
     		this.speed = 0;
     	}
     }
@@ -138,8 +140,8 @@ public class Projectile extends GameObject {
 	
 	@Override
 	public String toString() {
-		return "Projectile ( " + (lifetime + this.create_date.getTime() - (new Date()).getTime()) + " ) " + 
-	           ((this.damage_check_type == 0) ? "TO_MONSTER" : "TO_PLAYER") + 
+		return "Projectile ( " + (lifetime + this.createDate.getTime() - (new Date()).getTime()) + " ) " + 
+	           ((this.damageCheckType == 0) ? "TO_MONSTER" : "TO_PLAYER") + 
 	           " ( " + this.positionX + " , "  + this.positionY + " )";
 	}
 	
