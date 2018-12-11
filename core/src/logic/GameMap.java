@@ -12,55 +12,55 @@ import com.darknessplayground.game.screen.MainGame;
 
 public class GameMap {
 
-    private final ArrayList<SpawnPoint> spawnPoints;
-    private final ArrayList<Tile>       tiles;
-    private ArrayList<Projectile> projectiles;
-    private ArrayList<Monster>    monsters;
-    private ArrayList<GameObject>  toBeRemoved;
+	private final ArrayList<SpawnPoint> spawnPoints;
+	private final ArrayList<Tile> tiles;
+	private ArrayList<Projectile> projectiles;
+	private ArrayList<Monster> monsters;
+	private ArrayList<GameObject> toBeRemoved;
 
-    public Player player;
+	public Player player;
 
-    public GameMap() {
-    	spawnPoints = new ArrayList<SpawnPoint>();
-    	tiles = new ArrayList<Tile>();
-    	projectiles = new ArrayList<Projectile>();
-    	monsters = new ArrayList<Monster>();
-    	toBeRemoved = new ArrayList<GameObject>();
-    }
+	public GameMap() {
+		spawnPoints = new ArrayList<SpawnPoint>();
+		tiles = new ArrayList<Tile>();
+		projectiles = new ArrayList<Projectile>();
+		monsters = new ArrayList<Monster>();
+		toBeRemoved = new ArrayList<GameObject>();
+	}
 
-    public void setPlayer(Player player) {
-        this.player = player;
-        player.map = this;
-        
-    }
+	public void setPlayer(Player player) {
+		this.player = player;
+		player.map = this;
+
+	}
 
 	public void add(Tile tile) {
 		this.tiles.add(tile);
 	}
-	
+
 	public void add(Monster monster) {
 		monsters.add(monster);
 		monster.map = this;
 	}
-    
-    public void add(Projectile projectile) {
-    	if (projectile != null) {
-	        projectiles.add(projectile);
-	        projectile.map = this;
-    	} else {
-    		throw new NullPointerException();
-    	}
-    }
-    
-    public void addSpawnPoint(SpawnPoint spawnPoint) {
-        spawnPoints.add(spawnPoint);
-        spawnPoint.map = this;
-    }
 
-    public void spawnFromSpawnPoint(int spawnPointNumber) {
-        SpawnPoint spawnPoint = spawnPoints.get(spawnPointNumber);
-        spawnPoint.spawn();
-    }
+	public void add(Projectile projectile) {
+		if (projectile != null) {
+			projectiles.add(projectile);
+			projectile.map = this;
+		} else {
+			throw new NullPointerException();
+		}
+	}
+
+	public void addSpawnPoint(SpawnPoint spawnPoint) {
+		spawnPoints.add(spawnPoint);
+		spawnPoint.map = this;
+	}
+
+	public void spawnFromSpawnPoint(int spawnPointNumber) {
+		SpawnPoint spawnPoint = spawnPoints.get(spawnPointNumber);
+		spawnPoint.spawn();
+	}
 
 	public void remove(GameObject gameObject) {
 		this.toBeRemoved.add(gameObject);
@@ -77,12 +77,11 @@ public class GameMap {
 	public ArrayList<Projectile> getProjectiles() {
 		return projectiles;
 	}
-	
-	public ArrayList<Monster> getMonsters()
-	{
+
+	public ArrayList<Monster> getMonsters() {
 		return monsters;
 	}
-	
+
 	private <Type extends GameObject> void for_all(ArrayList<Type> arrayList, GameObjectMethod gameObjectMethod) {
 		if (!arrayList.isEmpty()) {
 			for (Type gameObject : arrayList) {
@@ -95,7 +94,8 @@ public class GameMap {
 		GameObjectMethod Rendering = new GameObjectMethod() {
 			@Override
 			public void apply(GameObject gameObject) {
-				if (gameObject != null) gameObject.render(batch);
+				if (gameObject != null)
+					gameObject.render(batch);
 			}
 		};
 		try {
@@ -129,7 +129,8 @@ public class GameMap {
 		GameObjectMethod updating = new GameObjectMethod() {
 			@Override
 			public void apply(GameObject gameObject) {
-				if (gameObject != null) gameObject.update();
+				if (gameObject != null)
+					gameObject.update();
 			}
 		};
 		for_all(tiles, updating);
@@ -145,20 +146,16 @@ public class GameMap {
 			}
 		}
 	}
-	
-	public void dispose()
-	{
+
+	public void dispose() {
 		this.player.dispose();
-		for(Projectile projectile : this.projectiles)
-		{
+		for (Projectile projectile : this.projectiles) {
 			projectile.dispose();
 		}
-		for(Monster monster : this.monsters)
-		{
+		for (Monster monster : this.monsters) {
 			monster.dispose();
 		}
-		for(Tile tile : this.tiles)
-		{
+		for (Tile tile : this.tiles) {
 			tile.dispose();
 		}
 	}
